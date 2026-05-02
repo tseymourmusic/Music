@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --accent: #64748b;
+            --bg-card: rgba(30, 41, 59, 1); /* Solid background to prevent transparency flicker */
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+        body { 
+            margin: 0; 
+            padding: 10px; 
+            font-family: sans-serif; 
+            background: #0f172a; /* Matches the card color */
+            display: flex;
+            justify-content: center;
+        }
+        .player-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 24px;
+            width: 320px;
+            color: var(--text-main);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .track-info { text-align: center; margin-bottom: 20px; }
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-bar {
+            background: var(--accent);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .play-btn {
+            background: var(--accent);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="player-card">
+    <div class="track-info">
+        <h2 id="title">Lawyered Up</h2>
+        <p>Artist Name</p>
+    </div>
+    <div class="progress-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="controls">
+        <button class="play-btn" id="play">▶</button>
+    </div>
+</div>
+
+<audio id="audio" src="https://www.dropbox.com/scl/fi/ewkrjol5cs3m01ui24yrg/Lawyered-Up.m4a?rlkey=tkci7ofasmxk1r3vzlmq9hqvg&st=zasefvjb&raw=1"></audio>
+
+<script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('play');
+    const progress = document.getElementById('progress-bar');
+    const container = document.getElementById('progress-container');
+
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = '⏸';
+        } else {
+            audio.pause();
+            playBtn.innerText = '▶';
+        }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = percent + '%';
+    });
+
+    container.addEventListener('click', (e) => {
+        const width = container.clientWidth;
+        const clickX = e.offsetX;
+        audio.currentTime = (clickX / width) * audio.duration;
+    });
+</script>
+</body>
+</html>
