@@ -16,69 +16,63 @@ body {
 
 .player-container {
     background: var(--player-grey);
-    padding: 10px 12px; /* Tighter padding for mobile */
+    padding: 8px 12px;
     border-radius: 60px;
     display: flex;
     align-items: center;
-    gap: 8px; /* Closer buttons for mobile */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    width: 98%; /* Use almost full width of the container */
-    max-width: 500px;
+    justify-content: space-between;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    width: 95%;
+    max-width: 480px;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
 }
 
 .console {
     background: var(--dark-grey);
-    border-radius: 35px;
-    padding: 8px 10px;
+    border-radius: 30px;
+    padding: 6px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1;
-    /* CRITICAL: Force enough width so iOS shows the seek bar */
-    min-width: 200px; 
+    flex: 1; /* This forces the black part to grow/shrink smoothly */
+    min-width: 0; /* Prevents it from pushing buttons off-screen */
 }
 
 audio {
-    width: 100%;
-    height: 34px; /* Slightly taller helps mobile controls appear */
+    width: 100% !important;
+    height: 35px;
+    display: block; /* Helps iOS render all controls */
     filter: grayscale(1) invert(1) brightness(1); 
 }
 
 #track-title {
     color: #ffffff !important; 
-    font-size: 10px; /* Slightly smaller for mobile safety */
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin-top: 6px;
+    letter-spacing: 1px;
+    margin-top: 4px;
     text-align: center;
     width: 100%;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Keeps long names from breaking the pill */
 }
 
 .skip-btn {
     background: #1e1e1e;
     color: var(--player-grey);
     border: none;
-    width: 38px; /* Slightly smaller buttons to save horizontal space */
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Prevents buttons from squishing */
+    flex-shrink: 0; /* Stops buttons from getting squashed */
 }
 
 #playlist { display: none !important; }
-
-/* MOBILE SPECIFIC TWEAK */
-@media (max-width: 480px) {
-    .console {
-        min-width: 180px; /* Adjusting for the narrowest screens */
-    }
-    audio {
-        height: 30px; /* Shorter bar on mobile */
-    }
-}
