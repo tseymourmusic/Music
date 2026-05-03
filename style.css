@@ -9,10 +9,11 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* This is the master lock for the horizontal wobble */
-    overflow-x: hidden !important;
-    position: relative;
+    height: 100%;
     background: var(--bg-color);
+    /* STOP THE WOBBLE: Disables horizontal gestures at the root */
+    overflow-x: hidden;
+    touch-action: pan-y; 
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -25,7 +26,7 @@ body {
 }
 
 .player-container { 
-    width: 95%; /* Using % instead of fixed pixels for responsiveness */
+    width: 92%; /* Slightly narrower to stay off the edges */
     max-width: 400px;
     display: flex; 
     align-items: center; 
@@ -34,7 +35,8 @@ body {
     padding: 6px 10px;
     border-radius: 10px;
     margin-bottom: 10px;
-    box-sizing: border-box; /* Forces padding inside the width */
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 audio { 
@@ -54,8 +56,9 @@ audio {
     flex-shrink: 0;
 }
 
+/* THE INDEPENDENT TRACK SCROLL */
 #playlist { 
-    width: 95%;
+    width: 92%;
     max-width: 400px;
     list-style: none; 
     padding: 0;
@@ -64,9 +67,25 @@ audio {
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
     
-    /* FLEXIBLE HEIGHT LOGIC */
-    height: auto; 
-    overflow-y: visible; /* Let Google Sites handle the vertical scroll */
+    /* This creates the 'Window' for scrolling */
+    overflow-y: auto !important; 
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch; /* Forces the scrollbar to appear on iOS */
+    
+    /* FLEXIBLE BUT SCROLLABLE: 
+       On desktop it will show 3-4 tracks. On mobile it stays compact. */
+    height: 140px; 
+}
+
+/* Force Scrollbar Visibility for Safari Mobile */
+#playlist::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+#playlist::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, .3);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 .track { 
@@ -76,7 +95,10 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
-    word-wrap: break-word; /* Prevents long titles from pushing width */
+    /* Prevent text from making the container wider */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .track.active { 
@@ -86,19 +108,10 @@ audio {
     font-weight: 700;
 }
 
-/* MOBILE ONLY FIXES - No effect on Desktop */
 @media (max-width: 480px) {
-    html, body {
-        /* Double-down on preventing side-scroll */
-        width: 100vw; 
-        position: fixed; /* Optional: pins the background so only content moves */
-        position: static; 
+    #playlist {
+        height: 110px; /* Shorter scroll window for mobile */
     }
-    
-    .player-container, #playlist {
-        width: 92%; /* Slightly narrower to give a safe gutter on iPhones */
-    }
-
     .track {
         padding: 10px 12px;
         font-size: 0.8rem;
