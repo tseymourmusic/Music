@@ -10,21 +10,24 @@
 <body>
 
     <div class="player-container">
+        <!-- Previous Button -->
         <button class="skip-btn" id="prevBtn">«</button>
         
+        <!-- THE BLACK PILL -->
         <div class="console">
             <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
                 <source id="audio-source" src="Homologies Pt1.m4a" type="audio/mp4">
             </audio>
-            <!-- THIS IS WHERE THE NAME APPEARS -->
+            <!-- Track name inside the black area -->
             <div id="track-title">Homologies - Part 1</div>
         </div>
 
+        <!-- Next Button -->
         <button class="skip-btn" id="nextBtn">»</button>
     </div>
 
-    <!-- This list is invisible but used by player.js -->
-    <ul id="playlist">
+    <!-- Hidden list used by logic -->
+    <ul id="playlist" style="display: none !important;">
         <li class="track active" data-src="Homologies Pt1.m4a">Homologies - Part 1</li>
         <li class="track" data-src="Homologies Pt2.m4a">Homologies - Part 2</li>
     </ul>
