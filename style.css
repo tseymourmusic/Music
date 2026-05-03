@@ -9,11 +9,9 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
-    background: var(--bg-color);
-    /* STOP THE WOBBLE: Disables horizontal gestures at the root */
+    /* Prevents horizontal movement at the browser level */
     overflow-x: hidden;
-    touch-action: pan-y; 
+    background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -25,8 +23,9 @@ body {
     padding: 10px 0;
 }
 
+/* THE PLAYER BAR - Separated from the list */
 .player-container { 
-    width: 92%; /* Slightly narrower to stay off the edges */
+    width: 92%;
     max-width: 400px;
     display: flex; 
     align-items: center; 
@@ -34,8 +33,7 @@ body {
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin-bottom: 10px;
-    flex-shrink: 0;
+    margin-bottom: 12px; /* Visual gap between bar and list */
     box-sizing: border-box;
 }
 
@@ -56,7 +54,7 @@ audio {
     flex-shrink: 0;
 }
 
-/* THE INDEPENDENT TRACK SCROLL */
+/* THE PLAYLIST - Independent scroll restored */
 #playlist { 
     width: 92%;
     max-width: 400px;
@@ -67,25 +65,23 @@ audio {
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
     
-    /* This creates the 'Window' for scrolling */
-    overflow-y: auto !important; 
+    /* Internal scrolling logic */
+    overflow-y: auto !important;
     overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch; /* Forces the scrollbar to appear on iOS */
+    -webkit-overflow-scrolling: touch; /* Crucial for smooth iPhone scroll */
     
-    /* FLEXIBLE BUT SCROLLABLE: 
-       On desktop it will show 3-4 tracks. On mobile it stays compact. */
-    height: 140px; 
+    /* height: auto for desktop, but limited for mobile scroll */
+    max-height: 150px; 
 }
 
-/* Force Scrollbar Visibility for Safari Mobile */
+/* Visible Scrollbar for Safari */
 #playlist::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
+    width: 6px;
+    display: block;
 }
 #playlist::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, .3);
-    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    background: #555;
+    border-radius: 10px;
 }
 
 .track { 
@@ -95,7 +91,7 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
-    /* Prevent text from making the container wider */
+    /* Prevents horizontal expansion */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -108,9 +104,11 @@ audio {
     font-weight: 700;
 }
 
+/* MOBILE FIXES */
 @media (max-width: 480px) {
     #playlist {
-        height: 110px; /* Shorter scroll window for mobile */
+        /* This makes the scroll window small enough to see it's scrollable */
+        max-height: 105px; 
     }
     .track {
         padding: 10px 12px;
