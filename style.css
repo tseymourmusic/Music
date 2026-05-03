@@ -1,7 +1,7 @@
 :root {
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
-    --dark-grey: #1e1e1e;
+    --dark-grey: #121212; /* Slightly deeper black */
 }
 
 body {
@@ -17,21 +17,21 @@ body {
 /* THE OUTER PILL */
 .player-container {
     background: var(--player-grey);
-    padding: 8px 15px;
-    border-radius: 50px;
+    padding: 10px 15px; /* Increased padding slightly */
+    border-radius: 60px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    width: 90%;
-    max-width: 400px;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    width: 95%;
+    max-width: 460px;
 }
 
-/* THE BLACK INNER CONSOLE */
+/* THE BLACK INNER CONSOLE - Extended to wrap text */
 .console {
     background: var(--dark-grey);
-    border-radius: 25px;
-    padding: 5px 12px;
+    border-radius: 30px; /* More rounded for the inner pill look */
+    padding: 8px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,40 +41,48 @@ body {
 
 audio {
     width: 100%;
-    height: 30px;
-    filter: grayscale(1) invert(1) brightness(0.8);
+    height: 32px;
+    /* This filter keeps the controls visible on the deep black background */
+    filter: grayscale(1) invert(1) brightness(1); 
 }
 
-/* THE TEXT INSIDE THE BLACK */
+/* THE TEXT - Now "popping" in white */
 #track-title {
-    color: #888;
-    font-size: 10px;
+    color: #ffffff !important; /* Pure white */
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
     text-align: center;
+    opacity: 0.9; /* Slight softness so it's not piercing */
 }
 
 .skip-btn {
-    background: var(--dark-grey);
+    background: #1e1e1e;
     color: var(--player-grey);
     border: none;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.1s;
 }
 
-/* THIS KILLS THE BULLETS ON THE RIGHT */
+.skip-btn:active {
+    transform: scale(0.9);
+}
+
+/* HIDE THE LIST */
 #playlist {
     display: none !important;
 }
