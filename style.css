@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
 :root {
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
@@ -16,18 +21,19 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* CRITICAL: Stops the side wobble and the "unit" scrolling */
+    /* This stops the side-wobble and unit-scrolling */
     overflow: hidden !important; 
     touch-action: pan-y;
 }
 
-/* --- ALIGNMENT --- */
+/* --- FLUSH ALIGNMENT --- */
 .player-container, #playlist {
-    width: 92% !important; /* Slightly narrower to prevent edge-bumping */
+    width: 94% !important; 
     max-width: 400px;
     box-sizing: border-box;
 }
 
+/* --- PLAYER PILL --- */
 .player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
@@ -37,7 +43,7 @@ html, body {
     display: flex; 
     align-items: center; 
     gap: 8px; 
-    flex-shrink: 0; /* Keeps the player from squishing */
+    flex-shrink: 0; 
 }
 
 audio { 
@@ -46,7 +52,20 @@ audio {
     filter: grayscale(1) invert(1) brightness(0.7); 
 }
 
-/* --- THE INDEPENDENT SCROLL BOX --- */
+.skip-btn {
+    background-color: var(--dark-grey) !important; 
+    color: var(--player-grey) !important;
+    border: none !important;
+    width: 34px;
+    height: 34px;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* --- THE PLAYLIST (Natural Desktop, Tall Mobile) --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -55,40 +74,38 @@ audio {
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
     
-    /* Forces it to only scroll inside this box */
-    flex-grow: 1; 
+    /* DESKTOP: Hugs the tracks so there is NO dead space */
+    height: auto !important;
+    max-height: 400px; 
+    
     overflow-y: auto !important; 
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE "SLITHER" OVERRIDE --- */
+/* --- THE MOBILE OVERRIDE --- */
 @media (max-width: 480px) {
-    /* 
-       We force the BODY to be tall enough to show 4-5 tracks,
-       but we keep OVERFLOW HIDDEN so it doesn't wobble.
-    */
+    /* We force the body to be taller than Google's blue box */
     body {
-        height: 480px !important; 
+        height: 500px !important;
+        overflow: visible !important;
     }
 
     #playlist {
-        /* This is your 'Slither' expansion. 
-           It will take up the remaining space in the 480px body. */
-        height: auto !important;
-        margin-bottom: 10px;
+        /* This forces the 'slither' to become a 350px window */
+        height: 350px !important;
+        display: block !important;
     }
 }
 
-/* --- TRACKS (No Dead Space) --- */
+/* --- TRACKS --- */
 .track { 
-    padding: 14px 15px; 
+    padding: 12px 15px; 
     font-size: 0.95rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent; 
     cursor: pointer;
-    /* Prevents horizontal scrolling inside the track */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -99,3 +116,23 @@ audio {
     border-left: 4px solid var(--player-grey);
     font-weight: 700;
 }
+</style>
+</head>
+<body>
+
+<div class="player-container">
+    <button class="skip-btn" onclick="prevTrack()">&#10094;</button>
+    <audio id="audio-player" controls src=""></audio>
+    <button class="skip-btn" onclick="nextTrack()">&#10095;</button>
+</div>
+
+<ul id="playlist">
+    <!-- Tracks will be injected here by your script -->
+</ul>
+
+<script>
+// Your existing track-list and player script goes here
+</script>
+
+</body>
+</html>
