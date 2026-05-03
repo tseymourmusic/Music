@@ -1,5 +1,3 @@
-/* style.css - The "No Gap" Version */
-
 :root {
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
@@ -11,6 +9,7 @@ html, body {
     margin: 0;
     padding: 0;
     background: var(--bg-color);
+    /* We allow the body to be still, but the list to scroll */
     overflow: hidden; 
     font-family: 'Montserrat', sans-serif;
 }
@@ -20,23 +19,21 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: 5px 0;
 }
 
-.player-container, #playlist {
-    width: 100%;
-    max-width: 450px;
-    box-sizing: border-box;
-}
-
+/* Fixed Player Bar */
 .player-container { 
+    width: 95%;
+    max-width: 450px;
     display: flex; 
     align-items: center; 
     gap: 8px; 
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin-top: 2px;
     margin-bottom: 8px;
+    flex-shrink: 0; /* Prevents the bar from squishing */
 }
 
 audio { 
@@ -56,38 +53,52 @@ audio {
     font-size: 14px;
 }
 
+/* Scrollable Track List */
 #playlist { 
+    width: 95%;
+    max-width: 450px;
     list-style: none; 
-    padding: 0; /* Tightened padding */
+    padding: 0;
     background: var(--dark-grey);
+    border-radius: 10px;
+    /* THIS IS THE KEY: Adjust this height to fit your Google Sites box */
+    max-height: 120px; 
+    overflow-y: auto;
+    border: 1px solid var(--accent-grey);
+}
+
+/* Custom Scrollbar to keep it looking sleek */
+#playlist::-webkit-scrollbar {
+    width: 6px;
+}
+#playlist::-webkit-scrollbar-thumb {
+    background: var(--accent-grey);
     border-radius: 10px;
 }
 
 .track { 
-    padding: 10px 15px; /* Desktop padding */
+    padding: 12px 15px; 
     font-size: 0.9rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
+    border-left: 4px solid transparent;
+    cursor: pointer;
 }
-
-.track:last-child { border-bottom: none; }
 
 .track.active { 
     background: var(--accent-grey); 
     color: var(--player-grey); 
+    border-left: 4px solid var(--player-grey);
+    font-weight: 700;
 }
 
-/* THE MOBILE FIX: Shrinks internals so the box doesn't have to grow */
+/* Mobile Tweaks */
 @media (max-width: 480px) {
     .track {
-        padding: 6px 12px; /* Thinner tracks on mobile */
-        font-size: 0.75rem; /* Smaller text on mobile */
+        padding: 10px 12px;
+        font-size: 0.8rem;
     }
-    .player-container {
-        padding: 4px 6px;
-    }
-    .skip-btn {
-        width: 26px;
-        height: 26px;
+    #playlist {
+        max-height: 100px; /* Slightly shorter on mobile */
     }
 }
