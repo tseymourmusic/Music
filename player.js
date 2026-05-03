@@ -4,24 +4,25 @@ const source = document.getElementById('audio-source');
 const tracks = Array.from(document.querySelectorAll('.track'));
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const trackTitle = document.getElementById('track-title'); // The new target
+// NEW: Reference the text display inside the console
+const trackTitleDisplay = document.getElementById('track-title');
 
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
 function playTrack(trackElement) {
     if (!trackElement) return;
     
-    // Update Audio Source
     source.src = trackElement.getAttribute('data-src');
     audio.load();
     audio.play();
 
-    // Update Text inside the Pill
-    if (trackTitle) {
-        trackTitle.textContent = trackElement.textContent;
+    // --- NEW LOGIC START ---
+    // This updates the white text inside the black pill
+    if (trackTitleDisplay) {
+        trackTitleDisplay.textContent = trackElement.textContent;
     }
+    // --- NEW LOGIC END ---
 
-    // Active State logic
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
 }
@@ -38,7 +39,11 @@ function skipPrev() {
     playTrack(tracks[prevIdx]);
 }
 
-// Keep all your existing onDown / onUp functions for scrubbing below
+/* 
+   Keep your existing onDown, onUp, and Event Listeners 
+   exactly as they were for the scrubbing/holding logic.
+*/
+
 function onDown(e, direction) {
     e.preventDefault();
     pressStartTime = Date.now();
