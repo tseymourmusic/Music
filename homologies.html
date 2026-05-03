@@ -2,36 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Homologies Player</title>
+    <!-- Import Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to your shared styling file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- The Player Bar -->
     <div class="player-container">
-        <!-- Previous Button -->
-        <button class="skip-btn" id="prevBtn">«</button>
+        <button class="skip-btn" id="prevBtn" title="Previous/Rewind">«</button>
         
-        <!-- THE BLACK PILL -->
+        <!-- THE BLACK PILL DISPLAY -->
         <div class="console">
             <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
+                <!-- Default starting track -->
                 <source id="audio-source" src="Homologies Pt1.m4a" type="audio/mp4">
             </audio>
-            <!-- Track name inside the black area -->
+            <!-- White text popping inside the black area -->
             <div id="track-title">Homologies - Part 1</div>
         </div>
 
-        <!-- Next Button -->
-        <button class="skip-btn" id="nextBtn">»</button>
+        <button class="skip-btn" id="nextBtn" title="Next/Fast Forward">»</button>
     </div>
 
-    <!-- Hidden list used by logic -->
-    <ul id="playlist" style="display: none !important;">
+    <!-- The Track List (Hidden by CSS, used by player.js) -->
+    <ul id="playlist">
         <li class="track active" data-src="Homologies Pt1.m4a">Homologies - Part 1</li>
         <li class="track" data-src="Homologies Pt2.m4a">Homologies - Part 2</li>
     </ul>
 
+    <!-- Link to your shared logic file -->
     <script src="player.js"></script>
 
 </body>
