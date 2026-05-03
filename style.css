@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --bg-color: #2c3338; 
@@ -9,55 +10,55 @@
     --accent-grey: #333;
 }
 
-/* --- THE STAGE --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
+    height: 100%;
     background: var(--bg-color);
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
-    /* This forces the player to stay on the LEFT as per your design */
-    align-items: flex-start; 
-    overflow-x: hidden;
+    align-items: center; /* Centers the player/list in the Google box */
+    overflow: hidden !important; 
 }
 
-/* --- THE CONTAINERS --- */
-.player-container, #playlist {
-    width: 95%;
-    max-width: 400px;
-    margin-left: 10px; /* Provides the tiny gap from the left edge */
-}
-
+/* THE PILL PLAYER (Restored) */
 .player-container { 
     background: var(--player-grey); 
-    padding: 8px;
+    padding: 6px 12px;
     border-radius: 30px;
     margin-top: 15px;
     margin-bottom: 15px;
     display: flex; 
     align-items: center; 
     gap: 10px;
+    width: 90%;
+    max-width: 400px;
+    flex-shrink: 0;
 }
 
 audio { 
-    height: 30px;
+    height: 32px;
     flex-grow: 1;
-    filter: grayscale(1) invert(1); 
+    filter: grayscale(1) invert(1) brightness(0.8); 
 }
 
 .skip-btn {
     background: var(--dark-grey);
-    color: white;
+    color: var(--player-grey);
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    font-size: 14px;
 }
 
-/* --- THE PLAYLIST --- */
+/* THE PLAYLIST (Restored with no dead space) */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -65,32 +66,42 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
-    /* DESKTOP: Hug the content (No dead space) */
-    height: auto;
-    overflow-y: auto;
+    width: 90%;
+    max-width: 400px;
+    
+    /* Desktop: Hugs tracks perfectly */
+    height: auto !important;
+    max-height: 300px; 
+    
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch;
 }
 
-/* --- THE MOBILE 'SLITHER' KILLER --- */
+/* THE MOBILE FIX (Forces the slither to open) */
 @media (max-width: 480px) {
+    body {
+        height: 480px !important;
+        overflow: visible !important;
+    }
     #playlist {
-        /* This forces the independent scroll window on mobile */
-        height: 320px !important;
-        display: block;
+        /* Force 350px window so you can see the 2nd track */
+        height: 350px !important;
+        min-height: 350px !important;
     }
 }
 
-/* --- THE TRACKS --- */
+/* TRACK TEXT (Restored) */
 .track { 
-    padding: 15px; 
-    color: white;
-    border-bottom: 1px solid var(--accent-grey);
+    padding: 14px 15px; 
+    font-size: 0.9rem;
+    color: #fff;
+    border-bottom: 1px solid #2a2a2a;
     cursor: pointer;
-    font-size: 14px;
 }
 
 .track.active { 
-    background: #444;
-    font-weight: bold;
+    background: var(--accent-grey); 
+    font-weight: 700;
 }
 </style>
 </head>
@@ -98,17 +109,16 @@ audio {
 
 <div class="player-container">
     <button class="skip-btn" onclick="prevTrack()">&#10094;</button>
-    <audio id="audio-player" controls src=""></audio>
+    <audio id="audio-player" controls></audio>
     <button class="skip-btn" onclick="nextTrack()">&#10095;</button>
 </div>
 
 <ul id="playlist"></ul>
 
 <script>
-    // MAKE SURE YOUR TRACKS ARE DEFINED HERE
     const tracks = [
-        { name: "First Song Title", url: "link_to_audio_1.mp3" },
-        { name: "Second Song Title", url: "link_to_audio_2.mp3" }
+        { name: "Homologies - Part 1", url: "YOUR_URL_1" },
+        { name: "Homologies - Part 2", url: "YOUR_URL_2" }
     ];
 
     let currentTrackIndex = 0;
@@ -121,10 +131,7 @@ audio {
             const li = document.createElement('li');
             li.className = 'track' + (index === currentTrackIndex ? ' active' : '');
             li.textContent = track.name;
-            li.onclick = () => {
-                currentTrackIndex = index;
-                playCurrent();
-            };
+            li.onclick = () => { currentTrackIndex = index; playCurrent(); };
             playlistElement.appendChild(li);
         });
     }
@@ -145,10 +152,8 @@ audio {
         playCurrent();
     }
 
-    // Load initial state
     player.src = tracks[0].url;
     renderPlaylist();
 </script>
-
 </body>
 </html>
