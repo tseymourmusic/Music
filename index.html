@@ -103,14 +103,14 @@
     <script>
         const audio = document.getElementById('audio');
         const source = document.getElementById('audio-source');
-        const tracks = document.querySelectorAll('.track');
+        const tracks = Array.from(document.querySelectorAll('.track'));
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
         let holdTimer;
         let scrubInterval;
         let isScrubbing = false;
-        let startTime;
+        let pressStartTime;
 
         function playTrack(trackElement) {
             if (!trackElement) return;
@@ -121,8 +121,23 @@
             trackElement.classList.add('active');
         }
 
-        function startAction(direction) {
-            startTime = Date.now();
+        function skipNext() {
+            let currentIdx = tracks.findIndex(t => t.classList.contains('active'));
+            let nextIdx = (currentIdx + 1) % tracks.length;
+            playTrack(tracks[nextIdx]);
+        }
+
+        function skipPrev() {
+            let currentIdx = tracks.findIndex(t => t.classList.contains('active'));
+            let prevIdx = (currentIdx - 1 + tracks.length) % tracks.length;
+            playTrack(tracks[prevIdx]);
+        }
+
+        // --- Controller Logic ---
+
+        function onDown(e, direction) {
+            e.preventDefault();
+            pressStartTime = Date.now();
             isScrubbing = false;
 
             holdTimer = setTimeout(() => {
@@ -133,46 +148,43 @@
             }, 250);
         }
 
-        function endAction(direction) {
+        function onUp(e, direction) {
             clearTimeout(holdTimer);
             clearInterval(scrubInterval);
 
-            const duration = Date.now() - startTime;
+            if (!pressStartTime) return;
 
-            if (duration < 250 && !isScrubbing) {
+            const pressDuration = Date.now() - pressStartTime;
+            pressStartTime = null;
+
+            // If it wasn't a long hold (scrub), treat as a click
+            if (pressDuration < 250 && !isScrubbing) {
                 if (direction === 'next') skipNext();
-                else if (direction === 'prev') skipPrev(); // Fixed logic here
+                if (direction === 'prev') skipPrev();
             }
-            
             isScrubbing = false;
         }
 
-        function skipNext() {
-            let current = document.querySelector('.track.active');
-            let next = current.nextElementSibling;
-            playTrack(next ? next : tracks[0]);
-        }
+        // Bind Next Button
+        nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
+        nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
+        
+        // Bind Prev Button
+        prevBtn.addEventListener('mousedown', (e) => onDown(e, 'prev'));
+        prevBtn.addEventListener('touchstart', (e) => onDown(e, 'prev'), {passive: false});
 
-        function skipPrev() {
-            let current = document.querySelector('.track.active');
-            let prev = current.previousElementSibling;
-            playTrack(prev ? prev : tracks[tracks.length - 1]);
-        }
+        // Global Release
+        window.addEventListener('mouseup', (e) => {
+            // We don't know the direction here, but the variables handle the cleanup
+            onUp(e, (holdTimer && !isScrubbing) ? (e.target === nextBtn ? 'next' : 'prev') : null);
+        });
 
-        // --- Event Listeners with correct direction mapping ---
-
-        // NEXT
-        nextBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('next'); });
-        window.addEventListener('mouseup', () => { if(startTime) endAction('next'); startTime = null; });
-        nextBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('next'); }, {passive: false});
-        nextBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('next'); }, {passive: false});
-
-        // PREV
-        prevBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('prev'); });
-        // We handle mouseup globally, but need to check which direction was being acted upon
-        window.addEventListener('mouseup', () => { if(startTime) endAction('prev'); startTime = null; });
-        prevBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('prev'); }, {passive: false});
-        prevBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('prev'); }, {passive: false});
+        // Specific Button Release (Ensures correct skip direction)
+        nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
+        nextBtn.addEventListener('touchend', (e) => onUp(e, 'next'), {passive: false});
+        
+        prevBtn.addEventListener('mouseup', (e) => onUp(e, 'prev'));
+        prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: false});
 
         // Playlist click
         tracks.forEach(track => {
