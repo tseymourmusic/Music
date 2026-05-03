@@ -22,46 +22,43 @@ html, body {
     overflow: hidden;
 }
 
-/* --- THE OUTER PILL --- */
+/* THE OUTER PILL */
 .player-container { 
     background: var(--player-grey) !important; 
-    padding: 8px 15px;
+    padding: 10px 18px;
     border-radius: 50px;
     display: flex; 
     align-items: center; 
     gap: 12px;
     width: 95%;
-    max-width: 450px;
+    max-width: 460px; /* Slightly wider to give the text more room */
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     box-sizing: border-box;
-    /* This ensures nothing can EVER leak out of the pill */
-    overflow: hidden; 
 }
 
-/* --- THE BLACK INNER BOX --- */
+/* THE BLACK INNER PILL - Made slightly taller to fit text comfortably */
 .inner-console {
     background: var(--dark-grey) !important;
     flex-grow: 1;
-    border-radius: 25px;
-    padding: 5px 10px;
+    border-radius: 30px;
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 0; /* Prevents text from pushing the box wider */
+    min-width: 0; 
 }
 
-/* --- THE TEXT (Locked Inside) --- */
+/* THE TEXT - Locked inside the black area */
 #current-track-title {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    color: #888 !important; 
+    color: #999 !important; 
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
+    letter-spacing: 1.2px;
+    margin-top: 6px; /* Space below the play bar */
     text-align: center;
     width: 100%;
-    /* These three lines prevent text from "breaking" out */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
@@ -69,7 +66,7 @@ html, body {
 
 audio { 
     width: 100%;
-    height: 28px;
+    height: 30px;
     filter: grayscale(1) invert(1) brightness(0.9); 
 }
 
@@ -77,8 +74,8 @@ audio {
     background: var(--dark-grey);
     color: var(--player-grey);
     border: none;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -87,8 +84,6 @@ audio {
     font-size: 16px;
     flex-shrink: 0;
 }
-
-/* Delete any other styles below this point */
 </style>
 </head>
 <body>
@@ -98,14 +93,14 @@ audio {
     
     <div class="inner-console">
         <audio id="audio-player" controls></audio>
-        <div id="current-track-title">Loading...</div>
+        <!-- ONLY this div exists for text. No <ul> or <li> anymore -->
+        <div id="current-track-title"></div>
     </div>
     
     <button class="skip-btn" onclick="nextTrack()">&#10095;</button>
 </div>
 
 <script>
-    // 1. DATA
     const tracks = [
         { name: "Homologies - Part 1", url: "homologies_part1.mp3" },
         { name: "Homologies - Part 2", url: "homologies_part2.mp3" }
@@ -115,7 +110,6 @@ audio {
     const player = document.getElementById('audio-player');
     const titleDisplay = document.getElementById('current-track-title');
 
-    // 2. LOGIC
     function updatePlayer() {
         const currentTrack = tracks[currentTrackIndex];
         player.src = currentTrack.url;
@@ -139,7 +133,7 @@ audio {
 
     player.onended = nextTrack;
 
-    // 3. START
+    // Initial Load - Just shows the first name
     updatePlayer();
 </script>
 
