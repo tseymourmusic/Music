@@ -79,10 +79,12 @@ audio {
 /* --- MOBILE ONLY (The Aggressive Fixes) --- */
 @media (max-width: 480px) {
     html, body {
-        /* This stops the page-wide wobble on mobile */
-        height: 100%;
+        /* 
+           This takes Google's auto-scaled iframe size (100%) 
+           and forces a 50% fixed increase on top of it. 
+        */
+        height: 150%; 
         overflow: hidden !important; 
-        position: fixed;
     }
 
     body {
@@ -96,9 +98,11 @@ audio {
 
     #playlist {
         width: 92%;
-        /* Force the list to be its own scrollable window */
         flex-grow: 1; 
-        height: 120px; /* Adjust this to your preferred "window" height */
+        
+        /* Forces the viewing window to match the stretched body */
+        height: 150%; 
+        
         overflow-y: scroll !important;
         -webkit-overflow-scrolling: touch;
         margin-bottom: 15px;
