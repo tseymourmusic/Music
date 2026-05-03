@@ -5,7 +5,6 @@
     --accent-grey: #333;
 }
 
-/* --- THE CONTAINER FIX --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,11 +15,10 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* CRITICAL: Allow the '150%' height to actually show up */
-    overflow: visible !important; 
+    overflow: hidden; 
 }
 
-/* --- ALIGNMENT (Flush Left) --- */
+/* --- FLUSH ALIGNMENT --- */
 .player-container, #playlist {
     width: 95% !important; 
     max-width: 400px;
@@ -57,7 +55,6 @@ audio {
     justify-content: center;
 }
 
-/* --- THE PLAYLIST (150% Height Increase) --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -65,19 +62,34 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
-    
-    /* This tells it: take 100% of Google's box, then add 50% more */
-    height: 150% !important; 
-    
+    flex-grow: 1; 
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE TWEAK --- */
+/* --- THE SCALE FIX: FORCING THE WINDOW TO GROW --- */
 @media (max-width: 480px) {
+    body {
+        /* This stretches the vertical view by 150% 
+           without making the player wider. */
+        transform: scaleY(1.5);
+        transform-origin: top;
+        
+        /* Because we stretched the height, the width might 
+           look slightly skinny; we compensate here if needed. */
+        width: 100%;
+    }
+
+    /* COUNTER-STRETCH: To prevent text from looking 'tall' or distorted,
+       we tell the internal elements to scale back down vertically. */
+    .player-container, .track, .skip-btn {
+        transform: scaleY(0.66); /* 0.66 is the inverse of 1.5 */
+        transform-origin: center;
+    }
+    
     #playlist {
-        /* On mobile, if 150% still feels small, you can bump this higher */
-        height: 150% !important; 
+        /* Ensuring the scrollable area is forced to fill the new height */
+        height: 100% !important;
     }
 }
 
