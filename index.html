@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lawyered Up Soundtrack</title>
+    <title>Lawyered Up Player</title>
     <!-- Import Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -17,61 +17,81 @@
             padding-top: 50px; 
         }
         
-        h1 { font-weight: 700; font-size: 1.5rem; margin-bottom: 20px; }
+        /* Main Player Container - Light Grey Background */
+        .player-container { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            background: #d3d3d3; /* Light Grey Container */
+            padding: 15px 20px;
+            border-radius: 50px; /* Rounded pill shape */
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-        /* Audio Player Controls Area */
-        .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-        audio { width: 300px; }
+        audio { 
+            height: 40px;
+            filter: grayscale(1) invert(1); /* Makes the native player look darker/sleeker */
+        }
         
-        /* Skip Buttons */
+        /* Skip Buttons inside the container */
         .skip-btn {
-            background: #333;
-            color: white;
+            background: #1e1e1e; /* Dark buttons to contrast the light grey bar */
+            color: #d3d3d3;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.3s;
         }
-        .skip-btn:hover { background: #444; }
+        .skip-btn:hover { 
+            background: #000; 
+            transform: scale(1.1);
+        }
 
         /* Playlist Styling */
         #playlist { list-style: none; padding: 0; width: 350px; }
         .track { 
             padding: 15px; 
             background: #1e1e1e; 
-            margin-bottom: 5px; 
+            margin-bottom: 8px; 
             cursor: pointer; 
-            border-radius: 4px;
+            border-radius: 8px;
             transition: all 0.3s;
             border-left: 5px solid transparent;
+            font-size: 0.9rem;
         }
         .track:hover { background: #2a2a2a; }
         
-        /* Light Grey Highlight */
+        /* Light Grey Highlight for Active Track */
         .track.active { 
             border-left: 5px solid #d3d3d3; 
             background: #333; 
-            color: #d3d3d3; /* Light Grey */
+            color: #d3d3d3; 
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
-    <h1>Lawyered Up Soundtrack</h1>
-
-    <div class="controls">
-        <button class="skip-btn" id="prevBtn">« Prev</button>
+    <!-- Combined Player Bar -->
+    <div class="player-container">
+        <button class="skip-btn" id="prevBtn" title="Previous">«</button>
         
         <audio id="audio" controls preload="auto">
             <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
         </audio>
 
-        <button class="skip-btn" id="nextBtn">Next »</button>
+        <button class="skip-btn" id="nextBtn" title="Next">»</button>
     </div>
 
+    <!-- Playlist -->
     <ul id="playlist">
         <li class="track active" data-src="Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
         <li class="track" data-src="Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
@@ -91,41 +111,41 @@
             audio.load();
             audio.play();
             
-            // Update UI
+            // Update UI Styling
             tracks.forEach(t => t.classList.remove('active'));
             trackElement.classList.add('active');
         }
 
-        // Click track in list
+        // Playlist click event
         tracks.forEach(track => {
             track.addEventListener('click', function() {
                 playTrack(this);
             });
         });
 
-        // Next Button
+        // Next Logic
         nextBtn.addEventListener('click', () => {
             let current = document.querySelector('.track.active');
             let next = current.nextElementSibling;
-            if (next) {
+            if (next && next.classList.contains('track')) {
                 playTrack(next);
             } else {
-                playTrack(tracks[0]); // Loop to start
+                playTrack(tracks[0]); // Loop back to top
             }
         });
 
-        // Prev Button
+        // Prev Logic
         prevBtn.addEventListener('click', () => {
             let current = document.querySelector('.track.active');
             let prev = current.previousElementSibling;
-            if (prev) {
+            if (prev && prev.classList.contains('track')) {
                 playTrack(prev);
             } else {
                 playTrack(tracks[tracks.length - 1]); // Loop to end
             }
         });
 
-        // Auto-advance when song ends
+        // Auto-play next track
         audio.addEventListener('ended', () => {
             nextBtn.click();
         });
