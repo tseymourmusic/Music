@@ -5,30 +5,28 @@
     --accent-grey: #333;
 }
 
-/* --- GLOBAL LOCK --- */
+/* --- THE CONTAINER FIX --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%; 
-    overflow: hidden; 
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
-    /* This ensures everything is centered as a group */
-    align-items: center; 
+    align-items: center;
+    /* CRITICAL: Allow the '150%' height to actually show up */
+    overflow: visible !important; 
 }
 
-/* --- SHARED WIDTH LOGIC --- */
+/* --- ALIGNMENT (Flush Left) --- */
 .player-container, #playlist {
-    /* We set them to the EXACT same width so they align perfectly */
     width: 95% !important; 
     max-width: 400px;
     box-sizing: border-box;
 }
 
-/* --- THE PLAYER BAR --- */
 .player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
@@ -57,34 +55,29 @@ audio {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
-/* --- THE PLAYLIST (Gap Fixed) --- */
+/* --- THE PLAYLIST (150% Height Increase) --- */
 #playlist { 
     list-style: none;
     padding: 0;
-    margin: 0; /* Removed side margins to let the body-align handle it */
+    margin: 0;
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
     
-    /* DESKTOP HEIGHT */
-    flex-grow: 1; 
+    /* This tells it: take 100% of Google's box, then add 50% more */
+    height: 150% !important; 
+    
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE HEIGHT BLOW-UP --- */
+/* --- MOBILE TWEAK --- */
 @media (max-width: 480px) {
     #playlist {
-        /* This is your 150% taller height without affecting desktop */
-        height: calc(100% + 150px) !important;
-        min-height: 300px;
-    }
-    
-    html, body {
-        overflow-y: auto !important;
+        /* On mobile, if 150% still feels small, you can bump this higher */
+        height: 150% !important; 
     }
 }
 
@@ -94,7 +87,6 @@ audio {
     font-size: 0.9rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
-    /* This is the white highlight bar on the left of active tracks */
     border-left: 4px solid transparent; 
     cursor: pointer;
     white-space: nowrap;
