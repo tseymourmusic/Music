@@ -8,10 +8,10 @@
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%; /* Important: Tells the body to fill the iframe */
     width: 100%;
     background: var(--bg-color);
-    /* Allow the body to grow naturally with the content */
-    overflow: visible !important; 
+    overflow: hidden !important; 
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -32,7 +32,7 @@ body {
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     flex-shrink: 0;
 }
 
@@ -55,6 +55,7 @@ audio {
     justify-content: center;
 }
 
+/* THE SCROLLABLE ZONE */
 #playlist { 
     width: 95%;
     max-width: 450px;
@@ -64,9 +65,23 @@ audio {
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
     
-    /* REMOVED FIXED HEIGHTS: This lets the list be its natural size */
-    height: auto !important;
-    overflow: visible !important; 
+    /* This makes the list fill all remaining space in your Google Sites box */
+    flex-grow: 1; 
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Minimum height to prevent it from looking like a sliver */
+    min-height: 100px; 
+    margin-bottom: 5px;
+}
+
+/* Custom Scrollbar */
+#playlist::-webkit-scrollbar {
+    width: 6px;
+}
+#playlist::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
 }
 
 .track { 
@@ -86,15 +101,8 @@ audio {
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: 5px 0; /* Tighter padding for mobile */
-    }
     .track {
-        padding: 10px 12px; /* Thinner tracks to ensure they fit */
+        padding: 10px 12px;
         font-size: 0.8rem;
-    }
-    /* Ensure the playlist doesn't try to scroll at all on mobile */
-    #playlist {
-        border: none; /* Optional: cleaner look on small screens */
     }
 }
