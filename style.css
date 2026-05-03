@@ -9,8 +9,9 @@ html, body {
     margin: 0;
     padding: 0;
     background: var(--bg-color);
-    /* We allow the body to be still, but the list to scroll */
-    overflow: hidden; 
+    /* Changed from 'hidden' to 'auto' for better mobile compatibility */
+    overflow-x: hidden;
+    overflow-y: auto; 
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -19,10 +20,8 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 5px 0;
 }
 
-/* Fixed Player Bar */
 .player-container { 
     width: 95%;
     max-width: 450px;
@@ -32,8 +31,9 @@ body {
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
+    margin-top: 5px;
     margin-bottom: 8px;
-    flex-shrink: 0; /* Prevents the bar from squishing */
+    flex-shrink: 0;
 }
 
 audio { 
@@ -53,7 +53,6 @@ audio {
     font-size: 14px;
 }
 
-/* Scrollable Track List */
 #playlist { 
     width: 95%;
     max-width: 450px;
@@ -61,19 +60,7 @@ audio {
     padding: 0;
     background: var(--dark-grey);
     border-radius: 10px;
-    /* THIS IS THE KEY: Adjust this height to fit your Google Sites box */
-    max-height: 120px; 
-    overflow-y: auto;
     border: 1px solid var(--accent-grey);
-}
-
-/* Custom Scrollbar to keep it looking sleek */
-#playlist::-webkit-scrollbar {
-    width: 6px;
-}
-#playlist::-webkit-scrollbar-thumb {
-    background: var(--accent-grey);
-    border-radius: 10px;
 }
 
 .track { 
@@ -92,13 +79,22 @@ audio {
     font-weight: 700;
 }
 
-/* Mobile Tweaks */
+/* MOBILE RE-ENGINEERING */
 @media (max-width: 480px) {
-    .track {
-        padding: 10px 12px;
-        font-size: 0.8rem;
+    .player-container {
+        padding: 4px 8px;
+        margin-bottom: 4px;
     }
-    #playlist {
-        max-height: 100px; /* Slightly shorter on mobile */
+    .track {
+        /* Ultra-thin tracks for mobile to prevent overflow */
+        padding: 6px 12px; 
+        font-size: 0.75rem;
+    }
+    audio {
+        height: 28px;
+    }
+    .skip-btn {
+        width: 26px;
+        height: 26px;
     }
 }
