@@ -4,75 +4,78 @@
     --dark-grey: #121212; 
 }
 
+/* Ensure the body doesn't squash the player */
 body {
     background: var(--bg-color);
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding-top: 50px; 
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
 
 .player-container {
     background: var(--player-grey);
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-radius: 60px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    gap: 10px;
     width: 95%;
-    max-width: 480px;
-    box-sizing: border-box; /* Ensures padding doesn't break width */
+    max-width: 450px;
+    box-sizing: border-box;
 }
 
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    padding: 6px 12px;
+    padding: 5px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1; /* This forces the black part to grow/shrink smoothly */
-    min-width: 0; /* Prevents it from pushing buttons off-screen */
+    flex: 1;
+    min-width: 0;
+    /* THIS IS THE FIX: Keep height small so iOS doesn't collapse controls */
+    height: 52px; 
+    justify-content: center;
 }
 
 audio {
     width: 100% !important;
-    height: 35px;
-    display: block; /* Helps iOS render all controls */
+    height: 30px;
     filter: grayscale(1) invert(1) brightness(1); 
+    display: block;
 }
 
 #track-title {
     color: #ffffff !important; 
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-top: 4px;
+    margin-top: 2px;
     text-align: center;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Keeps long names from breaking the pill */
+    text-overflow: ellipsis;
+    /* Extra insurance for iOS */
+    line-height: 1;
 }
 
 .skip-btn {
     background: #1e1e1e;
     color: var(--player-grey);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Stops buttons from getting squashed */
+    flex-shrink: 0;
 }
 
 #playlist { display: none !important; }
