@@ -79,10 +79,7 @@ audio {
 /* --- MOBILE ONLY (The Aggressive Fixes) --- */
 @media (max-width: 480px) {
     html, body {
-        /* 
-           This takes Google's auto-scaled iframe size (100%) 
-           and forces a 50% fixed increase on top of it. 
-        */
+        /* Takes Google's auto-scaled iframe size (100%) and forces a 50% fixed increase on top of it */
         height: 150%; 
         overflow: hidden !important; 
     }
@@ -100,7 +97,7 @@ audio {
         width: 92%;
         flex-grow: 1; 
         
-        /* Forces the viewing window to match the stretched body */
+        /* Forces the viewing window to match the stretched body, abandoning the hardcoded 120px */
         height: 150%; 
         
         overflow-y: scroll !important;
