@@ -1,80 +1,102 @@
-/* style.css */
-body { 
-    font-family: 'Montserrat', sans-serif; 
-    background: transparent; /* Allows Google Sites background to show through */
-    color: white; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    margin: 0;
-    padding: 10px; 
-    user-select: none; 
-    -webkit-user-select: none;
-    overflow-x: hidden; /* Prevents side-scrolling on mobile */
+/* style.css - Optimized for Google Sites & Mobile */
+
+:root {
+    --bg-color: #2c3338; /* Change this to match your Google Sites background hex */
+    --player-grey: #d3d3d3;
+    --dark-grey: #1e1e1e;
+    --accent-grey: #333;
 }
 
-/* Responsive Container */
-.player-container, #playlist {
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color); /* Matches site background to hide gaps */
+    overflow: hidden; /* Removes the inner scrollbar */
+    font-family: 'Montserrat', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    max-width: 400px; /* Limits size on desktop, scales down on mobile */
+    padding-top: 5px; /* Minimal top padding */
+}
+
+/* Container limits width on desktop but stays fluid on mobile */
+.player-container, #playlist {
+    width: 95%; 
+    max-width: 400px;
     box-sizing: border-box;
 }
 
+/* The Control Bar */
 .player-container { 
     display: flex; 
     align-items: center; 
     gap: 10px; 
-    background: #d3d3d3; 
-    padding: 8px 15px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background: var(--player-grey); 
+    padding: 6px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* Audio bar sizing */
 audio { 
-    height: 35px;
+    height: 32px;
     flex-grow: 1;
     filter: grayscale(1) invert(1);
-    min-width: 0; /* Ensures audio tag doesn't push buttons off screen */
+    min-width: 0; 
 }
 
+/* Buttons */
 .skip-btn {
-    background: #1e1e1e;
-    color: #d3d3d3;
+    background: var(--dark-grey);
+    color: var(--player-grey);
     border: none;
-    width: 35px;
-    height: 35px;
-    flex-shrink: 0; /* Keeps buttons from squishing */
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
     border-radius: 50%;
     cursor: pointer;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.1s;
     touch-action: none;
 }
 
+.skip-btn:active { transform: scale(0.9); }
+
+/* The Track List */
 #playlist { 
     list-style: none; 
-    padding: 5px; 
-    background: #1e1e1e;
-    border-radius: 15px;
-    border: 1px solid #333;
+    padding: 4px; 
+    background: var(--dark-grey);
+    border-radius: 12px;
+    border: 1px solid var(--accent-grey);
 }
 
 .track { 
-    padding: 12px 15px; 
+    padding: 10px 15px; 
     cursor: pointer; 
-    border-radius: 10px;
-    transition: all 0.3s;
-    border-left: 5px solid transparent;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
     font-size: 0.85rem;
-    margin-bottom: 5px;
+    color: #fff;
+    margin-bottom: 2px;
 }
 
+.track:hover { background: #2a2a2a; }
+
 .track.active { 
-    border-left: 5px solid #d3d3d3; 
-    background: #333; 
-    color: #d3d3d3; 
+    border-left: 4px solid var(--player-grey); 
+    background: var(--accent-grey); 
+    color: var(--player-grey); 
     font-weight: 700;
 }
