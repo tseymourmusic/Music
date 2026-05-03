@@ -10,9 +10,8 @@ html, body {
     padding: 0;
     width: 100%;
     background: var(--bg-color);
-    /* Changed to allow natural height but hide horizontal mess */
-    overflow-x: hidden;
-    overflow-y: auto; 
+    /* Allow the body to grow naturally with the content */
+    overflow: visible !important; 
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -56,7 +55,6 @@ audio {
     justify-content: center;
 }
 
-/* 2. Modified Playlist to show all tracks by default */
 #playlist { 
     width: 95%;
     max-width: 450px;
@@ -66,19 +64,9 @@ audio {
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
     
-    /* Changed height to auto so it fills the space you dragged */
-    height: auto; 
-    max-height: 400px; /* High enough to show several tracks before scrolling */
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; 
-}
-
-#playlist::-webkit-scrollbar {
-    width: 6px;
-}
-#playlist::-webkit-scrollbar-thumb {
-    background: #666;
-    border-radius: 10px;
+    /* REMOVED FIXED HEIGHTS: This lets the list be its natural size */
+    height: auto !important;
+    overflow: visible !important; 
 }
 
 .track { 
@@ -98,12 +86,15 @@ audio {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 5px 0; /* Tighter padding for mobile */
+    }
     .track {
-        padding: 10px 12px;
+        padding: 10px 12px; /* Thinner tracks to ensure they fit */
         font-size: 0.8rem;
     }
-    /* Ensures the list takes up the space on mobile */
+    /* Ensure the playlist doesn't try to scroll at all on mobile */
     #playlist {
-        max-height: none; 
+        border: none; /* Optional: cleaner look on small screens */
     }
 }
