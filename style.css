@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
 :root {
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
@@ -5,125 +10,140 @@
     --accent-grey: #333;
 }
 
-/* --- DESKTOP FIRST (The "Good Stuff") --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
+    height: 100%;
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: center; 
+    overflow: hidden;
 }
 
+/* --- THE MAIN OUTER PILL --- */
 .player-container { 
-    width: 95%;
-    max-width: 400px;
     background: var(--player-grey); 
-    padding: 6px 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-bottom: 12px;
+    padding: 8px 15px;
+    border-radius: 50px;
     display: flex; 
     align-items: center; 
-    gap: 8px; 
+    gap: 12px;
+    width: 95%;
+    max-width: 450px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     box-sizing: border-box;
 }
 
-audio { 
-    height: 32px;
+/* --- THE BLACK INNER BAR --- */
+.inner-console {
+    background: var(--dark-grey);
     flex-grow: 1;
-    filter: grayscale(1) invert(1);
+    border-radius: 25px;
+    padding: 6px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- THE TRACK TEXT (Centered Inside Black Bar) --- */
+#current-track-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #888; /* Dimmer grey for a "screen" look */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 4px;
+    text-align: center;
+    width: 100%;
+}
+
+audio { 
+    width: 100%;
+    height: 30px;
+    /* Inverting to make it white/grey to pop against the black bar */
+    filter: grayscale(1) invert(1) brightness(0.9); 
 }
 
 .skip-btn {
     background: var(--dark-grey);
     color: var(--player-grey);
     border: none;
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
-#playlist { 
-    width: 95%;
-    max-width: 400px;
-    list-style: none; 
-    padding: 0;
-    background: var(--dark-grey);
-    border-radius: 10px;
-    border: 1px solid var(--accent-grey);
-    box-sizing: border-box;
-    /* On Desktop: Let it grow naturally so no dead space */
-    height: auto;
+.skip-btn:hover {
+    background: #000;
 }
+</style>
+</head>
+<body>
 
-.track { 
-    padding: 12px 15px; 
-    font-size: 0.9rem;
-    color: #fff;
-    border-bottom: 1px solid #2a2a2a;
-    border-left: 4px solid transparent;
-    cursor: pointer;
-}
+<div class="player-container">
+    <button class="skip-btn" onclick="prevTrack()">&#10094;</button>
+    
+    <div class="inner-console">
+        <audio id="audio-player" controls src=""></audio>
+        <div id="current-track-title">Loading...</div>
+    </div>
+    
+    <button class="skip-btn" onclick="nextTrack()">&#10095;</button>
+</div>
 
-.track.active { 
-    background: var(--accent-grey); 
-    color: var(--player-grey); 
-    border-left: 4px solid var(--player-grey);
-    font-weight: 700;
-}
+<script>
+    // Just add your tracks here
+    const tracks = [
+        { name: "Homologies - Part 1", url: "homologies_part1.mp3" },
+        { name: "Homologies - Part 2", url: "homologies_part2.mp3" }
+    ];
 
-/* --- MOBILE ONLY (The "Dynamic Expansion") --- */
-@media (max-width: 480px) {
-    html {
-        /* Allow the window to grow but keep it contained */
-        height: auto !important;
-        overflow: visible !important;
+    let currentTrackIndex = 0;
+    const player = document.getElementById('audio-player');
+    const titleDisplay = document.getElementById('current-track-title');
+
+    function updatePlayer() {
+        const currentTrack = tracks[currentTrackIndex];
+        player.src = currentTrack.url;
+        titleDisplay.textContent = currentTrack; // Set initially to track name
+        
+        // Wait for metadata to ensure it shows the right text
+        titleDisplay.textContent = currentTrack.name;
     }
 
-    body {
-        /* 
-           This is the "Stage." 
-           We set it to 130% of the natural content height.
-           It will scale small for 1 track and large for 10.
-        */
-        height: 130% !important; 
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* Stops the side-to-side wobble */
-        overflow: hidden !important; 
+    function playCurrent() {
+        updatePlayer();
+        player.play();
     }
 
-    .player-container {
-        width: 92%;
-        flex-shrink: 0; 
-        margin-top: 10px;
-        /* Ensures the player itself doesn't stretch/scale */
-        transform: scale(1); 
+    function nextTrack() {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        playCurrent();
     }
 
-    #playlist {
-        width: 92%;
-        /* 
-           Tell the playlist to take up the 'extra' 30% we 
-           just added to the body.
-        */
-        flex-grow: 1;
-        height: auto !important;
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
-        margin-bottom: 10px;
+    function prevTrack() {
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        playCurrent();
     }
 
-    .track {
-        /* Keep text size fixed so only the window 'peeks' more */
-        padding: 14px 15px;
-        font-size: 0.9rem;
-        white-space: nowrap;
-    }
-}
+    player.onended = () => { nextTrack(); };
+
+    // Initial Load
+    updatePlayer();
+</script>
+
+</body>
+</html>
