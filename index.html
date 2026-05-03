@@ -4,37 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lawyered Up Soundtrack</title>
+    <!-- Import Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background: #121212; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding-top: 50px; 
+        }
         
+        h1 { font-weight: 700; font-size: 1.5rem; margin-bottom: 20px; }
+
+        /* Audio Player Controls Area */
+        .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        audio { width: 300px; }
+        
+        /* Skip Buttons */
+        .skip-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .skip-btn:hover { background: #444; }
+
         /* Playlist Styling */
-        #playlist { list-style: none; padding: 0; width: 300px; margin-top: 20px; }
+        #playlist { list-style: none; padding: 0; width: 350px; }
         .track { 
             padding: 15px; 
             background: #1e1e1e; 
             margin-bottom: 5px; 
             cursor: pointer; 
             border-radius: 4px;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            border-left: 5px solid transparent;
         }
-        .track:hover { background: #333; }
-        .track.active { border-left: 5px solid #1db954; background: #282828; color: #1db954; }
-
-        audio { width: 300px; margin-bottom: 20px; }
-        h1 { font-size: 1.5rem; margin-bottom: 10px; }
+        .track:hover { background: #2a2a2a; }
+        
+        /* Light Grey Highlight */
+        .track.active { 
+            border-left: 5px solid #d3d3d3; 
+            background: #333; 
+            color: #d3d3d3; /* Light Grey */
+        }
     </style>
 </head>
 <body>
 
     <h1>Lawyered Up Soundtrack</h1>
 
-    <!-- The Audio Player -->
-    <audio id="audio" controls preload="auto">
-        <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
-        Your browser does not support the audio element.
-    </audio>
+    <div class="controls">
+        <button class="skip-btn" id="prevBtn">« Prev</button>
+        
+        <audio id="audio" controls preload="auto">
+            <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
+        </audio>
 
-    <!-- The Playlist -->
+        <button class="skip-btn" id="nextBtn">Next »</button>
+    </div>
+
     <ul id="playlist">
         <li class="track active" data-src="Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
         <li class="track" data-src="Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
@@ -45,31 +82,52 @@
         const audio = document.getElementById('audio');
         const source = document.getElementById('audio-source');
         const tracks = document.querySelectorAll('.track');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
+        function playTrack(trackElement) {
+            const nextTrackSrc = trackElement.getAttribute('data-src');
+            source.src = nextTrackSrc;
+            audio.load();
+            audio.play();
+            
+            // Update UI
+            tracks.forEach(t => t.classList.remove('active'));
+            trackElement.classList.add('active');
+        }
+
+        // Click track in list
         tracks.forEach(track => {
             track.addEventListener('click', function() {
-                // Get the file from data-src
-                const nextTrack = this.getAttribute('data-src');
-                
-                // Change source and reload
-                source.src = nextTrack;
-                audio.load();
-                audio.play();
-                
-                // Update active styling
-                tracks.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+                playTrack(this);
             });
         });
 
-        // Automatically play next song when one ends
-        audio.addEventListener('ended', function() {
+        // Next Button
+        nextBtn.addEventListener('click', () => {
             let current = document.querySelector('.track.active');
             let next = current.nextElementSibling;
-            
             if (next) {
-                next.click(); // Mimic a click on the next track
+                playTrack(next);
+            } else {
+                playTrack(tracks[0]); // Loop to start
             }
+        });
+
+        // Prev Button
+        prevBtn.addEventListener('click', () => {
+            let current = document.querySelector('.track.active');
+            let prev = current.previousElementSibling;
+            if (prev) {
+                playTrack(prev);
+            } else {
+                playTrack(tracks[tracks.length - 1]); // Loop to end
+            }
+        });
+
+        // Auto-advance when song ends
+        audio.addEventListener('ended', () => {
+            nextBtn.click();
         });
     </script>
 
