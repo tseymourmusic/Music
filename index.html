@@ -14,7 +14,8 @@
             flex-direction: column; 
             align-items: center; 
             padding-top: 50px; 
-            user-select: none; /* Prevents text highlighting while holding buttons */
+            user-select: none; 
+            -webkit-user-select: none;
         }
         
         .player-container, #playlist {
@@ -43,17 +44,16 @@
             background: #1e1e1e;
             color: #d3d3d3;
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.1s, background 0.3s;
-            touch-action: manipulation; /* Improves mobile response */
+            touch-action: none; /* Prevents scrolling while holding */
         }
         .skip-btn:hover { background: #000; }
         .skip-btn:active { transform: scale(0.9); }
@@ -88,11 +88,9 @@
 
     <div class="player-container">
         <button class="skip-btn" id="prevBtn">«</button>
-        
         <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
             <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
         </audio>
-
         <button class="skip-btn" id="nextBtn">»</button>
     </div>
 
@@ -111,9 +109,11 @@
 
         let holdTimer;
         let scrubInterval;
-        let isHolding = false;
+        let isScrubbing = false;
+        let startTime;
 
         function playTrack(trackElement) {
+            if (!trackElement) return;
             source.src = trackElement.getAttribute('data-src');
             audio.load();
             audio.play();
@@ -121,28 +121,31 @@
             trackElement.classList.add('active');
         }
 
-        // --- BUTTON LOGIC ---
+        function startAction(direction) {
+            startTime = Date.now();
+            isScrubbing = false;
 
-        function handleButtonDown(direction) {
-            isHolding = false;
-            // Wait 200ms to see if this is a "hold" or a "click"
             holdTimer = setTimeout(() => {
-                isHolding = true;
+                isScrubbing = true;
                 scrubInterval = setInterval(() => {
                     audio.currentTime += (direction === 'next' ? 5 : -5);
-                }, 150);
-            }, 200);
+                }, 100);
+            }, 250); // Delay before scrubbing starts
         }
 
-        function handleButtonUp(actionType) {
+        function endAction(direction) {
             clearTimeout(holdTimer);
             clearInterval(scrubInterval);
 
-            if (!isHolding) {
-                // It was just a click, so skip track
-                if (actionType === 'next') skipNext();
+            const duration = Date.now() - startTime;
+
+            // If the press was short (less than 250ms) and we weren't scrubbing
+            if (duration < 250 && !isScrubbing) {
+                if (direction === 'next') skipNext();
                 else skipPrev();
             }
+            
+            isScrubbing = false;
         }
 
         function skipNext() {
@@ -157,15 +160,17 @@
             playTrack(prev ? prev : tracks[tracks.length - 1]);
         }
 
-        // Event Listeners for Next Button
-        nextBtn.addEventListener('mousedown', () => handleButtonDown('next'));
-        nextBtn.addEventListener('mouseup', () => handleButtonUp('next'));
-        nextBtn.addEventListener('mouseleave', () => handleButtonUp('next'));
+        // Event listeners for NEXT
+        nextBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('next'); });
+        window.addEventListener('mouseup', () => { if(startTime) endAction('next'); startTime = null; });
+        nextBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('next'); }, {passive: false});
+        nextBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('next'); }, {passive: false});
 
-        // Event Listeners for Prev Button
-        prevBtn.addEventListener('mousedown', () => handleButtonDown('prev'));
-        prevBtn.addEventListener('mouseup', () => handleButtonUp('prev'));
-        prevBtn.addEventListener('mouseleave', () => handleButtonUp('prev'));
+        // Event listeners for PREV
+        prevBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('prev'); });
+        window.addEventListener('mouseup', () => { if(startTime) endAction('prev'); startTime = null; });
+        prevBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('prev'); }, {passive: false});
+        prevBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('prev'); }, {passive: false});
 
         // Playlist click
         tracks.forEach(track => {
