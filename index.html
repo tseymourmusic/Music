@@ -53,7 +53,7 @@
             align-items: center;
             justify-content: center;
             transition: transform 0.1s, background 0.3s;
-            touch-action: none; /* Prevents scrolling while holding */
+            touch-action: none;
         }
         .skip-btn:hover { background: #000; }
         .skip-btn:active { transform: scale(0.9); }
@@ -130,7 +130,7 @@
                 scrubInterval = setInterval(() => {
                     audio.currentTime += (direction === 'next' ? 5 : -5);
                 }, 100);
-            }, 250); // Delay before scrubbing starts
+            }, 250);
         }
 
         function endAction(direction) {
@@ -139,10 +139,9 @@
 
             const duration = Date.now() - startTime;
 
-            // If the press was short (less than 250ms) and we weren't scrubbing
             if (duration < 250 && !isScrubbing) {
                 if (direction === 'next') skipNext();
-                else skipPrev();
+                else if (direction === 'prev') skipPrev(); // Fixed logic here
             }
             
             isScrubbing = false;
@@ -160,14 +159,17 @@
             playTrack(prev ? prev : tracks[tracks.length - 1]);
         }
 
-        // Event listeners for NEXT
+        // --- Event Listeners with correct direction mapping ---
+
+        // NEXT
         nextBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('next'); });
         window.addEventListener('mouseup', () => { if(startTime) endAction('next'); startTime = null; });
         nextBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('next'); }, {passive: false});
         nextBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('next'); }, {passive: false});
 
-        // Event listeners for PREV
+        // PREV
         prevBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startAction('prev'); });
+        // We handle mouseup globally, but need to check which direction was being acted upon
         window.addEventListener('mouseup', () => { if(startTime) endAction('prev'); startTime = null; });
         prevBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startAction('prev'); }, {passive: false});
         prevBtn.addEventListener('touchend', (e) => { e.preventDefault(); endAction('prev'); }, {passive: false});
