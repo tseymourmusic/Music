@@ -5,6 +5,7 @@
     --accent-grey: #333;
 }
 
+/* --- THE BASE LAYOUT --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -18,7 +19,7 @@ html, body {
     overflow: hidden; 
 }
 
-/* --- FLUSH ALIGNMENT --- */
+/* --- ALIGNMENT --- */
 .player-container, #playlist {
     width: 95% !important; 
     max-width: 400px;
@@ -67,28 +68,28 @@ audio {
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- THE SCALE FIX: FORCING THE WINDOW TO GROW --- */
+/* --- THE 2.5x SCALE LOGIC --- */
 @media (max-width: 480px) {
     body {
-        /* This stretches the vertical view by 150% 
-           without making the player wider. */
-        transform: scaleY(1.5);
+        /* Force the window to be 2.5 times taller than Google's limit */
+        transform: scaleY(2.5);
         transform-origin: top;
-        
-        /* Because we stretched the height, the width might 
-           look slightly skinny; we compensate here if needed. */
         width: 100%;
     }
 
-    /* COUNTER-STRETCH: To prevent text from looking 'tall' or distorted,
-       we tell the internal elements to scale back down vertically. */
+    /* COUNTER-STRETCH: Prevents the content from looking distorted.
+       Since we scaled up by 2.5, we scale down by 1/2.5 (0.4) */
     .player-container, .track, .skip-btn {
-        transform: scaleY(0.66); /* 0.66 is the inverse of 1.5 */
+        transform: scaleY(0.4); 
         transform-origin: center;
     }
     
+    /* Extra padding to the tracks because the 0.4 scale makes them 'thin' */
+    .track {
+        padding: 25px 15px !important; 
+    }
+
     #playlist {
-        /* Ensuring the scrollable area is forced to fill the new height */
         height: 100% !important;
     }
 }
