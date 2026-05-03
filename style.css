@@ -16,8 +16,8 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* This prevents the whole screen from wobbling */
-    overflow: hidden; 
+    /* Allows the container to grow with the content */
+    overflow: visible !important; 
 }
 
 /* --- ALIGNMENT --- */
@@ -58,7 +58,7 @@ audio {
     cursor: pointer;
 }
 
-/* --- THE PLAYLIST (Dead Space Fixed) --- */
+/* --- THE PLAYLIST (Natural Height) --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -69,41 +69,46 @@ audio {
     box-sizing: border-box;
     
     /* 
-       This is the key: The container has a height, 
-       but we let the inner content be 'auto' 
+       'height: auto' ensures if you have 2 tracks, 
+       the box is only 2 tracks tall (No Dead Space).
     */
-    display: block !important;
+    height: auto !important; 
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE INDEPENDENT SCROLL --- */
+/* --- MOBILE "SLITHER" EXPANSION --- */
 @media (max-width: 480px) {
     #playlist {
-        /* This sets the size of the viewable 'window' */
-        height: 300px !important; 
-        max-height: 300px !important;
-        flex-grow: 0;
+        /* 
+           This is the limit. It says: 
+           'Grow as much as you want to fit the tracks, 
+           but stop at 350px and start scrolling there.'
+        */
+        max-height: 350px !important; 
+        
+        /* 
+           We use 'min-height' with a percentage to force Google's 
+           auto-slither to be 1.5x larger than it wants to be.
+        */
+        min-height: 150% !important;
     }
 
     body {
-        /* Ensure the total frame is big enough for the player + 300px list */
-        height: 450px !important; 
+        height: auto !important;
+        /* Ensures the 'stage' expands to show the taller list */
+        min-height: 120% !important; 
     }
 }
 
-/* --- THE TRACKS (Independent from container height) --- */
+/* --- THE TRACKS --- */
 .track { 
-    height: auto !important; /* Removes the forced expansion */
     padding: 12px 15px; 
     font-size: 0.95rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent; 
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .track.active { 
