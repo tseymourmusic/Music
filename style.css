@@ -5,35 +5,34 @@
     --accent-grey: #333;
 }
 
-/* --- THE VIMEO 'BOX' LOGIC --- */
+/* --- GLOBAL LOCK --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%; 
+    overflow: hidden; 
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* This stops the outer 'wobble' just like a video player */
-    overflow: hidden; 
 }
 
-/* --- THE PLAYER BAR (GitHub Aesthetics) --- */
+/* --- THE PLAYER BAR (GitHub Pill) --- */
 .player-container { 
-    width: 95%; /* Responsive width */
+    width: 92%;
     max-width: 400px;
-    background: var(--player-grey) !important; 
-    padding: 8px 12px;
-    border-radius: 30px; /* The Pill Shape */
+    background: var(--player-grey); 
+    padding: 6px 10px;
+    border-radius: 30px;
     margin-top: 10px;
     margin-bottom: 12px;
+    flex-shrink: 0;
     display: flex; 
     align-items: center; 
     gap: 8px; 
-    flex-shrink: 0; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
 audio { 
@@ -49,33 +48,57 @@ audio {
     width: 34px;
     height: 34px;
     border-radius: 50% !important;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    cursor: pointer;
 }
 
-/* --- THE PLAYLIST (Independent Scroll) --- */
+/* --- THE PLAYLIST --- */
 #playlist { 
-    width: 95%;
+    width: 92%;
     max-width: 400px;
     background: var(--dark-grey);
-    border-radius: 15px;
+    border-radius: 12px;
     border: 1px solid var(--accent-grey);
+    box-sizing: border-box;
     margin-bottom: 10px;
     
-    /* 
-       THE VIMEO FIX: 
-       Instead of a fixed pixel height, we tell it to fill 
-       whatever room is left in the Google Sites iframe.
-    */
+    /* DESKTOP: Stays tight to the box */
     flex-grow: 1; 
     overflow-y: auto !important; 
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
 }
 
-/* --- THE TRACKS --- */
+/* --- THE WINNER: HEIGHT EXPANSION ONLY --- */
+@media (max-width: 480px) {
+    #playlist {
+        /* 
+           This tells the box: ignore the height Google Sites gave you.
+           Take 100% of the container plus an extra 150px of 'overflow' height.
+        */
+        height: calc(100% + 150px) !important;
+        
+        /* Ensures it doesn't get wider */
+        width: 92% !important; 
+        
+        /* Forces the container to physically expand downwards */
+        min-height: 300px; 
+        
+        /* If the scale zoom look was preferred but only vertically: 
+           transform: scaleY(1.5); 
+           transform-origin: top; 
+        */
+    }
+    
+    /* Make the whole body scrollable on mobile only so you can reach 
+       the bottom of the newly expanded height */
+    html, body {
+        overflow-y: auto !important;
+    }
+}
+
+/* --- TRACKS --- */
 .track { 
     padding: 12px 15px; 
     font-size: 0.9rem;
@@ -83,7 +106,6 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
-    /* Prevents horizontal expansion/wobble */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,9 +115,4 @@ audio {
     background: var(--accent-grey); 
     border-left: 4px solid var(--player-grey);
     font-weight: 700;
-}
-
-@media (max-width: 480px) {
-    .player-container, #playlist { width: 92%; }
-    .track { padding: 10px 12px; font-size: 0.85rem; }
 }
