@@ -1,1 +1,80 @@
+/* style.css */
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    background: transparent; /* Allows Google Sites background to show through */
+    color: white; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin: 0;
+    padding: 10px; 
+    user-select: none; 
+    -webkit-user-select: none;
+    overflow-x: hidden; /* Prevents side-scrolling on mobile */
+}
 
+/* Responsive Container */
+.player-container, #playlist {
+    width: 100%;
+    max-width: 400px; /* Limits size on desktop, scales down on mobile */
+    box-sizing: border-box;
+}
+
+.player-container { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    background: #d3d3d3; 
+    padding: 8px 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+audio { 
+    height: 35px;
+    flex-grow: 1;
+    filter: grayscale(1) invert(1);
+    min-width: 0; /* Ensures audio tag doesn't push buttons off screen */
+}
+
+.skip-btn {
+    background: #1e1e1e;
+    color: #d3d3d3;
+    border: none;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0; /* Keeps buttons from squishing */
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+}
+
+#playlist { 
+    list-style: none; 
+    padding: 5px; 
+    background: #1e1e1e;
+    border-radius: 15px;
+    border: 1px solid #333;
+}
+
+.track { 
+    padding: 12px 15px; 
+    cursor: pointer; 
+    border-radius: 10px;
+    transition: all 0.3s;
+    border-left: 5px solid transparent;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.track.active { 
+    border-left: 5px solid #d3d3d3; 
+    background: #333; 
+    color: #d3d3d3; 
+    font-weight: 700;
+}
