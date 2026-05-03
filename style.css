@@ -5,13 +5,14 @@
     --accent-grey: #333;
 }
 
+/* 1. Force the 'window' to be exactly the size of the Google Sites box */
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
     background: var(--bg-color);
-    /* Changed from 'hidden' to 'auto' for better mobile compatibility */
-    overflow-x: hidden;
-    overflow-y: auto; 
+    overflow: hidden !important; /* Prevents the 'double scrollbar' */
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -19,7 +20,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .player-container { 
@@ -31,9 +31,8 @@ body {
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin-top: 5px;
-    margin-bottom: 8px;
-    flex-shrink: 0;
+    margin: 8px 0;
+    flex-shrink: 0; /* Keeps the player bar from squishing */
 }
 
 audio { 
@@ -50,9 +49,9 @@ audio {
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 14px;
 }
 
+/* 2. The scrollable area fix */
 #playlist { 
     width: 95%;
     max-width: 450px;
@@ -61,6 +60,22 @@ audio {
     background: var(--dark-grey);
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
+    
+    /* Force internal scrolling */
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch; /* Smooth scroll for iPhone */
+    
+    /* This height must be shorter than your Google Sites embed box */
+    height: 110px; 
+}
+
+/* Custom Scrollbar for visibility */
+#playlist::-webkit-scrollbar {
+    width: 8px;
+}
+#playlist::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
 }
 
 .track { 
@@ -79,22 +94,12 @@ audio {
     font-weight: 700;
 }
 
-/* MOBILE RE-ENGINEERING */
 @media (max-width: 480px) {
-    .player-container {
-        padding: 4px 8px;
-        margin-bottom: 4px;
+    #playlist {
+        height: 90px; /* Shorter for mobile screens */
     }
     .track {
-        /* Ultra-thin tracks for mobile to prevent overflow */
-        padding: 6px 12px; 
-        font-size: 0.75rem;
-    }
-    audio {
-        height: 28px;
-    }
-    .skip-btn {
-        width: 26px;
-        height: 26px;
+        padding: 10px 12px;
+        font-size: 0.8rem;
     }
 }
