@@ -5,7 +5,7 @@
     --accent-grey: #333;
 }
 
-/* --- THE FRAME (Fixes the disappearing playlist) --- */
+/* --- THE GLOBAL LOCK --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,18 +16,17 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* This allows the playlist to 'exist' even if it's tall */
-    overflow: visible !important; 
+    /* This prevents the whole screen from wobbling */
+    overflow: hidden; 
 }
 
-/* --- SHARED WIDTH (Flush Left) --- */
+/* --- ALIGNMENT --- */
 .player-container, #playlist {
     width: 95% !important; 
     max-width: 400px;
-    box-sizing: border-box;
 }
 
-/* --- THE PLAYER BAR (GitHub Pill) --- */
+/* --- PLAYER BAR --- */
 .player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
@@ -56,9 +55,10 @@ audio {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-/* --- THE PLAYLIST (The Fix) --- */
+/* --- THE PLAYLIST (Dead Space Fixed) --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -66,36 +66,37 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
+    box-sizing: border-box;
     
-    /* DESKTOP VIEW: Stays tight */
-    flex-grow: 1; 
+    /* 
+       This is the key: The container has a height, 
+       but we let the inner content be 'auto' 
+    */
+    display: block !important;
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE: THE 2.5x HEIGHT BLOW-UP --- */
+/* --- MOBILE INDEPENDENT SCROLL --- */
 @media (max-width: 480px) {
     #playlist {
-        /* This forces the window to be 2.5x larger than Google thinks */
-        height: 250% !important; 
-        min-height: 400px; /* Guarantees a large 'slither' */
-        
-        /* This ensures the scrollbar stays active */
-        display: block !important;
-        overflow-y: scroll !important;
+        /* This sets the size of the viewable 'window' */
+        height: 300px !important; 
+        max-height: 300px !important;
+        flex-grow: 0;
     }
 
-    /* We force the 'stage' to be big enough to hold the 2.5x increase */
     body {
-        height: auto !important;
-        min-height: 600px; 
+        /* Ensure the total frame is big enough for the player + 300px list */
+        height: 450px !important; 
     }
 }
 
-/* --- TRACKS --- */
+/* --- THE TRACKS (Independent from container height) --- */
 .track { 
-    padding: 14px 15px; 
-    font-size: 0.95rem; /* Slightly larger for easier mobile tapping */
+    height: auto !important; /* Removes the forced expansion */
+    padding: 12px 15px; 
+    font-size: 0.95rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent; 
