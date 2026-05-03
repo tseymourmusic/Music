@@ -1,11 +1,11 @@
 :root {
     --bg-color: #2c3338; 
-    --player-grey: #d3d3d3; /* The light grey bar */
-    --dark-grey: #1e1e1e;   /* The button & playlist background */
-    --accent-grey: #333;    /* The hover/active state */
+    --player-grey: #d3d3d3;
+    --dark-grey: #1e1e1e;
+    --accent-grey: #333;
 }
 
-/* --- LAYOUT LOCKS --- */
+/* --- THE GLOBAL FIX (Keeps it wobble-free) --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -19,13 +19,13 @@ html, body {
     align-items: center;
 }
 
-/* --- THE PLAYER BAR --- */
+/* --- THE PLAYER BAR (Restored Pill Shape) --- */
 .player-container { 
     width: 92%;
     max-width: 400px;
     background: var(--player-grey); 
     padding: 6px 10px;
-    border-radius: 10px;
+    border-radius: 30px; /* Restored the rounded GitHub look */
     margin-top: 10px;
     margin-bottom: 12px;
     flex-shrink: 0;
@@ -35,42 +35,39 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Restoring the dark "internal" look of the audio bar */
+/* --- THE AUDIO BAR (Restored Dark Theme) --- */
 audio { 
     height: 32px;
     flex-grow: 1;
-    filter: grayscale(1) invert(1); /* This makes the white bar dark */
+    filter: grayscale(1) invert(1) brightness(0.7); /* Turns it dark like GitHub */
 }
 
-/* --- THE SKIP BUTTONS (Restored Dark Grey) --- */
+/* --- THE SKIP BUTTONS (Restored Dark Circles) --- */
 .skip-btn {
-    background: var(--dark-grey) !important; /* Forces the dark button look */
+    background-color: var(--dark-grey) !important; 
     color: var(--player-grey) !important;
-    border: none;
+    border: none !important;
     width: 34px;
     height: 34px;
-    border-radius: 50%;
+    border-radius: 50% !important; /* Forces circles */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
+    padding: 0;
+    line-height: 1;
     flex-shrink: 0;
-    font-size: 14px;
-    transition: background 0.2s;
 }
 
-.skip-btn:hover {
-    background: var(--accent-grey) !important;
-}
-
-/* --- THE PLAYLIST --- */
+/* --- THE DYNAMIC PLAYLIST (Auto-Scale Logic) --- */
 #playlist { 
     width: 92%;
     max-width: 400px;
     list-style: none; 
     padding: 0;
     background: var(--dark-grey);
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
     margin-bottom: 10px;
