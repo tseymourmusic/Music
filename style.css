@@ -5,35 +5,29 @@
     --accent-grey: #333;
 }
 
+/* --- DESKTOP FIRST (The "Good Stuff") --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* Prevents horizontal movement at the browser level */
-    overflow-x: hidden;
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
-}
-
-body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-sizing: border-box;
-    padding: 10px 0;
 }
 
-/* THE PLAYER BAR - Separated from the list */
 .player-container { 
-    width: 92%;
+    width: 95%;
     max-width: 400px;
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin-bottom: 12px; /* Visual gap between bar and list */
+    margin-top: 10px;
+    margin-bottom: 12px;
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
     box-sizing: border-box;
 }
 
@@ -51,12 +45,10 @@ audio {
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    flex-shrink: 0;
 }
 
-/* THE PLAYLIST - Independent scroll restored */
 #playlist { 
-    width: 92%;
+    width: 95%;
     max-width: 400px;
     list-style: none; 
     padding: 0;
@@ -64,24 +56,8 @@ audio {
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
-    
-    /* Internal scrolling logic */
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch; /* Crucial for smooth iPhone scroll */
-    
-    /* height: auto for desktop, but limited for mobile scroll */
-    max-height: 150px; 
-}
-
-/* Visible Scrollbar for Safari */
-#playlist::-webkit-scrollbar {
-    width: 6px;
-    display: block;
-}
-#playlist::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 10px;
+    /* On Desktop: Let it grow naturally so no dead space */
+    height: auto;
 }
 
 .track { 
@@ -91,10 +67,6 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
-    /* Prevents horizontal expansion */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .track.active { 
@@ -104,14 +76,43 @@ audio {
     font-weight: 700;
 }
 
-/* MOBILE FIXES */
+/* --- MOBILE ONLY (The Aggressive Fixes) --- */
 @media (max-width: 480px) {
-    #playlist {
-        /* This makes the scroll window small enough to see it's scrollable */
-        max-height: 105px; 
+    html, body {
+        /* This stops the page-wide wobble on mobile */
+        height: 100%;
+        overflow: hidden !important; 
+        position: fixed;
     }
+
+    body {
+        padding: 5px 0;
+    }
+
+    .player-container {
+        width: 92%; /* Keeps it off the screen edges */
+        flex-shrink: 0;
+    }
+
+    #playlist {
+        width: 92%;
+        /* Force the list to be its own scrollable window */
+        flex-grow: 1; 
+        height: 120px; /* Adjust this to your preferred "window" height */
+        overflow-y: scroll !important;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 15px;
+    }
+
     .track {
         padding: 10px 12px;
         font-size: 0.8rem;
+        white-space: nowrap; /* Prevents text from breaking the scroll box */
+    }
+    
+    /* Forces the scrollbar to be visible on mobile */
+    #playlist::-webkit-scrollbar {
+        width: 5px;
+        display: block;
     }
 }
