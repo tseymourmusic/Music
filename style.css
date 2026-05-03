@@ -16,23 +16,29 @@ html, body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* This ensures everything is centered as a group */
+    align-items: center; 
 }
 
-/* --- THE PLAYER BAR (GitHub Pill) --- */
-.player-container { 
-    width: 92%;
+/* --- SHARED WIDTH LOGIC --- */
+.player-container, #playlist {
+    /* We set them to the EXACT same width so they align perfectly */
+    width: 95% !important; 
     max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* --- THE PLAYER BAR --- */
+.player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 30px;
     margin-top: 10px;
     margin-bottom: 12px;
-    flex-shrink: 0;
     display: flex; 
     align-items: center; 
     gap: 8px; 
-    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 audio { 
@@ -54,45 +60,29 @@ audio {
     cursor: pointer;
 }
 
-/* --- THE PLAYLIST --- */
+/* --- THE PLAYLIST (Gap Fixed) --- */
 #playlist { 
-    width: 92%;
-    max-width: 400px;
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Removed side margins to let the body-align handle it */
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
-    box-sizing: border-box;
-    margin-bottom: 10px;
     
-    /* DESKTOP: Stays tight to the box */
+    /* DESKTOP HEIGHT */
     flex-grow: 1; 
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- THE WINNER: HEIGHT EXPANSION ONLY --- */
+/* --- MOBILE HEIGHT BLOW-UP --- */
 @media (max-width: 480px) {
     #playlist {
-        /* 
-           This tells the box: ignore the height Google Sites gave you.
-           Take 100% of the container plus an extra 150px of 'overflow' height.
-        */
+        /* This is your 150% taller height without affecting desktop */
         height: calc(100% + 150px) !important;
-        
-        /* Ensures it doesn't get wider */
-        width: 92% !important; 
-        
-        /* Forces the container to physically expand downwards */
-        min-height: 300px; 
-        
-        /* If the scale zoom look was preferred but only vertically: 
-           transform: scaleY(1.5); 
-           transform-origin: top; 
-        */
+        min-height: 300px;
     }
     
-    /* Make the whole body scrollable on mobile only so you can reach 
-       the bottom of the newly expanded height */
     html, body {
         overflow-y: auto !important;
     }
@@ -104,7 +94,8 @@ audio {
     font-size: 0.9rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
-    border-left: 4px solid transparent;
+    /* This is the white highlight bar on the left of active tracks */
+    border-left: 4px solid transparent; 
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
