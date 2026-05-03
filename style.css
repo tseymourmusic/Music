@@ -76,44 +76,54 @@ audio {
     font-weight: 700;
 }
 
-/* --- MOBILE ONLY (The Aggressive Fixes) --- */
+/* --- MOBILE ONLY (The "Dynamic Expansion") --- */
 @media (max-width: 480px) {
-    html, body {
-        /* Takes Google's auto-scaled iframe size (100%) and forces a 50% fixed increase on top of it */
-        height: 150%; 
-        overflow: hidden !important; 
+    html {
+        /* Allow the window to grow but keep it contained */
+        height: auto !important;
+        overflow: visible !important;
     }
 
     body {
-        padding: 5px 0;
+        /* 
+           This is the "Stage." 
+           We set it to 130% of the natural content height.
+           It will scale small for 1 track and large for 10.
+        */
+        height: 130% !important; 
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Stops the side-to-side wobble */
+        overflow: hidden !important; 
     }
 
     .player-container {
-        width: 92%; /* Keeps it off the screen edges */
-        flex-shrink: 0;
+        width: 92%;
+        flex-shrink: 0; 
+        margin-top: 10px;
+        /* Ensures the player itself doesn't stretch/scale */
+        transform: scale(1); 
     }
 
     #playlist {
         width: 92%;
-        flex-grow: 1; 
-        
-        /* Forces the viewing window to match the stretched body, abandoning the hardcoded 120px */
-        height: 150%; 
-        
-        overflow-y: scroll !important;
+        /* 
+           Tell the playlist to take up the 'extra' 30% we 
+           just added to the body.
+        */
+        flex-grow: 1;
+        height: auto !important;
+        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .track {
-        padding: 10px 12px;
-        font-size: 0.8rem;
-        white-space: nowrap; /* Prevents text from breaking the scroll box */
-    }
-    
-    /* Forces the scrollbar to be visible on mobile */
-    #playlist::-webkit-scrollbar {
-        width: 5px;
-        display: block;
+        /* Keep text size fixed so only the window 'peeks' more */
+        padding: 14px 15px;
+        font-size: 0.9rem;
+        white-space: nowrap;
     }
 }
