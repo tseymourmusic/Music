@@ -5,7 +5,7 @@
     --accent-grey: #333;
 }
 
-/* --- THE BASE LAYOUT --- */
+/* --- THE FRAME (Fixes the disappearing playlist) --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,16 +16,18 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden; 
+    /* This allows the playlist to 'exist' even if it's tall */
+    overflow: visible !important; 
 }
 
-/* --- ALIGNMENT --- */
+/* --- SHARED WIDTH (Flush Left) --- */
 .player-container, #playlist {
     width: 95% !important; 
     max-width: 400px;
     box-sizing: border-box;
 }
 
+/* --- THE PLAYER BAR (GitHub Pill) --- */
 .player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
@@ -56,6 +58,7 @@ audio {
     justify-content: center;
 }
 
+/* --- THE PLAYLIST (The Fix) --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -63,41 +66,36 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
+    
+    /* DESKTOP VIEW: Stays tight */
     flex-grow: 1; 
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- THE 2.5x SCALE LOGIC --- */
+/* --- MOBILE: THE 2.5x HEIGHT BLOW-UP --- */
 @media (max-width: 480px) {
-    body {
-        /* Force the window to be 2.5 times taller than Google's limit */
-        transform: scaleY(2.5);
-        transform-origin: top;
-        width: 100%;
-    }
-
-    /* COUNTER-STRETCH: Prevents the content from looking distorted.
-       Since we scaled up by 2.5, we scale down by 1/2.5 (0.4) */
-    .player-container, .track, .skip-btn {
-        transform: scaleY(0.4); 
-        transform-origin: center;
-    }
-    
-    /* Extra padding to the tracks because the 0.4 scale makes them 'thin' */
-    .track {
-        padding: 25px 15px !important; 
-    }
-
     #playlist {
-        height: 100% !important;
+        /* This forces the window to be 2.5x larger than Google thinks */
+        height: 250% !important; 
+        min-height: 400px; /* Guarantees a large 'slither' */
+        
+        /* This ensures the scrollbar stays active */
+        display: block !important;
+        overflow-y: scroll !important;
+    }
+
+    /* We force the 'stage' to be big enough to hold the 2.5x increase */
+    body {
+        height: auto !important;
+        min-height: 600px; 
     }
 }
 
 /* --- TRACKS --- */
 .track { 
-    padding: 12px 15px; 
-    font-size: 0.9rem;
+    padding: 14px 15px; 
+    font-size: 0.95rem; /* Slightly larger for easier mobile tapping */
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent; 
