@@ -5,14 +5,14 @@
     --accent-grey: #333;
 }
 
-/* 1. Force the 'window' to be exactly the size of the Google Sites box */
+/* Force the container to take full height of the Google Sites box */
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     background: var(--bg-color);
-    overflow: hidden !important; /* Prevents the 'double scrollbar' */
+    overflow: hidden !important; 
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -20,6 +20,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    padding: 10px 0;
 }
 
 .player-container { 
@@ -31,12 +33,12 @@ body {
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
-    margin: 8px 0;
-    flex-shrink: 0; /* Keeps the player bar from squishing */
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Ensures the player bar never shrinks */
 }
 
 audio { 
-    height: 30px;
+    height: 32px;
     flex-grow: 1;
     filter: grayscale(1) invert(1);
 }
@@ -45,13 +47,16 @@ audio {
     background: var(--dark-grey);
     color: var(--player-grey);
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 2. The scrollable area fix */
+/* This is the part that handles the scroll correctly */
 #playlist { 
     width: 95%;
     max-width: 450px;
@@ -61,20 +66,20 @@ audio {
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
     
-    /* Force internal scrolling */
+    /* Auto-scrolling logic */
+    flex-grow: 1;
     overflow-y: auto !important; 
-    -webkit-overflow-scrolling: touch; /* Smooth scroll for iPhone */
-    
-    /* This height must be shorter than your Google Sites embed box */
-    height: 110px; 
+    -webkit-overflow-scrolling: touch; 
+    margin-bottom: 5px;
 }
 
-/* Custom Scrollbar for visibility */
+/* Visual cue: Makes the scrollbar always visible so users know they can scroll */
 #playlist::-webkit-scrollbar {
     width: 8px;
+    display: block;
 }
 #playlist::-webkit-scrollbar-thumb {
-    background: #555;
+    background: #666;
     border-radius: 10px;
 }
 
@@ -85,6 +90,7 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .track.active { 
@@ -95,9 +101,6 @@ audio {
 }
 
 @media (max-width: 480px) {
-    #playlist {
-        height: 90px; /* Shorter for mobile screens */
-    }
     .track {
         padding: 10px 12px;
         font-size: 0.8rem;
