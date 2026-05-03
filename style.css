@@ -4,50 +4,54 @@
     --dark-grey: #121212; 
 }
 
+/* Remove 100vh to stop the height battle with Google Frames */
 body {
     background: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* CHANGE THESE TWO LINES */
-    min-height: 100vh; 
     margin: 0;
-    padding-top: 20px; 
-    box-sizing: border-box; /* THIS IS THE SECRET SARE */
+    padding: 10px 5px; /* Minimal padding */
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden; /* THE KILL SWITCH FOR SCROLLBARS */
+    overflow: hidden; /* Keeps scrollbars away */
 }
 
 .player-container {
     background: var(--player-grey);
-    padding: 8px 14px;
+    padding: 6px 10px; /* Thinner padding to save vertical space */
     border-radius: 60px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: 95%;
-    max-width: 450px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    gap: 8px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-sizing: border-box;
 }
 
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    padding: 4px 10px;
+    padding: 2px 8px; /* Extremely tight padding */
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
-    min-width: 210px;
-    height: 54px; 
+    min-width: 200px;
+    height: 48px; /* Shorter height to fit in small frames */
     justify-content: center;
 }
 
 audio {
     width: 100% !important;
-    height: 30px;
-    filter: grayscale(1) invert(1) brightness(1); 
+    height: 28px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
     display: block;
+    background: transparent !important;
+}
+
+audio::-webkit-media-controls-enclosure {
+    background-color: transparent !important;
 }
 
 #track-title {
@@ -56,9 +60,9 @@ audio {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-top: 2px;
+    margin-top: 1px;
     text-align: center;
-    width: 100%;
+    width: 95%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -68,11 +72,11 @@ audio {
     background: #1e1e1e;
     color: var(--player-grey);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
