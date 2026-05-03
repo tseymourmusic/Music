@@ -4,11 +4,11 @@ const source = document.getElementById('audio-source');
 const tracks = Array.from(document.querySelectorAll('.track'));
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-// NEW: Reference the text display inside the console
 const trackTitleDisplay = document.getElementById('track-title');
 
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
+// Core function to change tracks
 function playTrack(trackElement) {
     if (!trackElement) return;
     
@@ -16,12 +16,10 @@ function playTrack(trackElement) {
     audio.load();
     audio.play();
 
-    // --- NEW LOGIC START ---
-    // This updates the white text inside the black pill
+    // Updates the white text inside the black pill
     if (trackTitleDisplay) {
         trackTitleDisplay.textContent = trackElement.textContent;
     }
-    // --- NEW LOGIC END ---
 
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
@@ -39,11 +37,7 @@ function skipPrev() {
     playTrack(tracks[prevIdx]);
 }
 
-/* 
-   Keep your existing onDown, onUp, and Event Listeners 
-   exactly as they were for the scrubbing/holding logic.
-*/
-
+// Logic for Rewind/Fast-Forward on Hold
 function onDown(e, direction) {
     e.preventDefault();
     pressStartTime = Date.now();
@@ -68,6 +62,7 @@ function onUp(e, direction) {
     isScrubbing = false;
 }
 
+// Event Listeners for Desktop and Mobile
 nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
 nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
 nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
@@ -85,3 +80,11 @@ tracks.forEach(track => {
 });
 
 audio.addEventListener('ended', skipNext);
+
+// INITIALIZATION: Populate the title name immediately on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const activeTrack = document.querySelector('.track.active') || tracks[0];
+    if (activeTrack && trackTitleDisplay) {
+        trackTitleDisplay.textContent = activeTrack.textContent;
+    }
+});
