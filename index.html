@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawyered Up Player</title>
+    <!-- Import Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to your shared styling file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- The Player Bar -->
     <div class="player-container">
-        <button class="skip-btn" id="prevBtn">«</button>
+        <button class="skip-btn" id="prevBtn" title="Previous/Rewind">«</button>
+        
         <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
-            <source id="audio-source" src="Song_From_Vol_2.m4a" type="audio/mp4">
+            <!-- Default starting track -->
+            <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
         </audio>
-        <button class="skip-btn" id="nextBtn">»</button>
+
+        <button class="skip-btn" id="nextBtn" title="Next/Fast Forward">»</button>
     </div>
 
+    <!-- The Track List -->
     <ul id="playlist">
-        <li class="track active" data-src="Song_From_Vol_2.m4a">Vol 2 - Track 1</li>
-        <li class="track" data-src="Another_Song.m4a">Vol 2 - Track 2</li>
+        <li class="track active" data-src="Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
+        <li class="track" data-src="Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
+        <li class="track" data-src="Lawyered Up Pt3.m4a">Lawyered Up - Part 3</li>
     </ul>
 
+    <!-- Link to your shared logic file -->
     <script src="player.js"></script>
+
 </body>
 </html>
