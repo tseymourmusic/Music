@@ -4,14 +4,24 @@ const source = document.getElementById('audio-source');
 const tracks = Array.from(document.querySelectorAll('.track'));
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const trackTitle = document.getElementById('track-title'); // The new target
 
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
 function playTrack(trackElement) {
     if (!trackElement) return;
+    
+    // Update Audio Source
     source.src = trackElement.getAttribute('data-src');
     audio.load();
     audio.play();
+
+    // Update Text inside the Pill
+    if (trackTitle) {
+        trackTitle.textContent = trackElement.textContent;
+    }
+
+    // Active State logic
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
 }
@@ -28,6 +38,7 @@ function skipPrev() {
     playTrack(tracks[prevIdx]);
 }
 
+// Keep all your existing onDown / onUp functions for scrubbing below
 function onDown(e, direction) {
     e.preventDefault();
     pressStartTime = Date.now();
@@ -52,7 +63,6 @@ function onUp(e, direction) {
     isScrubbing = false;
 }
 
-// Controls Listeners
 nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
 nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
 nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
