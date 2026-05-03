@@ -1,18 +1,17 @@
 :root {
     --bg-color: #2c3338; 
-    --player-grey: #d3d3d3;
-    --dark-grey: #1e1e1e;
-    --accent-grey: #333;
+    --player-grey: #d3d3d3; /* The light grey bar */
+    --dark-grey: #1e1e1e;   /* The button & playlist background */
+    --accent-grey: #333;    /* The hover/active state */
 }
 
-/* --- THE GLOBAL FIX --- */
+/* --- LAYOUT LOCKS --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* This tells the code to take EXACTLY the height of the Google Sites box */
     height: 100%; 
-    overflow: hidden; /* Prevents the 'wobble' by locking the outer frame */
+    overflow: hidden; 
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -29,14 +28,42 @@ html, body {
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 12px;
-    flex-shrink: 0; /* Important: Don't let the list squish the player bar */
+    flex-shrink: 0;
     display: flex; 
     align-items: center; 
     gap: 8px; 
     box-sizing: border-box;
 }
 
-/* --- THE DYNAMIC PLAYLIST --- */
+/* Restoring the dark "internal" look of the audio bar */
+audio { 
+    height: 32px;
+    flex-grow: 1;
+    filter: grayscale(1) invert(1); /* This makes the white bar dark */
+}
+
+/* --- THE SKIP BUTTONS (Restored Dark Grey) --- */
+.skip-btn {
+    background: var(--dark-grey) !important; /* Forces the dark button look */
+    color: var(--player-grey) !important;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.skip-btn:hover {
+    background: var(--accent-grey) !important;
+}
+
+/* --- THE PLAYLIST --- */
 #playlist { 
     width: 92%;
     max-width: 400px;
@@ -47,19 +74,12 @@ html, body {
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
     margin-bottom: 10px;
-
-    /* THE MAGIC PART: 
-       This tells the list to take up ALL remaining space 
-       provided by the Google Sites blue box. */
     flex-grow: 1; 
-    
-    /* This enables independent scrolling ONLY if the tracks 
-       overflow the space you've provided in the editor. */
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch;
 }
 
-/* Rest of your track styling... */
+/* --- TRACKS --- */
 .track { 
     padding: 12px 15px; 
     font-size: 0.9rem;
