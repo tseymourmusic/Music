@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --bg-color: #2c3338; 
@@ -10,62 +9,55 @@
     --accent-grey: #333;
 }
 
-/* --- THE ANCHOR --- */
+/* --- THE STAGE --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%; 
     background: var(--bg-color);
-    font-family: 'Montserrat', sans-serif;
+    font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* This stops the side-wobble and unit-scrolling */
-    overflow: hidden !important; 
-    touch-action: pan-y;
+    /* This forces the player to stay on the LEFT as per your design */
+    align-items: flex-start; 
+    overflow-x: hidden;
 }
 
-/* --- FLUSH ALIGNMENT --- */
+/* --- THE CONTAINERS --- */
 .player-container, #playlist {
-    width: 94% !important; 
+    width: 95%;
     max-width: 400px;
-    box-sizing: border-box;
+    margin-left: 10px; /* Provides the tiny gap from the left edge */
 }
 
-/* --- PLAYER PILL --- */
 .player-container { 
     background: var(--player-grey); 
-    padding: 6px 10px;
+    padding: 8px;
     border-radius: 30px;
-    margin-top: 10px;
-    margin-bottom: 12px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: flex; 
     align-items: center; 
-    gap: 8px; 
-    flex-shrink: 0; 
+    gap: 10px;
 }
 
 audio { 
-    height: 32px;
+    height: 30px;
     flex-grow: 1;
-    filter: grayscale(1) invert(1) brightness(0.7); 
+    filter: grayscale(1) invert(1); 
 }
 
 .skip-btn {
-    background-color: var(--dark-grey) !important; 
-    color: var(--player-grey) !important;
-    border: none !important;
-    width: 34px;
-    height: 34px;
-    border-radius: 50% !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--dark-grey);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     cursor: pointer;
 }
 
-/* --- THE PLAYLIST (Natural Desktop, Tall Mobile) --- */
+/* --- THE PLAYLIST --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -73,48 +65,32 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
-    
-    /* DESKTOP: Hugs the tracks so there is NO dead space */
-    height: auto !important;
-    max-height: 400px; 
-    
-    overflow-y: auto !important; 
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
+    /* DESKTOP: Hug the content (No dead space) */
+    height: auto;
+    overflow-y: auto;
 }
 
-/* --- THE MOBILE OVERRIDE --- */
+/* --- THE MOBILE 'SLITHER' KILLER --- */
 @media (max-width: 480px) {
-    /* We force the body to be taller than Google's blue box */
-    body {
-        height: 500px !important;
-        overflow: visible !important;
-    }
-
     #playlist {
-        /* This forces the 'slither' to become a 350px window */
-        height: 350px !important;
-        display: block !important;
+        /* This forces the independent scroll window on mobile */
+        height: 320px !important;
+        display: block;
     }
 }
 
-/* --- TRACKS --- */
+/* --- THE TRACKS --- */
 .track { 
-    padding: 12px 15px; 
-    font-size: 0.95rem;
-    color: #fff;
-    border-bottom: 1px solid #2a2a2a;
-    border-left: 4px solid transparent; 
+    padding: 15px; 
+    color: white;
+    border-bottom: 1px solid var(--accent-grey);
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 14px;
 }
 
 .track.active { 
-    background: var(--accent-grey); 
-    border-left: 4px solid var(--player-grey);
-    font-weight: 700;
+    background: #444;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -126,12 +102,52 @@ audio {
     <button class="skip-btn" onclick="nextTrack()">&#10095;</button>
 </div>
 
-<ul id="playlist">
-    <!-- Tracks will be injected here by your script -->
-</ul>
+<ul id="playlist"></ul>
 
 <script>
-// Your existing track-list and player script goes here
+    // MAKE SURE YOUR TRACKS ARE DEFINED HERE
+    const tracks = [
+        { name: "First Song Title", url: "link_to_audio_1.mp3" },
+        { name: "Second Song Title", url: "link_to_audio_2.mp3" }
+    ];
+
+    let currentTrackIndex = 0;
+    const player = document.getElementById('audio-player');
+    const playlistElement = document.getElementById('playlist');
+
+    function renderPlaylist() {
+        playlistElement.innerHTML = '';
+        tracks.forEach((track, index) => {
+            const li = document.createElement('li');
+            li.className = 'track' + (index === currentTrackIndex ? ' active' : '');
+            li.textContent = track.name;
+            li.onclick = () => {
+                currentTrackIndex = index;
+                playCurrent();
+            };
+            playlistElement.appendChild(li);
+        });
+    }
+
+    function playCurrent() {
+        player.src = tracks[currentTrackIndex].url;
+        player.play();
+        renderPlaylist();
+    }
+
+    function nextTrack() {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        playCurrent();
+    }
+
+    function prevTrack() {
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        playCurrent();
+    }
+
+    // Load initial state
+    player.src = tracks[0].url;
+    renderPlaylist();
 </script>
 
 </body>
