@@ -1,7 +1,7 @@
 :root {
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
-    --dark-grey: #121212; /* Slightly deeper black */
+    --dark-grey: #121212; 
 }
 
 body {
@@ -14,75 +14,71 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* THE OUTER PILL */
 .player-container {
     background: var(--player-grey);
-    padding: 10px 15px; /* Increased padding slightly */
+    padding: 10px 12px; /* Tighter padding for mobile */
     border-radius: 60px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    width: 95%;
-    max-width: 460px;
+    gap: 8px; /* Closer buttons for mobile */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    width: 98%; /* Use almost full width of the container */
+    max-width: 500px;
 }
 
-/* THE BLACK INNER CONSOLE - Extended to wrap text */
 .console {
     background: var(--dark-grey);
-    border-radius: 30px; /* More rounded for the inner pill look */
-    padding: 8px 15px;
+    border-radius: 35px;
+    padding: 8px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
-    min-width: 0;
+    /* CRITICAL: Force enough width so iOS shows the seek bar */
+    min-width: 200px; 
 }
 
 audio {
     width: 100%;
-    height: 32px;
-    /* This filter keeps the controls visible on the deep black background */
+    height: 34px; /* Slightly taller helps mobile controls appear */
     filter: grayscale(1) invert(1) brightness(1); 
 }
 
-/* THE TEXT - Now "popping" in white */
 #track-title {
-    color: #ffffff !important; /* Pure white */
-    font-size: 11px;
+    color: #ffffff !important; 
+    font-size: 10px; /* Slightly smaller for mobile safety */
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     margin-top: 6px;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
     text-align: center;
-    opacity: 0.9; /* Slight softness so it's not piercing */
+    width: 100%;
+    white-space: nowrap;
 }
 
 .skip-btn {
     background: #1e1e1e;
     color: var(--player-grey);
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 38px; /* Slightly smaller buttons to save horizontal space */
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.1s;
+    flex-shrink: 0; /* Prevents buttons from squishing */
 }
 
-.skip-btn:active {
-    transform: scale(0.9);
-}
+#playlist { display: none !important; }
 
-/* HIDE THE LIST */
-#playlist {
-    display: none !important;
+/* MOBILE SPECIFIC TWEAK */
+@media (max-width: 480px) {
+    .console {
+        min-width: 180px; /* Adjusting for the narrowest screens */
+    }
+    audio {
+        height: 30px; /* Shorter bar on mobile */
+    }
 }
