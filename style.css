@@ -5,11 +5,14 @@
     --accent-grey: #333;
 }
 
-/* --- DESKTOP FIRST (The "Good Stuff") --- */
+/* --- THE GLOBAL FIX --- */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
+    /* This tells the code to take EXACTLY the height of the Google Sites box */
+    height: 100%; 
+    overflow: hidden; /* Prevents the 'wobble' by locking the outer frame */
     background: var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -17,38 +20,25 @@ html, body {
     align-items: center;
 }
 
+/* --- THE PLAYER BAR --- */
 .player-container { 
-    width: 95%;
+    width: 92%;
     max-width: 400px;
     background: var(--player-grey); 
     padding: 6px 10px;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 12px;
+    flex-shrink: 0; /* Important: Don't let the list squish the player bar */
     display: flex; 
     align-items: center; 
     gap: 8px; 
     box-sizing: border-box;
 }
 
-audio { 
-    height: 32px;
-    flex-grow: 1;
-    filter: grayscale(1) invert(1);
-}
-
-.skip-btn {
-    background: var(--dark-grey);
-    color: var(--player-grey);
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
+/* --- THE DYNAMIC PLAYLIST --- */
 #playlist { 
-    width: 95%;
+    width: 92%;
     max-width: 400px;
     list-style: none; 
     padding: 0;
@@ -56,10 +46,20 @@ audio {
     border-radius: 10px;
     border: 1px solid var(--accent-grey);
     box-sizing: border-box;
-    /* On Desktop: Let it grow naturally so no dead space */
-    height: auto;
+    margin-bottom: 10px;
+
+    /* THE MAGIC PART: 
+       This tells the list to take up ALL remaining space 
+       provided by the Google Sites blue box. */
+    flex-grow: 1; 
+    
+    /* This enables independent scrolling ONLY if the tracks 
+       overflow the space you've provided in the editor. */
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch;
 }
 
+/* Rest of your track styling... */
 .track { 
     padding: 12px 15px; 
     font-size: 0.9rem;
@@ -67,6 +67,9 @@ audio {
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .track.active { 
@@ -76,43 +79,6 @@ audio {
     font-weight: 700;
 }
 
-/* --- MOBILE ONLY (The Aggressive Fixes) --- */
 @media (max-width: 480px) {
-    html, body {
-        /* This stops the page-wide wobble on mobile */
-        height: 100%;
-        overflow: hidden !important; 
-        position: fixed;
-    }
-
-    body {
-        padding: 5px 0;
-    }
-
-    .player-container {
-        width: 92%; /* Keeps it off the screen edges */
-        flex-shrink: 0;
-    }
-
-    #playlist {
-        width: 92%;
-        /* Force the list to be its own scrollable window */
-        flex-grow: 1; 
-        height: 120px; /* Adjust this to your preferred "window" height */
-        overflow-y: scroll !important;
-        -webkit-overflow-scrolling: touch;
-        margin-bottom: 15px;
-    }
-
-    .track {
-        padding: 10px 12px;
-        font-size: 0.8rem;
-        white-space: nowrap; /* Prevents text from breaking the scroll box */
-    }
-    
-    /* Forces the scrollbar to be visible on mobile */
-    #playlist::-webkit-scrollbar {
-        width: 5px;
-        display: block;
-    }
+    .track { padding: 10px 12px; font-size: 0.8rem; }
 }
