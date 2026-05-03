@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homologies Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="player-container">
+        <button class="skip-btn" id="prevBtn">«</button>
+        
+        <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
+            <!-- Starting with Part 1 -->
+            <source id="audio-source" src="Homologies Pt1.m4a" type="audio/mp4">
+        </audio>
+
+        <button class="skip-btn" id="nextBtn">»</button>
+    </div>
+
+    <ul id="playlist">
+        <li class="track active" data-src="Homologies Pt1.m4a">Homologies - Part 1</li>
+        <li class="track" data-src="Homologies Pt2.m4a">Homologies - Part 2</li>
+    </ul>
+
+    <script src="player.js"></script>
+
+</body>
+</html>
