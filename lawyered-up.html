@@ -16,15 +16,20 @@
     <div class="player-container">
         <button class="skip-btn" id="prevBtn" title="Previous/Rewind">«</button>
         
-        <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
-            <!-- Default starting track -->
-            <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
-        </audio>
+        <!-- THE BLACK PILL DISPLAY -->
+        <div class="console">
+            <audio id="audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="auto">
+                <!-- Default starting track -->
+                <source id="audio-source" src="Lawyered Up Pt1.m4a" type="audio/mp4">
+            </audio>
+            <!-- White text popping inside the black area -->
+            <div id="track-title">Lawyered Up - Part 1</div>
+        </div>
 
         <button class="skip-btn" id="nextBtn" title="Next/Fast Forward">»</button>
     </div>
 
-    <!-- The Track List -->
+    <!-- The Track List (Hidden by CSS, used by player.js) -->
     <ul id="playlist">
         <li class="track active" data-src="Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
         <li class="track" data-src="Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
