@@ -5,7 +5,7 @@
     --accent-grey: #333;
 }
 
-/* --- THE GLOBAL LOCK --- */
+/* --- THE ANCHOR --- */
 html, body {
     margin: 0;
     padding: 0;
@@ -16,17 +16,18 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Allows the container to grow with the content */
-    overflow: visible !important; 
+    /* CRITICAL: Stops the side wobble and the "unit" scrolling */
+    overflow: hidden !important; 
+    touch-action: pan-y;
 }
 
 /* --- ALIGNMENT --- */
 .player-container, #playlist {
-    width: 95% !important; 
+    width: 92% !important; /* Slightly narrower to prevent edge-bumping */
     max-width: 400px;
+    box-sizing: border-box;
 }
 
-/* --- PLAYER BAR --- */
 .player-container { 
     background: var(--player-grey); 
     padding: 6px 10px;
@@ -36,7 +37,7 @@ html, body {
     display: flex; 
     align-items: center; 
     gap: 8px; 
-    flex-shrink: 0;
+    flex-shrink: 0; /* Keeps the player from squishing */
 }
 
 audio { 
@@ -45,20 +46,7 @@ audio {
     filter: grayscale(1) invert(1) brightness(0.7); 
 }
 
-.skip-btn {
-    background-color: var(--dark-grey) !important; 
-    color: var(--player-grey) !important;
-    border: none !important;
-    width: 34px;
-    height: 34px;
-    border-radius: 50% !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-/* --- THE PLAYLIST (Natural Height) --- */
+/* --- THE INDEPENDENT SCROLL BOX --- */
 #playlist { 
     list-style: none;
     padding: 0;
@@ -66,49 +54,44 @@ audio {
     background: var(--dark-grey);
     border-radius: 12px;
     border: 1px solid var(--accent-grey);
-    box-sizing: border-box;
     
-    /* 
-       'height: auto' ensures if you have 2 tracks, 
-       the box is only 2 tracks tall (No Dead Space).
-    */
-    height: auto !important; 
+    /* Forces it to only scroll inside this box */
+    flex-grow: 1; 
     overflow-y: auto !important; 
+    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- MOBILE "SLITHER" EXPANSION --- */
+/* --- MOBILE "SLITHER" OVERRIDE --- */
 @media (max-width: 480px) {
-    #playlist {
-        /* 
-           This is the limit. It says: 
-           'Grow as much as you want to fit the tracks, 
-           but stop at 350px and start scrolling there.'
-        */
-        max-height: 350px !important; 
-        
-        /* 
-           We use 'min-height' with a percentage to force Google's 
-           auto-slither to be 1.5x larger than it wants to be.
-        */
-        min-height: 150% !important;
+    /* 
+       We force the BODY to be tall enough to show 4-5 tracks,
+       but we keep OVERFLOW HIDDEN so it doesn't wobble.
+    */
+    body {
+        height: 480px !important; 
     }
 
-    body {
+    #playlist {
+        /* This is your 'Slither' expansion. 
+           It will take up the remaining space in the 480px body. */
         height: auto !important;
-        /* Ensures the 'stage' expands to show the taller list */
-        min-height: 120% !important; 
+        margin-bottom: 10px;
     }
 }
 
-/* --- THE TRACKS --- */
+/* --- TRACKS (No Dead Space) --- */
 .track { 
-    padding: 12px 15px; 
+    padding: 14px 15px; 
     font-size: 0.95rem;
     color: #fff;
     border-bottom: 1px solid #2a2a2a;
     border-left: 4px solid transparent; 
     cursor: pointer;
+    /* Prevents horizontal scrolling inside the track */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .track.active { 
