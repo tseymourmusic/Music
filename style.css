@@ -13,7 +13,7 @@ body {
     padding: 10px 5px; 
     font-family: 'Montserrat', sans-serif;
     overflow: hidden; 
-    touch-action: none; /* Prevents the whole iframe from 'bouncing' on mobile */
+    touch-action: auto;
     -webkit-text-size-adjust: none;
 }
 
@@ -97,12 +97,13 @@ audio {
 }
 
 #track-title:hover {
+    height: 160px;
     max-height: 160px; 
-    overflow-y: auto !important; /* Changed to auto for better gesture detection */
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
     padding: 8px 0;
     width: 100%; 
     top: 30px; 
-    /* This ensures the menu stays 'inside' the touch-area */
     position: absolute; 
 }
 
