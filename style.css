@@ -28,7 +28,6 @@ body {
     box-sizing: border-box;
 }
 
-/* RESTORED: The Button Designs */
 .skip-btn {
     background: #1e1e1e;
     color: var(--player-grey);
@@ -59,6 +58,7 @@ body {
     overflow: visible; 
 }
 
+/* KEPT YOUR ORIGINAL DETAILED AUDIO BLOCK */
 audio {
     width: 100% !important;
     height: 30px;
@@ -77,7 +77,6 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    /* TWEAK: Moved up from 34px to 32px to center in the black area */
     top: 32px; 
     left: 50%;
     transform: translateX(-50%);
@@ -85,7 +84,6 @@ audio {
     border-radius: 12px;
     transition: all 0.3s ease;
     z-index: 100;
-    /* TWEAK: Increased from 14px to 18px to stop clipping text */
     max-height: 18px; 
     overflow: hidden;
     display: flex;
@@ -94,26 +92,37 @@ audio {
 }
 
 #track-title:hover {
-    max-height: 250px; 
+    /* Limit height to 160px so you can shrink the Google Iframe height */
+    max-height: 160px; 
+    /* Enable internal scrolling for the list */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
     padding: 8px 0;
     width: 100%; 
-    /* TWEAK: Adjusted to 30px so it feels like it grows 'up' slightly on hover */
     top: 30px; 
 }
 
-/* RESTORED: Hide the bulleted list */
+/* Custom scrollbar for the popup menu */
+#track-title::-webkit-scrollbar {
+    width: 4px;
+}
+#track-title::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
 #playlist { 
     display: none !important; 
 }
 
 .menu-item {
-    padding: 10px 5px;
+    padding: 12px 5px; /* Slightly taller for better mobile tapping */
     display: block;
-    opacity: 0.5;
+    opacity: 0.6;
     transition: 0.2s;
     border-bottom: 1px solid #222;
-    line-height: 1;
+    line-height: 1.2;
 }
 
 .menu-item:last-child { border-bottom: none; }
