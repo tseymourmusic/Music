@@ -29,58 +29,68 @@ body {
     box-sizing: border-box;
 }
 
+/* ... keep your existing root and body styles ... */
+
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    padding: 2px 8px; /* Extremely tight padding */
+    padding: 2px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
-    min-width: 200px;
-    height: 48px; /* Shorter height to fit in small frames */
+    min-width: 210px;
+    height: 48px; 
     justify-content: center;
+    position: relative; /* Anchor for the pop-out */
 }
 
-audio {
-    width: 100% !important;
-    height: 28px;
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    display: block;
-    background: transparent !important;
-}
-
-audio::-webkit-media-controls-enclosure {
-    background-color: transparent !important;
-}
-
+/* The "Window" for the tracks */
 #track-title {
     color: #ffffff !important; 
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-top: 1px;
     text-align: center;
-    width: 95%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.skip-btn {
-    background: #1e1e1e;
-    color: var(--player-grey);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 100%;
     cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    position: absolute; /* Takes it out of the layout flow */
+    top: 32px; /* Positioned right under the audio bar */
+    background: var(--dark-grey);
+    border-radius: 15px;
+    padding: 5px 0;
+    transition: all 0.3s ease;
+    z-index: 100; /* Floats above everything */
+    max-height: 20px; /* Hidden state */
+    overflow: hidden;
 }
 
-#playlist { display: none !important; }
+/* The Hover Expansion */
+#track-title:hover {
+    max-height: 200px; /* Pops out */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    padding: 10px 0;
+}
+
+/* Style for individual tracks inside the pop-out */
+.menu-item {
+    padding: 8px 10px;
+    display: block;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.menu-item:hover {
+    opacity: 1;
+    background: #252525;
+}
+
+.menu-item.active-link {
+    opacity: 1;
+    color: #fff;
+    order: -1; /* Forces current track to the top */
+}
+
+/* Hide the old playlist entirely */
+#playlist { display: none; }
