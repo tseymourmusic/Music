@@ -4,21 +4,20 @@
     --dark-grey: #121212; 
 }
 
-/* Remove 100vh to stop the height battle with Google Frames */
 body {
     background: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: flex-start;
     margin: 0;
-    padding: 10px 5px; /* Minimal padding */
+    padding: 10px 5px; 
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden; /* Keeps scrollbars away */
+    overflow: hidden; 
 }
 
 .player-container {
     background: var(--player-grey);
-    padding: 6px 10px; /* Thinner padding to save vertical space */
+    padding: 6px 10px; 
     border-radius: 60px;
     display: flex;
     align-items: center;
@@ -29,21 +28,35 @@ body {
     box-sizing: border-box;
 }
 
-/* ... keep your existing root and body styles ... */
+/* RESTORED: The Button Designs */
+.skip-btn {
+    background: #1e1e1e;
+    color: var(--player-grey);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    padding: 4px 8px 24px 8px; /* ADDED 24px bottom padding to create a "shelf" */
+    padding: 4px 8px 24px 8px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
     min-width: 210px;
-    height: 58px; /* Increased height to accommodate the shelf */
-    justify-content: flex-start; /* Aligns audio to top */
+    height: 54px; /* Slightly tighter than the screenshot version */
+    justify-content: flex-start; 
     position: relative;
-    overflow: visible; /* CRITICAL: Allows the menu to pop OUT of the pill */
+    overflow: visible; 
 }
 
 audio {
@@ -52,9 +65,14 @@ audio {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
     display: block;
     background: transparent !important;
-    margin-bottom: 2px;
+    margin-bottom: 0px; /* Removed margin to close the gap */
 }
 
+audio::-webkit-media-controls-enclosure {
+    background-color: transparent !important;
+}
+
+/* THE NUDGED TRACK TITLE */
 #track-title {
     color: #ffffff !important; 
     font-size: 10px;
@@ -65,24 +83,28 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    bottom: 6px; /* Sticks it to the bottom of that new shelf */
+    bottom: 4px; /* Nudged slightly closer to bottom than last time */
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
     border-radius: 12px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 100;
-    max-height: 18px; /* Normal state */
+    max-height: 18px; 
     overflow: hidden;
 }
 
-/* The Hover Expansion */
 #track-title:hover {
     max-height: 250px; 
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
     padding: 8px 0;
-    width: 100%; /* Expands to full width of pill on hover */
-    bottom: -10px; /* Pops out slightly below the pill for a 3D effect */
+    width: 100%; 
+    bottom: -5px; /* Pops out just enough to look depth-sensitive */
+}
+
+/* RESTORED: Hide the bulleted list */
+#playlist { 
+    display: none !important; 
 }
 
 .menu-item {
@@ -94,14 +116,5 @@ audio {
 }
 
 .menu-item:last-child { border-bottom: none; }
-
-.menu-item:hover {
-    opacity: 1;
-    background: #1e1e1e;
-}
-
-.menu-item.active-link {
-    opacity: 1;
-    color: #fff;
-    background: #121212;
-}
+.menu-item:hover { opacity: 1; background: #1e1e1e; }
+.menu-item.active-link { opacity: 1; color: #fff; background: #121212; }
