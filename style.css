@@ -13,6 +13,8 @@ body {
     padding: 10px 5px; 
     font-family: 'Montserrat', sans-serif;
     overflow: hidden; 
+    touch-action: none; /* Prevents the whole iframe from 'bouncing' on mobile */
+    -webkit-text-size-adjust: none;
 }
 
 .player-container {
@@ -90,18 +92,18 @@ audio {
     flex-direction: column;
     justify-content: flex-start;
     /* NEW: Prevents the phone from trying to swipe the whole page when touching this */
-    touch-action: pan-y; 
+    touch-action: pan-y !important;
+    
 }
 
 #track-title:hover {
     max-height: 160px; 
-    /* NEW: 'auto' can be finicky on some mobile OS; 'scroll' forces the behavior */
-    overflow-y: scroll; 
-    -webkit-overflow-scrolling: touch; 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    overflow-y: auto !important; /* Changed to auto for better gesture detection */
     padding: 8px 0;
     width: 100%; 
     top: 30px; 
+    /* This ensures the menu stays 'inside' the touch-area */
+    position: absolute; 
 }
 
 /* Custom scrollbar for the popup menu */
