@@ -3,126 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Composer Portfolio | Soundtracks</title>
+    <title>Tim Seymour | Composer • Producer</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --bg: #121212;
-            --accent: #d3d3d3;
-            --text: #ffffff;
-        }
-
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
+            display: block; /* Overriding the center-flex for the hub */
+            padding: 10% 5%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
         }
 
-        .container {
-            padding: 20px;
-            max-width: 600px;
+        header {
+            margin-bottom: 80px;
         }
 
         h1 {
+            font-size: 2.5rem;
             font-weight: 300;
-            letter-spacing: 8px;
+            letter-spacing: 12px;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
+            margin: 0;
         }
 
-        .subtitle {
-            font-size: 0.9rem;
+        .bio {
+            color: #bbb;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .section-label {
+            color: #555;
+            font-size: 0.7rem;
             letter-spacing: 4px;
-            color: #888;
-            margin-bottom: 50px;
             text-transform: uppercase;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
         }
 
         .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 60px 0;
         }
 
-        .project-card {
-            border: 1px solid #333;
-            padding: 30px;
-            border-radius: 4px;
+        .project-item {
+            margin-bottom: 40px;
+        }
+
+        .project-item a {
+            color: #fff;
             text-decoration: none;
-            color: var(--text);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(45deg, #1a1a1a, #121212);
+            font-size: 1.8rem;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-block;
         }
 
-        .project-card:hover {
-            border-color: var(--accent);
-            background: #1e1e1e;
-            transform: translateY(-5px);
+        .project-item a:hover {
+            letter-spacing: 3px;
+            color: #ff3c00; /* Optional: adds a "highlight" color on hover */
         }
 
-        .project-card h2 {
-            margin: 0;
-            font-size: 1.2rem;
+        .project-desc {
+            color: #666;
+            font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-top: 5px;
         }
 
-        .project-card p {
+        footer {
+            margin-top: 100px;
             font-size: 0.8rem;
-            color: #888;
-            margin-top: 8px;
-            letter-spacing: 1px;
-        }
-
-        .footer {
-            margin-top: 60px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
             color: #444;
         }
+
+        footer a { color: #888; text-decoration: none; margin-right: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Original Scores</h1>
-        <div class="subtitle">Composer / Sound Designer</div>
+    <header>
+        <h1>Tim Seymour</h1>
+<div class="bio">
+    <p>
+        Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.
+    </p>
+    
+    <p>
+        A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> (ex-Disney VP of Music) and orchestration expert <strong>Dr. Norman Ludwin</strong>. This foundation of high-end musical architecture is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring the delivery of world-class cinematic experiences with both artistic depth and technical precision.
+    </p>
+    
+    <p>
+        Following his 2024 debut classical album, <em>Saviour</em>—a 17-track cycle for string orchestra and piano—Tim’s breakout score for the short film <em>Homologies</em> (dir. by Bryerly Long) earned critical acclaim at the Sherman Oaks Film Festival. This was followed by the score for <em>Lawyered Up</em> (dir. by Tatiana Blackington James), which was showcased at prestigious film festivals worldwide.
+    </p>
+    
+    <p>
+        A former <strong>LSO SoundHub Associate Composer</strong> with previous broadcast features on <em>BBC Radio 3</em>, Tim is currently architecting his most ambitious work to date: <em>Tales for All Time</em>. Classically reimagined for modern times, this 15-movement cycle is scheduled for recording with the <strong>London Symphony Orchestra</strong> at St Luke’s in 2026.
+    </p>
+</div>
+    </header>
 
-        <div class="project-list">
-            <!-- Link to your Lawyered Up Page -->
-            <a href="Lawyered-Up.html" class="project-card">
-                <h2>Lawyered Up</h2>
-                <p>Original Motion Picture Soundtrack</p>
-            </a>
+    <div class="section-label">Selected Works</div>
 
-            <!-- Link to your Homologies Page -->
-            <a href="homologies.html" class="project-card">
-                <h2>Homologies</h2>
-                <p>Dramatic Short Film Score</p>
-            </a>
-            
-            <!-- Link to any future projects -->
-            <a href="#" class="project-card" style="opacity: 0.3; cursor: default;">
-                <h2>Coming Soon</h2>
-                <p>New Project in Development</p>
-            </a>
-        </div>
+    <ul class="project-list">
+        <li class="project-item">
+            <a href="lawyered-up-v2.html">Lawyered Up</a>
+            <div class="project-desc">Short Film Soundtrack • Sci-fi / Drama</div>
+        </li>
+        <li class="project-item">
+            <a href="homologies-v2.html">Homologies</a>
+            <div class="project-desc">Short Film Soundtrack • Sci-fi / Drama</div>
+        </li>
+    </ul>
 
-        <div class="footer">
-            &copy; 2024 PORTFOLIO. ALL AUDIO CONTENT PROTECTED.
-        </div>
-    </div>
+    <div class="section-label">Contact</div>
+    
+    <footer>
+        <a href="mailto:your-email@example.com">Email Me</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+    </footer>
 
 </body>
 </html>
