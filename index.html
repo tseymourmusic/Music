@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tim Seymour | Composer & Producer</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. Global Reset & Scrolling */
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #0a0a0a; /* Deep cinematic black */
+            background-color: #0a0a0a;
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden; /* Prevents side-scrolling */
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* 2. Hero Section (Tales for All Time) */
+        /* --- HERO SECTION WITH ENTRANCE ANIMATIONS --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -29,10 +27,20 @@
             justify-content: center;
             text-align: center;
             padding: 20px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=2070'); /* Temporary forest background */
+            /* Using a placeholder background - replace with your image path */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), 
+                        url('path/to/your/forest-background.jpg'); 
             background-size: cover;
             background-position: center;
+            opacity: 0; 
+            transform: translateY(15px);
+            transition: opacity 2s ease-out, transform 2s ease-out;
+        }
+
+        /* When the observer triggers 'reveal' */
+        .hero-section.reveal { 
+            opacity: 1; 
+            transform: translateY(0); 
         }
 
         .mythic-title {
@@ -51,36 +59,45 @@
             margin: 20px 0 40px 0;
             color: #F5F5DC;
             letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1.5s ease-out 0.5s, transform 1s ease-out 0.5s;
+        }
+
+        .hero-section.reveal .mythic-tagline { 
+            opacity: 0.8; 
+            transform: translateY(0); 
         }
 
         .mythic-button {
+            display: inline-block;
             padding: 12px 30px;
             font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
             color: #FFFFFF;
             text-decoration: none;
             border: 1px solid #D4AF37;
             background: rgba(212, 175, 55, 0.1);
-            transition: 0.3s;
+            opacity: 0;
+            transition: opacity 1.5s ease-out 1s, background 0.3s;
+            animation: pulse-glow 3s infinite;
         }
-        .mythic-button:hover { background: rgba(212, 175, 55, 0.3); }
 
-        /* 3. Content Layout (The Bio & Projects) */
+        .hero-section.reveal .mythic-button { 
+            opacity: 1; 
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); border-color: rgba(212, 175, 55, 1); }
+        }
+
+        /* --- CONTENT SECTION --- */
         .content-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        .bio-section {
-            margin-bottom: 100px;
-        }
-
-        .bio-section p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #ccc;
-            margin-bottom: 25px;
-            font-weight: 300;
+            padding: 100px 24px;
         }
 
         .section-label {
@@ -88,82 +105,72 @@
             font-size: 0.7rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #222;
             padding-bottom: 10px;
             margin-bottom: 40px;
         }
 
-        .project-item {
-            margin-bottom: 50px;
-            transition: 0.3s;
+        .bio-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #bbb;
+            margin-bottom: 30px;
+            font-weight: 300;
         }
 
+        .project-item { margin-bottom: 60px; }
         .project-item a {
             color: #fff;
             text-decoration: none;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-family: 'Cinzel', serif;
-        }
-
-        .project-desc {
-            color: #666;
-            font-size: 0.8rem;
             letter-spacing: 2px;
-            margin-top: 10px;
         }
-
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            border-top: 1px solid #222;
-            color: #444;
-        }
+        .project-desc { color: #555; font-size: 0.8rem; margin-top: 8px; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <!-- HERO SECTION -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero">
         <h1 class="mythic-title">T<span class="low-case">al</span>ES <span class="low-case">f</span>O<span class="low-case">r</span> A<span class="low-case">ll</span> T<span class="low-case">i</span>ME</h1>
         <p class="mythic-tagline">Ancient myths & legends classically retold for our time.</p>
         <a href="https://www.tim-seymour.com/music/tales-for-all-time" target="_blank" class="mythic-button">CHAPTER I</a>
     </section>
 
-    <!-- MAIN CONTENT -->
+    <!-- CONTENT -->
     <div class="content-container">
         
         <div class="section-label">Biography</div>
-        <section class="bio-section">
-            <p>
-                Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.
-            </p>
-            <p>
-                A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> (ex-Disney VP of Music) and orchestration expert <strong>Dr. Norman Ludwin</strong>. This foundation of high-end musical architecture is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring the delivery of world-class cinematic experiences with both artistic depth and technical precision.
-            </p>
-            <p>
-                Following his 2024 debut classical album, <em>Saviour</em>—a 17-track cycle for string orchestra and piano—Tim’s breakout score for the short film <em>Homologies</em> (dir. by Bryerly Long) earned critical acclaim at the Sherman Oaks Film Festival. This was followed by the score for <em>Lawyered Up</em> (dir. by Tatiana Blackington James), which was showcased at prestigious film festivals worldwide.
-            </p>
-            <p>
-                A former <strong>LSO SoundHub Associate Composer</strong> with previous broadcast features on <em>BBC Radio 3</em>, Tim is currently architecting his most ambitious work to date: <em>Tales for All Time</em>. Classically reimagined for modern times, this 15-movement cycle is scheduled for recording with the <strong>London Symphony Orchestra</strong> at St Luke’s in 2026.
-            </p>
-        </section>
+        <div class="bio-text">
+            <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
+            <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
+            <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales for All Time</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> in 2026.</p>
+        </div>
 
         <div class="section-label">Film Scores</div>
-        <section class="project-list">
-            <div class="project-item">
-                <a href="lawyered-up-v2.html">Lawyered Up</a>
-                <div class="project-desc">Original Soundtrack • Drama</div>
-            </div>
-            <div class="project-item">
-                <a href="homologies-v2.html">Homologies</a>
-                <div class="project-desc">Sound Design • Experimental</div>
-            </div>
-        </section>
+        <div class="project-item">
+            <a href="lawyered-up-v2.html">Lawyered Up</a>
+            <div class="project-desc">Original Soundtrack • Drama</div>
+        </div>
+        <div class="project-item">
+            <a href="homologies-v2.html">Homologies</a>
+            <div class="project-desc">Sound Design • Experimental</div>
+        </div>
 
-        <footer>
-            &copy; 2026 Tim Seymour | <a href="mailto:contact@tim-seymour.com" style="color: #666; text-decoration: none;">Contact</a>
-        </footer>
     </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(document.getElementById('hero'));
+    </script>
 
 </body>
 </html>
