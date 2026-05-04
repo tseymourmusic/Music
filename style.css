@@ -47,14 +47,13 @@ body {
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    /* Reduced bottom padding to bring the floor back up */
     padding: 4px 8px 18px 8px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
     min-width: 210px;
-    height: 52px; /* Tightened height */
+    height: 52px; 
     justify-content: flex-start; 
     position: relative;
     overflow: visible; 
@@ -70,7 +69,7 @@ audio {
 
 #track-title {
     color: #ffffff !important; 
-    font-size: 9px; /* Slightly smaller for a cleaner look */
+    font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -78,16 +77,20 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    /* Changed from bottom to top to pin it exactly relative to the audio bar */
-    top: 34px; 
+    /* TWEAK: Moved up from 34px to 32px to center in the black area */
+    top: 32px; 
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
     border-radius: 12px;
     transition: all 0.3s ease;
     z-index: 100;
-    max-height: 14px; 
+    /* TWEAK: Increased from 14px to 18px to stop clipping text */
+    max-height: 18px; 
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 #track-title:hover {
@@ -95,7 +98,8 @@ audio {
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
     padding: 8px 0;
     width: 100%; 
-    top: 32px; /* Pulls up slightly on hover to look like it's expanding over the player */
+    /* TWEAK: Adjusted to 30px so it feels like it grows 'up' slightly on hover */
+    top: 30px; 
 }
 
 /* RESTORED: Hide the bulleted list */
@@ -109,6 +113,7 @@ audio {
     opacity: 0.5;
     transition: 0.2s;
     border-bottom: 1px solid #222;
+    line-height: 1;
 }
 
 .menu-item:last-child { border-bottom: none; }
