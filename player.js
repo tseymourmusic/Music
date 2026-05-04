@@ -69,6 +69,7 @@ function skipPrev() {
 // Logic for Rewind/Fast-Forward on Hold
 function onDown(e, direction) {
     e.preventDefault();
+    e.stopPropagation();
     pressStartTime = Date.now();
     isScrubbing = false;
     holdTimer = setTimeout(() => {
@@ -110,4 +111,11 @@ audio.addEventListener('ended', skipNext);
 // INITIALIZATION
 window.addEventListener('DOMContentLoaded', () => {
     refreshMenu(); // Build the menu for the first time
+    
+    document.getElementById('track-title').addEventListener('touchmove', function(e) {
+        // If the menu is expanded, don't let the touch move the background
+        if (this.scrollHeight > this.offsetHeight) {
+            e.stopPropagation();
+        }
+    }, { passive: false });
 });
