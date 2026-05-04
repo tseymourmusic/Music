@@ -47,13 +47,13 @@ body {
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
-    padding: 4px 8px 18px 8px; 
+    padding: 4px 8px 14px 8px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
     min-width: 210px;
-    height: 52px; 
+    height: 48px; 
     justify-content: flex-start; 
     position: relative;
     overflow: visible; 
