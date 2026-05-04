@@ -97,7 +97,7 @@ audio {
 }
 
 #track-title:hover {
-    height: 160px;
+    height: auto;
     max-height: 160px; 
     overflow-y: scroll !important;
     -webkit-overflow-scrolling: touch;
