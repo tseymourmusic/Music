@@ -110,12 +110,15 @@ audio.addEventListener('ended', skipNext);
 
 // INITIALIZATION
 window.addEventListener('DOMContentLoaded', () => {
-    refreshMenu(); // Build the menu for the first time
+    refreshMenu();
+
+    const menu = document.getElementById('track-title');
     
-    document.getElementById('track-title').addEventListener('touchmove', function(e) {
-        // If the menu is expanded, don't let the touch move the background
+    menu.addEventListener('touchmove', function(e) {
+        // Only prevent default if we are actually scrolling the menu
         if (this.scrollHeight > this.offsetHeight) {
+            e.preventDefault(); // This stops the main page from bobbing
             e.stopPropagation();
         }
-    }, { passive: false });
+    }, { passive: false }); // 'passive: false' is mandatory for preventDefault to work
 });
