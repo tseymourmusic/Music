@@ -77,7 +77,7 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    top: 31px; /* Nudged up 1px to compensate for line-height */
+    top: 31px; 
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
@@ -89,14 +89,15 @@ audio {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    /* NEW: Prevents the phone from trying to swipe the whole page when touching this */
+    touch-action: pan-y; 
 }
 
 #track-title:hover {
-    /* Limit height to 160px so you can shrink the Google Iframe height */
     max-height: 160px; 
-    /* Enable internal scrolling for the list */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
+    /* NEW: 'auto' can be finicky on some mobile OS; 'scroll' forces the behavior */
+    overflow-y: scroll; 
+    -webkit-overflow-scrolling: touch; 
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
     padding: 8px 0;
     width: 100%; 
