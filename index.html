@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tim Seymour | Composer & Producer</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
         body, html {
@@ -18,7 +18,51 @@
             scroll-behavior: smooth;
         }
 
-        /* --- HERO SECTION WITH ENTRANCE ANIMATIONS --- */
+        /* --- NAVIGATION BAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            box-sizing: border-box;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.5s;
+        }
+
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #D4AF37; /* Gold highlight from your button */
+        }
+
+        /* --- HERO SECTION --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -27,21 +71,17 @@
             justify-content: center;
             text-align: center;
             padding: 20px;
-            /* Using a placeholder background - replace with your image path */
-           background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), 
-            url('images/Tales-For-All-Time-bg.gif');
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), 
+                        url('images/Tales-For-All-Time-bg.gif'); 
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             opacity: 0; 
             transform: translateY(15px);
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
 
-        /* When the observer triggers 'reveal' */
-        .hero-section.reveal { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
+        .hero-section.reveal { opacity: 1; transform: translateY(0); }
 
         .mythic-title {
             font-family: 'Cinzel Decorative', cursive;
@@ -64,10 +104,7 @@
             transition: opacity 1.5s ease-out 0.5s, transform 1s ease-out 0.5s;
         }
 
-        .hero-section.reveal .mythic-tagline { 
-            opacity: 0.8; 
-            transform: translateY(0); 
-        }
+        .hero-section.reveal .mythic-tagline { opacity: 0.8; transform: translateY(0); }
 
         .mythic-button {
             display: inline-block;
@@ -84,9 +121,7 @@
             animation: pulse-glow 3s infinite;
         }
 
-        .hero-section.reveal .mythic-button { 
-            opacity: 1; 
-        }
+        .hero-section.reveal .mythic-button { opacity: 1; }
 
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.5); }
@@ -101,7 +136,7 @@
         }
 
         .section-label {
-            color: #555;
+            color: #444;
             font-size: 0.7rem;
             letter-spacing: 4px;
             text-transform: uppercase;
@@ -118,46 +153,39 @@
             font-weight: 300;
         }
 
-        .project-item { margin-bottom: 60px; }
-        .project-item a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.8rem;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
+        /* Responsive Nav for Mobile */
+        @media (max-width: 768px) {
+            nav { padding: 20px; flex-direction: column; gap: 15px; }
+            .nav-links { gap: 15px; font-size: 0.6rem; }
         }
-        .project-desc { color: #555; font-size: 0.8rem; margin-top: 8px; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION -->
+    <nav id="main-nav">
+        <a href="#" class="nav-logo">TIM SEYMOUR</a>
+        <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="https://www.tim-seymour.com/music">Music</a>
+            <a href="https://www.tim-seymour.com/live">Live</a>
+            <a href="https://www.tim-seymour.com/store">Store</a>
+            <a href="https://www.tim-seymour.com/contact">Contact</a>
+        </div>
+    </nav>
+
     <section class="hero-section" id="hero">
         <h1 class="mythic-title">T<span class="low-case">al</span>ES <span class="low-case">f</span>O<span class="low-case">r</span> A<span class="low-case">ll</span> T<span class="low-case">i</span>ME</h1>
         <p class="mythic-tagline">Ancient myths & legends classically retold for our time.</p>
         <a href="https://www.tim-seymour.com/music/tales-for-all-time" target="_blank" class="mythic-button">CHAPTER I</a>
     </section>
 
-    <!-- CONTENT -->
     <div class="content-container">
-        
         <div class="section-label">Biography</div>
         <div class="bio-text">
             <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
             <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
             <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales for All Time</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> in 2026.</p>
         </div>
-
-        <div class="section-label">Film Scores</div>
-        <div class="project-item">
-            <a href="lawyered-up-v2.html">Lawyered Up</a>
-            <div class="project-desc">Original Soundtrack • Drama</div>
-        </div>
-        <div class="project-item">
-            <a href="homologies-v2.html">Homologies</a>
-            <div class="project-desc">Sound Design • Experimental</div>
-        </div>
-
     </div>
 
     <script>
@@ -170,6 +198,16 @@
         }, { threshold: 0.1 });
 
         observer.observe(document.getElementById('hero'));
+
+        // Script to change nav background on scroll
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (window.pageYOffset > 100) {
+                nav.style.background = "rgba(0, 0, 0, 0.9)";
+            } else {
+                nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)";
+            }
+        };
     </script>
 
 </body>
