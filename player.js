@@ -8,6 +8,37 @@ const trackTitleDisplay = document.getElementById('track-title');
 
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
+/**
+ * NEW: Rebuilds the selectable menu inside the track-title div
+ * Always puts the active track at the very top.
+ */
+function refreshMenu() {
+    if (!trackTitleDisplay) return;
+    
+    // Clear the current display
+    trackTitleDisplay.innerHTML = '';
+    
+    // Sort tracks: active one first, then others
+    const sortedTracks = [...tracks].sort((a, b) => {
+        return b.classList.contains('active') - a.classList.contains('active');
+    });
+
+    // Create the clickable items
+    sortedTracks.forEach(track => {
+        const item = document.createElement('div');
+        item.className = 'menu-item' + (track.classList.contains('active') ? ' active-link' : '');
+        item.textContent = track.textContent;
+        
+        // When a track is picked from the popup
+        item.onclick = (e) => {
+            e.stopPropagation(); // Prevents hover glitches
+            playTrack(track);
+        };
+        
+        trackTitleDisplay.appendChild(item);
+    });
+}
+
 // Core function to change tracks
 function playTrack(trackElement) {
     if (!trackElement) return;
@@ -16,13 +47,11 @@ function playTrack(trackElement) {
     audio.load();
     audio.play();
 
-    // Updates the white text inside the black pill
-    if (trackTitleDisplay) {
-        trackTitleDisplay.textContent = trackElement.textContent;
-    }
-
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
+
+    // Update the menu reorder immediately
+    refreshMenu();
 }
 
 function skipNext() {
@@ -62,7 +91,7 @@ function onUp(e, direction) {
     isScrubbing = false;
 }
 
-// Event Listeners for Desktop and Mobile
+// Event Listeners for Buttons
 nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
 nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
 nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
@@ -75,16 +104,10 @@ prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: false});
 
 window.addEventListener('mouseup', () => { clearTimeout(holdTimer); clearInterval(scrubInterval); });
 
-tracks.forEach(track => {
-    track.addEventListener('click', function() { playTrack(this); });
-});
-
+// Handle track ended
 audio.addEventListener('ended', skipNext);
 
-// INITIALIZATION: Populate the title name immediately on page load
+// INITIALIZATION
 window.addEventListener('DOMContentLoaded', () => {
-    const activeTrack = document.querySelector('.track.active') || tracks[0];
-    if (activeTrack && trackTitleDisplay) {
-        trackTitleDisplay.textContent = activeTrack.textContent;
-    }
+    refreshMenu(); // Build the menu for the first time
 });
