@@ -5,125 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tales For All Time | Tim Seymour Composer</title>
     
-    <!-- Fonts: Synchronized with Index -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
-    
-    <!-- External Player CSS -->
     <link rel="stylesheet" href="style.css">
 
     <style>
         body, html { 
             margin: 0; padding: 0; 
-            background-color: #0a0a0a; /* Match index black */
+            background-color: #0a0a0a; 
             color: #FFFFFF; 
             font-family: 'Montserrat', sans-serif; 
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
         
-        /* --- NAVIGATION (Branding Match) --- */
+        /* Navigation (Standard) */
         nav { 
             position: fixed; top: 0; width: 100%; 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 25px 50px; box-sizing: border-box; z-index: 1000; 
             background: rgba(10, 10, 10, 0.98); 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .nav-logo { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem; 
-            letter-spacing: 3px; 
-            text-decoration: none; 
-            color: #fff; 
-            font-weight: 200; 
-            text-transform: uppercase; 
-        }
-        .nav-links a { 
-            text-decoration: none; 
-            color: #fff; 
-            font-size: 0.7rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-left: 30px; 
-            font-weight: 300; 
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: #D4AF37; }
+        .nav-logo { font-size: 0.75rem; letter-spacing: 3px; text-decoration: none; color: #fff; font-weight: 200; text-transform: uppercase; }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-left: 30px; font-weight: 300; }
 
-        /* --- HERO SECTION (Glow & Fade Effect) --- */
-        .hero-project {
-            height: 60vh;
+        /* Hero - Matches Index structure to fix layout */
+        .hero-section {
+            height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(10,10,10,0.4), rgba(10,10,10,1)), 
+            padding: 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), 
                         url('images/Tales-For-All-Time-bg.gif'); 
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; 
+            transform: translateY(15px);
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
-
-        .hero-project.reveal { opacity: 1; transform: translateY(0); }
+        .hero-section.reveal { opacity: 1; transform: translateY(0); }
 
         .mythic-title {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-size: clamp(1.8rem, 8vw, 4rem);
             letter-spacing: 0.15em;
-            text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.6);
+            text-shadow: 0px 0px 12px rgba(212, 175, 55, 0.5);
             margin: 0;
         }
         .low-case { text-transform: lowercase; }
 
-        .tagline { 
-            font-family: 'Cinzel', serif;
-            text-align: center; 
-            color: #F5F5DC; 
-            font-size: 0.9rem; 
-            margin-top: 20px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            opacity: 0.8;
-        }
-
-        /* --- CONTENT LAYOUT --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-        
+        /* Content */
+        .container { max-width: 1000px; margin: 0 auto; padding: 100px 24px; }
         .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-        .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.8); border: 1px solid #1a1a1a; }
+        .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); }
 
-        /* Section Labels */
-        .details h3 { 
+        h3.section-header { 
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem; 
-            letter-spacing: 4px; 
-            color: #555; 
-            margin: 45px 0 20px; 
-            border-bottom: 1px solid #1a1a1a; 
-            padding-bottom: 10px; 
-            text-transform: uppercase; 
-            font-weight: 400;
+            font-size: 0.65rem; letter-spacing: 5px; color: #444; 
+            border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; margin: 40px 0 20px;
+            text-transform: uppercase; font-weight: 300;
         }
+        p { font-size: 1rem; line-height: 1.9; color: #aaa; margin-bottom: 25px; font-weight: 300; }
+        strong { color: #fff; }
 
-        .details p { font-size: 1rem; line-height: 1.9; color: #aaa; margin-bottom: 25px; font-weight: 300; }
-        .details strong { color: #fff; font-weight: 400; }
+        /* Player */
+        .player-container { margin-bottom: 40px; }
 
-        /* Player Styling */
-        .player-container {
-            margin: 20px 0 40px;
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 4px;
-        }
-
-        /* Responsive Fixes */
         @media (max-width: 900px) { 
             .project-grid { grid-template-columns: 1fr; } 
-            nav { padding: 20px; flex-direction: column; gap: 15px; }
-            .nav-links a { margin: 0 10px; }
+            nav { padding: 20px; }
         }
     </style>
 </head>
@@ -137,58 +88,45 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Glow Animation -->
-    <header class="hero-project" id="project-hero">
+    <section class="hero-section" id="hero">
         <h1 class="mythic-title">T<span class="low-case">al</span>ES <span class="low-case">f</span>O<span class="low-case">r</span> A<span class="low-case">ll</span> T<span class="low-case">i</span>ME</h1>
-        <p class="tagline">A Cinematic Audio-Visual Odyssey featuring the London Symphony Orchestra</p>
-    </header>
+    </section>
 
     <div class="container">
         <div class="project-grid">
-            <!-- Left Side: Visual -->
             <div class="poster">
-                <img src="images/Tales-Artwork-Main.jpg" alt="Tales For All Time Artwork">
+                <img src="images/Tales-Artwork-Main.jpg" alt="Tales Artwork">
             </div>
 
-            <!-- Right Side: Details & Player -->
             <div class="details">
-                <p><strong>Tales for All Time</strong> is an ambitious cinematic reimagining of ancient myths, recorded with the <strong>London Symphony Orchestra</strong> at LSO St Luke’s.</p>
-                <p>By grounding universal legends in the moss-drenched textures of the New Forest, the project symphonises rich orchestral heritage with contemporary production and 2.5D animated visual art.</p>
+                <p><strong>Tales for All Time</strong> is a cinematic reimagining of 15 ancient myths, recorded with the <strong>London Symphony Orchestra</strong>.</p>
+                <p>Grounding universal legends in the textures of the New Forest, this project combines orchestral heritage with immersive cinematic production.</p>
                 
-                <h3>SOUNDTRACK</h3>
-                
-                <!-- The Player structure for player.js -->
+                <h3 class="section-header">Soundtrack</h3>
                 <div class="player-container">
                     <button class="skip-btn" id="prevBtn">«</button>
                     <div class="console">
                         <audio id="audio" controls controlsList="nodownload">
                             <source id="audio-source" src="audio/Movement-XIV-Destiny.mp3" type="audio/mpeg">
                         </audio>
-                        <div id="track-title">Movement XIV: Destiny (Preview)</div>
+                        <div id="track-title">Movement XIV: Destiny</div>
                     </div>
                     <button class="skip-btn" id="nextBtn">»</button>
                 </div>
 
-                <!-- Playlist Data -->
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="audio/Movement-XIV-Destiny.mp3">Movement XIV: Destiny</li>
-                    <li class="track" data-src="audio/Movement-I-Icarus.mp3">Movement I: Icarus' Flight</li>
                 </ul>
-
-                <h3>PROJECT DETAILS</h3>
-                <p>Scheduled for full release in 2026/2027, the project features collaborations with <strong>London Contemporary Voices</strong> and visual illustrations by <strong>Courtney Leggett</strong>.</p>
             </div>
         </div>
     </div>
 
-    <!-- JS for Reveal Animation & Player -->
     <script src="player.js"></script>
     <script>
-        // Trigger the fade-in and glow effect on load
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('project-hero').classList.add('reveal');
+        // Trigger reveal animation
+        window.addEventListener('load', () => {
+            document.getElementById('hero').classList.add('reveal');
         });
     </script>
-
 </body>
 </html>
