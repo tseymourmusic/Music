@@ -358,14 +358,12 @@ fetch('player-component.html')
         // Inject the master player UI into the placeholder
         placeholder.innerHTML = data; 
 
-        if (localPlaylist) {
-            const target = document.getElementById('playlist-target');
-            if (target) {
-                // Move your "Destiny" track list into the player component
-                target.appendChild(localPlaylist);
-                // Override the 'display: none !important' so it actually shows up
-                localPlaylist.setAttribute('style', 'display: block !important');
-            }
+	if (localPlaylist) {
+    		const target = document.getElementById('playlist-target');
+    		if (target) {
+        		// Move your "Destiny" track list into the player component
+        		target.appendChild(localPlaylist);
+    		}
             
             // Set up the audio engine to recognize the first track
             const firstTrack = localPlaylist.querySelector('.track');
@@ -376,7 +374,7 @@ fetch('player-component.html')
                 
                 if (audio && source && title) {
                     source.src = firstTrack.getAttribute('data-src');
-                    title.innerText = firstTrack.innerText;
+                    title.innerText = firstTrack.innerText.trim();
                     audio.load();
                 }
             }
