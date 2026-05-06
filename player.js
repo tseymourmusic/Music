@@ -1,56 +1,76 @@
 /* player.js */
-const audio = document.getElementById('audio');
-const source = document.getElementById('audio-source');
-const tracks = Array.from(document.querySelectorAll('.track'));
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const trackTitleDisplay = document.getElementById('track-title');
 
+// We declare these variables globally so all functions can see them, 
+// but we don't assign them until initPlayer() runs.
+let audio, source, tracks, prevBtn, nextBtn, trackTitleDisplay;
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
+function initPlayer() {
+    // 1. Assign the elements now that they exist in the DOM
+    audio = document.getElementById('audio');
+    source = document.getElementById('audio-source');
+    tracks = Array.from(document.querySelectorAll('.track'));
+    prevBtn = document.getElementById('prevBtn');
+    nextBtn = document.getElementById('nextBtn');
+    trackTitleDisplay = document.getElementById('track-title');
+
+    if (!audio || !prevBtn || !nextBtn) return; // Safety check
+
+    // 2. Attach Event Listeners
+    nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
+    nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
+    nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
+    nextBtn.addEventListener('touchend', (e) => onUp(e, 'next'), {passive: false});
+
+    prevBtn.addEventListener('mousedown', (e) => onDown(e, 'prev'));
+    prevBtn.addEventListener('touchstart', (e) => onDown(e, 'prev'), {passive: false});
+    prevBtn.addEventListener('mouseup', (e) => onUp(e, 'prev'));
+    prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: false});
+
+    audio.addEventListener('ended', skipNext);
+
+    // 3. Initialize the menu UI
+    refreshMenu();
+
+    // Mobile touch fix for the menu
+    trackTitleDisplay.addEventListener('touchmove', function(e) {
+        if (this.scrollHeight > this.offsetHeight) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, { passive: false });
+}
+
 /**
- * NEW: Rebuilds the selectable menu inside the track-title div
- * Always puts the active track at the very top.
+ * REFRESH MENU & PLAY TRACK LOGIC
  */
 function refreshMenu() {
     if (!trackTitleDisplay) return;
-    
-    // Clear the current display
     trackTitleDisplay.innerHTML = '';
     
-    // Sort tracks: active one first, then others
     const sortedTracks = [...tracks].sort((a, b) => {
         return b.classList.contains('active') - a.classList.contains('active');
     });
 
-    // Create the clickable items
     sortedTracks.forEach(track => {
         const item = document.createElement('div');
         item.className = 'menu-item' + (track.classList.contains('active') ? ' active-link' : '');
         item.textContent = track.textContent;
-        
-        // When a track is picked from the popup
         item.onclick = (e) => {
-            e.stopPropagation(); // Prevents hover glitches
+            e.stopPropagation();
             playTrack(track);
         };
-        
         trackTitleDisplay.appendChild(item);
     });
 }
 
-// Core function to change tracks
 function playTrack(trackElement) {
     if (!trackElement) return;
-    
     source.src = trackElement.getAttribute('data-src');
     audio.load();
     audio.play();
-
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
-
-    // Update the menu reorder immediately
     refreshMenu();
 }
 
@@ -66,7 +86,9 @@ function skipPrev() {
     playTrack(tracks[prevIdx]);
 }
 
-// Logic for Rewind/Fast-Forward on Hold
+/**
+ * SCRUBBING LOGIC (Hold to seek)
+ */
 function onDown(e, direction) {
     e.preventDefault();
     e.stopPropagation();
@@ -92,33 +114,7 @@ function onUp(e, direction) {
     isScrubbing = false;
 }
 
-// Event Listeners for Buttons
-nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
-nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
-nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
-nextBtn.addEventListener('touchend', (e) => onUp(e, 'next'), {passive: false});
-
-prevBtn.addEventListener('mousedown', (e) => onDown(e, 'prev'));
-prevBtn.addEventListener('touchstart', (e) => onDown(e, 'prev'), {passive: false});
-prevBtn.addEventListener('mouseup', (e) => onUp(e, 'prev'));
-prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: false});
-
-window.addEventListener('mouseup', () => { clearTimeout(holdTimer); clearInterval(scrubInterval); });
-
-// Handle track ended
-audio.addEventListener('ended', skipNext);
-
-// INITIALIZATION
-window.addEventListener('DOMContentLoaded', () => {
-    refreshMenu();
-
-    const menu = document.getElementById('track-title');
-    
-    menu.addEventListener('touchmove', function(e) {
-        // Only prevent default if we are actually scrolling the menu
-        if (this.scrollHeight > this.offsetHeight) {
-            e.preventDefault(); // This stops the main page from bobbing
-            e.stopPropagation();
-        }
-    }, { passive: false }); // 'passive: false' is mandatory for preventDefault to work
+window.addEventListener('mouseup', () => { 
+    clearTimeout(holdTimer); 
+    clearInterval(scrubInterval); 
 });
