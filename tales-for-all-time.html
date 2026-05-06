@@ -148,6 +148,37 @@
             .intro-row img { max-width: 300px; justify-self: center; }
             .intro-text { order: -1; }
         }
+
+	/* --- COLLABORATORS SECTION --- */
+	.logo-row {
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+    	flex-wrap: wrap; /* Allows them to stack on mobile */
+    	gap: 40px;       /* Spacing between logos */
+    	margin: 40px auto;
+    	max-width: 1000px;
+    	padding: 20px;
+	}
+
+	.logo-row img {
+    	height: 50px;    /* This forces uniformity */
+    	width: auto;     /* This keeps the logos from stretching */
+    	object-fit: contain;
+    	filter: brightness(0) invert(1); /* Makes all logos pure white */
+    	opacity: 0.6;    /* Softens them so they don't distract from your art */
+    	transition: opacity 0.3s ease;
+	}
+
+	.logo-row img:hover {
+    	opacity: 1;      /* Lights up when the user hovers */
+	}
+
+	/* Mobile tweak for logos */
+	@media (max-width: 600px) {
+    	.logo-row { gap: 20px; }
+    	.logo-row img { height: 35px; } /* Slightly smaller on phones */
+	}
     </style>
 </head>
 <body>
@@ -157,7 +188,7 @@
 
     <!-- HERO SECTION -->
     <header class="hero" id="hero">
-        <h1>TalES fOr All TiME</h1>
+        <h1>TAlES fOr All TiME</h1>
         <div class="hero-text-block">
             <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
             <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
@@ -177,7 +208,7 @@
 
     <div id="player-placeholder">
         <ul id="playlist" style="display: none !important;">
-            <li class="track active" data-src="audio/Destiny.m4a">XIV. Destiny</li>
+            <li class="track active" data-src="audio/Destiny.m4a">XIV. Destiny (preview)</li>
         </ul>
     </div>
 </div>
@@ -188,11 +219,11 @@
         <div class="intro-row">
             <img src="images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork">
             <div class="intro-text">
-                <p><strong>TALES FOR ALL TIME</strong> is a cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
-                <p>Grounding universal legends in the moss-drenched textures of the <strong>New Forest</strong>, the project is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
+                <p>A cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
+                <p>Grounding universal legends in the moss-drenched textures of the <strong>New Forest</strong>, <strong>Tales For All Time</strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
                 <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
             </div>
-            <img src="images/courtney-leggett-4.jpg" alt="Raven Artwork">
+            <img src="images/courtney-leggett-1.jpg" alt="Raven Artwork">
         </div>
 
         <hr>
@@ -329,12 +360,23 @@
 
         <hr>
 
-        <!-- COLLABORATORS SECTION -->
+<!-- COLLABORATORS SECTION -->
         <h2 class="section-label">Collaborators</h2>
         <div class="logo-row">
-            <img src="logos/LSO.png" alt="London Symphony Orchestra">
-            <img src="logos/LCV.png" alt="London Contemporary Voices">
-            <img src="logos/ArtsCouncil.png" alt="Arts Council England">
+            <img src="logos/LSO-logo.png" alt="London Symphony Orchestra">
+            <img src="logos/LCV-logo.png" alt="London Contemporary Voices">
+            <img src="logos/ace-logo.png" alt="Arts Council England">
+            <img src="logos/vwf-logo.png" alt="Vaughan Williams Foundation">
+            <img src="logos/favicon.png" alt="Tim Seymour Music">
+        </div>
+
+        <!-- Move this inside the container for better alignment -->
+        <div class="endorsement-container">
+            <a href="https://drive.google.com/file/d/1nZjhQnD_H3FDdRdzlEWT-pzIfxyctBqi/view?usp=drive_link" 
+               target="_blank" 
+               class="endorsement-link">
+               Project Partner Endorsement Letter: LCV (PDF)
+            </a>
         </div>
 
     </div> <!-- End of Container -->
