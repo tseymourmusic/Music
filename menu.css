@@ -128,3 +128,26 @@ footer {
     line-height: 1.6;
     text-transform: uppercase;
 }
+
+.endorsement-container {
+    text-align: center;
+    margin: 20px auto 40px auto;
+}
+
+.endorsement-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: #888; /* Muted grey to start */
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.endorsement-link:hover {
+    color: #D4AF37; /* Turns gold on hover */
+    border-bottom: 1px solid #D4AF37;
+    opacity: 1;
+}
