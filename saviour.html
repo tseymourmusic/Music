@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saviour | Tim Seymour Composer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
 
+    <style>
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #1a1f21; 
+            color: #FFFFFF; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
+        
+        h1 { 
+            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
+            margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
+        }
+
+        .tagline { 
+            text-align: center; font-style: italic; color: #eae0d5; 
+            font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
+            letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
+        }
+
+        .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+        .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); border-radius: 2px; }
+
+        .details h3 { 
+            font-size: 0.7rem; letter-spacing: 4px; color: #666; 
+            margin: 45px 0 20px; border-bottom: 1px solid #333; 
+            padding-bottom: 10px; text-transform: uppercase; font-weight: 400;
+        }
+
+        .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
+        
+        /* STREAMING / PURCHASE BUTTONS */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .action-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #444;
+            color: #bbb;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .action-btn:hover {
+            border-color: #eae0d5;
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* FOOTER FIXES */
+        #footer-placeholder {
+            clear: both;
+            width: 100%;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            position: relative !important;
+            display: block !important;
+        }
+
+        /* FORCE ICON VISIBILITY */
+        .social-links {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 30px !important;
+            margin-bottom: 25px !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-links a {
+            color: #fff !important;
+            font-size: 1.5rem !important;
+            opacity: 0.7;
+            text-decoration: none;
+            display: inline-block !important;
+        }
+
+        .social-links a:hover { opacity: 1; }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 800px) { 
+            .project-grid { grid-template-columns: 1fr; } 
+            .container { margin-top: 150px; } 
+            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+            .action-buttons { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <h1>SAVIOUR</h1>
+        <p class="tagline">"For string orchestra and piano. A 17-track soundtrack inspired by each stage of the human spiritual journey from birth, sacrifice, through to immortality."</p>
+
+        <div class="project-grid">
+            <div class="poster">
+                <!-- Replace with your Saviour stained glass album cover -->
+                <img src="images/Saviour-album-cover.jpg" alt="Saviour Album Cover">
+            </div>
+
+            <div class="details">
+                <p><em>Saviour</em> for string orchestra and piano is the debut classical album composed by New Forest based composer <strong>Tim Seymour</strong>.</p>
+                
+                <p>The album was recorded at St Saviour's Church in Brockenhurst on the 9th & 10th August 2024 and was released on Easter weekend, 18th April 2025.</p>
+                
+                <p>Conducted by <strong>Phil Daish-Handy</strong>, the recording features solos from renowned cellist <strong>Lionel Handy</strong>, violinist <strong>Catherine Lawlor</strong> and pianist <strong>Dr Robert Markham</strong>, with accompaniment by Lymington's premier orchestra, the <strong>Nova Foresta Philharmonic</strong>.</p>
+                
+                <p>Featuring 17 tracks over 56 minutes, the album had its live premier on 1st Nov 2025 in St Thomas Church, Lymington, performed by the same musicians who feature on the recording.</p>
+                
+                <h3>LISTEN & PURCHASE</h3>
+                <div class="action-buttons">
+                    <!-- Add your specific links to the href attributes -->
+                    <a href="#" class="action-btn">CD</a>
+                    <a href="#" class="action-btn">iTunes</a>
+                    <a href="#" class="action-btn">Spotify</a>
+                    <a href="#" class="action-btn">Amazon Music</a>
+                    <a href="#" class="action-btn">YouTube</a>
+                    <a href="#" class="action-btn">Live</a>
+                </div>
+
+<h3>MUSIC VIDEO - IMMORTAL</h3>
+<div style="padding-bottom: 56.25%; position: relative; margin-top: 20px;">
+    <iframe src="https://www.youtube.com/embed/T5hs5KU4Q60?si=BuXvCNg9D28hX2kx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
+    </script>
+</body>
+</html>
