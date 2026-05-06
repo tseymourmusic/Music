@@ -1,1 +1,128 @@
+/* --- SHARED NAVIGATION & FOOTER STYLES --- */
 
+/* --- GLOBAL MENU --- */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 50px;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+    /* Cinematic Glass Effect */
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    
+    transition: all 0.5s ease;
+}
+
+/* Logo Styling */
+.nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+/* Links Container */
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+/* Individual Links */
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover { 
+    color: #D4AF37; 
+}
+
+/* Dropdown Menu */
+.dropdown { 
+    position: relative; 
+    display: inline-block; 
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(10, 10, 10, 0.98);
+    min-width: 180px;
+    top: 100%;
+    left: 0;
+    padding: 10px 0;
+    border: 1px solid #1a1a1a;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.dropdown-content a {
+    padding: 10px 20px;
+    display: block;
+    border: none;
+    text-transform: none; /* Allows "TalES fOr All TiME" casing to show correctly */
+}
+
+.dropdown:hover .dropdown-content { 
+    display: block; 
+}
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+    nav { 
+        padding: 20px; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    .nav-links { 
+        gap: 15px; 
+    }
+}
+
+/* --- GLOBAL FOOTER --- */
+footer {
+    padding: 80px 20px 40px;
+    text-align: center;
+    background: #050505;
+    font-family: 'Montserrat', sans-serif; /* Standardizes font across all pages */
+}
+
+.social-links { 
+    margin-bottom: 30px; 
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0 15px;
+    text-decoration: none; /* Removes underlines from icons */
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.social-links a:hover { 
+    color: #D4AF37; 
+}
+
+.copyright { 
+    font-size: 0.7rem; 
+    color: #444; 
+    letter-spacing: 1px; 
+    line-height: 1.6;
+    text-transform: uppercase;
+}
