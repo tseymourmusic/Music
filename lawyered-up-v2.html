@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <!-- 1. LINK TO YOUR STREAMLINED MENU STYLES -->
+    <link rel="stylesheet" href="menu.css">
+
     <style>
         body, html { 
             margin: 0; padding: 0; 
@@ -18,15 +21,6 @@
             overflow-x: hidden;
         }
         
-        nav { 
-            position: fixed; top: 0; width: 100%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 25px 50px; box-sizing: border-box; z-index: 1000; 
-            background: rgba(10, 10, 10, 0.95); 
-        }
-        .nav-logo { font-size: 0.75rem; letter-spacing: 3px; text-decoration: none; color: #fff; font-weight: 200; text-transform: uppercase; }
-        .nav-links a { text-decoration: none; color: #fff; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-left: 30px; font-weight: 300; }
-
         /* Tightened margin for consistent layout */
         .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
         
@@ -64,13 +58,8 @@
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">Tim Seymour &middot; Composer &middot; Producer</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="https://www.tim-seymour.com/contact">Contact</a>
-        </div>
-    </nav>
+    <!-- 2. THE MENU PLACEHOLDER -->
+    <div id="nav-placeholder"></div>
 
     <div class="container">
         <h1>LAWYERED UP</h1>
@@ -114,8 +103,38 @@
         </div>
     </div>
 
+    <!-- 3. THE FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
     <!-- Your existing player logic -->
     <script src="player.js"></script>
+
+    <script>
+        // COMPONENT LOADER
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Universal scroll logic to manage menu background opacity
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                if (window.pageYOffset > 50) {
+                    nav.style.background = "rgba(10, 10, 10, 0.98)";
+                } else {
+                    nav.style.background = "rgba(10, 10, 10, 0.95)";
+                }
+            }
+        };
+    </script>
 
 </body>
 </html>
