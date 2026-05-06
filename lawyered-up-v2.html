@@ -3,197 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lawyered Up | Tim Seymour Composer</title>
+    <title>TalES fOr All TiME | Tim Seymour Music</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- External Player & Menu Styles -->
+    <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="menu.css">
 
     <style>
-        body, html { 
-            margin: 0; padding: 0; 
-            background-color: #1a1f21; 
-            color: #FFFFFF; 
-            font-family: 'Montserrat', sans-serif; 
+        /* --- LAYOUT OVERRIDE --- */
+        /* Forces the page to stack vertically even if style.css tries to flex it */
+        body {
+            display: block !important; 
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
-        }
-        
-        .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
-        
-        h1 { 
-            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
-            margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
+            line-height: 1.6;
         }
 
-        .tagline { 
-            text-align: center; font-style: italic; color: #eae0d5; 
-            font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
-            letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
-        }
+        html { scroll-behavior: smooth; }
 
-        .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-        .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); border-radius: 2px; }
-
-        .details h3 { 
-            font-size: 0.7rem; letter-spacing: 4px; color: #666; 
-            margin: 45px 0 20px; border-bottom: 1px solid #333; 
-            padding-bottom: 10px; text-transform: uppercase; font-weight: 400;
-        }
-
-        .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
-        .player-container { margin-top: 10px; margin-bottom: 30px; max-width: 100% !important; }
-
-        /* FOOTER FIXES */
-        #footer-placeholder {
-            clear: both;
+        /* --- HERO SECTION (Full Width) --- */
+        .hero {
             width: 100%;
-            margin-top: 80px;
-            padding-bottom: 40px;
-            position: relative !important;
-            display: block !important;
-        }
-
-        /* FORCE ICON VISIBILITY */
-        .social-links {
-            display: flex !important;
-            justify-content: center !important;
-            gap: 30px !important;
-            margin-bottom: 25px !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-
-        .social-links a {
-            color: #fff !important;
-            font-size: 1.5rem !important;
-            opacity: 0.7;
-            text-decoration: none;
-            display: inline-block !important;
-        }
-
-        .social-links a:hover { opacity: 1; }
-
-        .copyright {
+            min-height: 100vh; /* Changed to 100vh for a full first-look impact */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            color: #666;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
+                        url('images/Tales-For-All-Time-bg.gif') no-repeat center center;
+            background-size: cover;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 2s ease-out, transform 2s ease-out;
+        }
+        .hero.reveal { opacity: 1; transform: translateY(0); }
+
+        .hero h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 0.15em;
+            margin: 0 0 20px 0;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .hero-text-block {
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
+            font-family: 'Cinzel', serif;
+            color: #F5F5DC;
             text-transform: uppercase;
         }
 
-        @media (max-width: 800px) { 
-            .project-grid { grid-template-columns: 1fr; } 
-            .container { margin-top: 150px; } 
-            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+        .hero-main-sub { font-size: clamp(0.8rem, 1.5vw, 1.1rem); letter-spacing: 4px; margin-bottom: 10px; }
+        .hero-details { font-size: clamp(0.6rem, 1.2vw, 0.85rem); letter-spacing: 3px; margin-bottom: 10px; font-weight: 300; }
+        .hero-credits { font-size: clamp(0.5rem, 1vw, 0.7rem); letter-spacing: 2px; margin-bottom: 25px; font-weight: 300; }
+        .hero-date { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 6px; font-weight: 400; margin-top: 20px; }
+
+        /* --- CONTENT CONTAINER --- */
+        .container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 80px 20px;
+            box-sizing: border-box;
+        }
+        
+        hr {
+            border: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 60px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .section-label {
+            font-family: 'Cinzel', serif;
+            color: #fff; 
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+            letter-spacing: 5px; 
+            text-transform: none;
+            font-variant: medium-caps;		 
+            text-align: center;
+            margin: -15px auto 60px auto;
+            padding-bottom: 30px; 
+            font-weight: 200;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+        }
+
+        /* --- PLAYER ADJUSTMENT --- */
+        .player-container {
+            margin: 0 auto 80px auto;
+            max-width: 700px !important;
+            display: flex; /* Ensures the pill and arrows stay together */
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* --- INTRO ROW --- */
+        .intro-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 80px 0;
+        }
+        .intro-row img { 
+            width: 100%; 
+            height: auto;
+            border: 1px solid rgba(255,255,255,0.05); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        .intro-text { text-align: center; font-size: 0.95rem; line-height: 2; font-weight: 300; color: #aaa; }
+        .intro-text strong { color: #fff; font-weight: 400; }
+
+        /* --- MOVEMENTS LIST --- */
+        .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
+        .mvt-row { display: flex; width: 100%; margin-bottom: 45px; text-align: left; }
+        .mvt-number { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #D4AF37; min-width: 70px; }
+        .mvt-title { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: #FFFFFF; margin-bottom: 5px; text-transform: uppercase; }
+        .mvt-desc { font-size: 0.75rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
+
+        /* --- SCORE SECTION --- */
+        .score-container { width: 100%; max-width: 900px; margin: 0 auto 40px auto; aspect-ratio: 16 / 9; }
+
+        @media (max-width: 900px) {
+            .intro-row { grid-template-columns: 1fr; }
+            .intro-row img { max-width: 300px; justify-self: center; }
+            .intro-text { order: -1; }
         }
     </style>
 </head>
 <body>
 
+    <!-- 1. THE MENU PLACEHOLDER -->
     <div id="nav-placeholder"></div>
 
+    <!-- HERO SECTION -->
+    <header class="hero" id="hero">
+        <h1>TalES fOr All TiME</h1>
+        <div class="hero-text-block">
+            <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
+            <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
+            <p class="hero-credits">COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> ILLUSTRATED BY <strong>COURTNEY LEGGETT</strong></p>
+            <p class="hero-date">COMING 2026 / 2027</p>
+        </div>
+    </header>
+
     <div class="container">
-        <h1>LAWYERED UP</h1>
-        <p class="tagline">"In the near future, AI has infiltrated all aspects of human life. When a betrayed woman finds solace in the arms of her seemingly perfect divorce lawyer, she must confront the unsettling truth that perfection always comes at a price."</p>
-
-        <div class="project-grid">
-            <div class="poster">
-                <img src="images/Lawyered-Up-Poster.jpg" alt="Lawyered Up Film Poster">
-            </div>
-
-            <div class="details">
-                <p>Written and Directed by <strong>Tatiana Blackington James</strong>, <em>Lawyered Up</em> is an award-winning sci-fi short film and a 2026 Cannes Emerging Film Maker Showcase finalist.</p>
-                <p>The original score creates a broad and unique sonic landscape via a fusion of electronic dance, futuristic synths, and classical acoustic instruments, bringing the not-too-distant futuristic world and its diverse cast of characters to life.</p>
-                
- <h3>SOUNDTRACK</h3>
-        <div id="player-placeholder">
+        
+        <!-- NEW AUDIO PLAYER SECTION -->
+        <div class="audio-container">
+            <div id="player-placeholder">
             <ul id="playlist" style="display: none !important;">
-                <li class="track active" data-src="audio/Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
-                <li class="track" data-src="audio/Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
-                <li class="track" data-src="audio/Lawyered Up Pt3.m4a">Lawyered Up - Part 3</li>
+                <li class="track active" data-src="audio/Destiny.m4a">XIV. Destiny</li>
             </ul>
         </div>
+	</div>
 
-        <h3>TRAILER</h3>
-        <div style="padding-bottom: 56.25%; position: relative; margin-top: 20px;">
-            <iframe width="100%" height="100%" src="https://player.vimeo.com/video/1099433294?h=76f82cc33e" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
+        <hr style="margin-top: 60px;">
+
+        <!-- INTRO ARTWORK & TEXT -->
+        <div class="intro-row">
+            <img src="images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork">
+            <div class="intro-text">
+                <p><strong>TALES FOR ALL TIME</strong> is a cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
+                <p>Grounding universal legends in the moss-drenched textures of the <strong>New Forest</strong>, the project is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
+                <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
+            </div>
+            <img src="images/courtney-leggett-4.jpg" alt="Raven Artwork">
         </div>
-    </div>
-</div>
 
-<!-- Footer Placeholder -->
-<div id="footer-placeholder"></div>
+        <hr>
 
-<!-- Logic Files -->
-<script src="player.js"></script>
+        <h2 class="section-label">The Movements</h2>
+        
+        <div class="movements-classic-list">
+            <div class="mvt-row">
+                <div class="mvt-number">I.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Icarus' Flight</div>
+                    <div class="mvt-desc">Ambition</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">II.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Taming Pegasus</div>
+                    <div class="mvt-desc">Unity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">III.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Fall From Grace</div>
+                    <div class="mvt-desc">Hubris</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">IV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Siren Seduction</div>
+                    <div class="mvt-desc">Desire</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">V.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Pandora's Box</div>
+                    <div class="mvt-desc">Curiosity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VI.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Swan Song</div>
+                    <div class="mvt-desc">Allure</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Star-Crossed Lovers</div>
+                    <div class="mvt-desc">Tragedy</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VIII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Orpheus' Persuasion</div>
+                    <div class="mvt-desc">Eloquence</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">IX.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Tears Of Babylon</div>
+                    <div class="mvt-desc">Woe</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">X.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Hidden Psyche</div>
+                    <div class="mvt-desc">Vulnerability</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XI.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Narcissus' Trance</div>
+                    <div class="mvt-desc">Obsession</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Halcyon Days</div>
+                    <div class="mvt-desc">Serenity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XIII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">To Elysium</div>
+                    <div class="mvt-desc">Transcendence</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XIV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Destiny</div>
+                    <div class="mvt-desc">Fate</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Ever After</div>
+                    <div class="mvt-desc">Destiny</div>
+                </div>
+            </div>
+        </div>
 
-<script>
-    // 1. Load Menu & Footer (Root paths)
-    fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
-    fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        <hr>
 
-    // 2. Load Player Component
-    function loadAudioPlayer() {
-        fetch('player-component.html')
-            .then(res => {
-                if (!res.ok) throw new Error("File not found: player-component.html");
-                return res.text();
-            })
-            .then(data => {
-                const placeholder = document.getElementById('player-placeholder');
+        <!-- FLIPBOOK SECTION -->
+        <h2 class="section-label">The Score</h2>
+        <div class="score-container">
+            <iframe 
+                src="https://heyzine.com/flip-book/34f7a61096.html" 
+                style="width:100%; height:100%; border:none;" 
+                allowfullscreen 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+        </div>
+
+        <hr>
+
+        <!-- CREDITS SECTION -->
+        <div class="score-footer-credits" style="text-align: center; margin: 80px auto;">
+            MUSIC COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> FEATURING THE <strong>LONDON SYMPHONY ORCHESTRA</strong> WITH THE <strong>LONDON CONTEMPORARY VOICES</strong> VISUAL ART BY <strong>COURTNEY LEGGETT</strong> ANIMATED AND DIRECTED BY <strong>TIM SEYMOUR</strong>
+        </div>
+
+        <hr>
+
+        <!-- COLLABORATORS SECTION -->
+        <h2 class="section-label">Collaborators</h2>
+        <div class="logo-row">
+            <img src="logos/LSO.png" alt="London Symphony Orchestra">
+            <img src="logos/LCV.png" alt="London Contemporary Voices">
+            <img src="logos/ArtsCouncil.png" alt="Arts Council England">
+        </div>
+
+    </div> <!-- End of Container -->
+
+    <div id="footer-placeholder"></div>
+
+    <!-- SCRIPTS -->
+    <script src="player.js"></script>
+
+    <script>
+// 1. Load Menu & Footer (Standard loaders)
+fetch('menu.html').then(res => res.text()).then(data => { 
+    document.getElementById('nav-placeholder').innerHTML = data; 
+});
+fetch('footer.html').then(res => res.text()).then(data => { 
+    document.getElementById('footer-placeholder').innerHTML = data; 
+});
+
+// 2. THE PLAYER HANDSHAKE (Add this specific block)
+fetch('player-component.html')
+    .then(res => res.text())
+    .then(data => {
+        const placeholder = document.getElementById('player-placeholder');
+        const localPlaylist = placeholder.querySelector('#playlist');
+
+        // Inject the master player UI into the placeholder
+        placeholder.innerHTML = data; 
+
+	if (localPlaylist) {
+    		const target = document.getElementById('playlist-target');
+    		if (target) {
+        		// Move your "Destiny" track list into the player component
+        		target.appendChild(localPlaylist);
+    		}
+            
+            // Set up the audio engine to recognize the first track
+            const firstTrack = localPlaylist.querySelector('.track');
+            if (firstTrack) {
+                const audio = document.getElementById('audio');
+                const source = document.getElementById('audio-source');
+                const title = document.getElementById('track-title');
                 
-                // Keep the playlist currently sitting on this page
-                const localPlaylist = placeholder.querySelector('#playlist');
-
-                // Overwrite placeholder with the visual player UI
-                placeholder.innerHTML = data; 
-
-                if (localPlaylist) {
-                    // Inject the playlist into the target div inside the component
-                    const target = document.getElementById('playlist-target');
-                    if (target) {
-                        target.appendChild(localPlaylist);
-                    }
-                    
-                    // Auto-load the first track from your data
-                    const firstTrack = localPlaylist.querySelector('.track');
-                    if (firstTrack) {
-                        const audio = document.getElementById('audio');
-                        const source = document.getElementById('audio-source');
-                        const title = document.getElementById('track-title');
-                        
-                        if (audio && source && title) {
-                            source.src = firstTrack.getAttribute('data-src');
-                            title.innerText = firstTrack.innerText;
-                            audio.load();
-                        }
-                    }
+                if (audio && source && title) {
+                    source.src = firstTrack.getAttribute('data-src');
+                    title.innerText = firstTrack.innerText.trim();
+                    audio.load();
                 }
-
-                // 3. Initialize player.js logic
-                // Delay slightly to ensure the browser has rendered the new HTML
-                setTimeout(() => {
-                    if (typeof initPlayer === "function") {
-                        initPlayer();
-                    } else {
-                        console.error("player.js loaded, but initPlayer() function is missing.");
-                    }
-                }, 50);
-            })
-            .catch(err => console.error("Player Load Error:", err));
-    }
-
-    // Run the loader
-    loadAudioPlayer();
-
-    // Scroll Logic
-    window.onscroll = function() {
-        var nav = document.getElementById('main-nav');
-        if (nav) {
-            nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
         }
-    };
-</script>
+
+        // 3. Initialize the play/pause/seek logic from player.js
+        setTimeout(() => {
+            if (typeof initPlayer === "function") {
+                initPlayer();
+            }
+        }, 50);
+    });
+
+// 4. Hero & Scroll Logic (Keep your existing animations)
+window.addEventListener('load', () => {
+    document.getElementById('hero').classList.add('reveal');
+});
+
+window.onscroll = function() {
+    var nav = document.getElementById('main-nav');
+    if (nav) {
+        if (window.pageYOffset > 50) {
+            nav.style.background = "rgba(10, 10, 10, 0.98)";
+        } else {
+            nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+        }
+    }
+};
+    </script>
+
 </body>
 </html>
