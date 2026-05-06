@@ -96,6 +96,33 @@ nav {
     }
 }
 
+/* Logo Link Container */
+.nav-logo {
+    display: flex;
+    align-items: center; /* Vertically centers the logo with the text */
+    gap: 15px;           /* Space between the logo and the text */
+    text-decoration: none;
+}
+
+/* The Logo Image itself */
+.logo-img {
+    height: 30px;        /* Adjust this to match your desired size */
+    width: auto;
+    filter: brightness(0) invert(1); /* Keeps it pure white to match your theme */
+    transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover .logo-img {
+    opacity: 0.8;
+}
+
+/* Optional: Mobile adjustment */
+@media (max-width: 900px) {
+    .logo-img {
+        height: 25px; /* Slightly smaller on mobile */
+    }
+}
+
 /* --- GLOBAL FOOTER --- */
 footer {
     padding: 80px 20px 40px;
@@ -129,6 +156,7 @@ footer {
     text-transform: uppercase;
 }
 
+/* --- GLOBAL DOC LINKS --- */
 .endorsement-container {
     text-align: center;
     margin: 20px auto 40px auto;
