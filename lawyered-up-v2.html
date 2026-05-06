@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lawyered Up | Tim Seymour Composer</title>
     
-    <!-- Ultra-modern Montserrat theme -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <!-- 1. LINK TO YOUR STREAMLINED MENU STYLES -->
     <link rel="stylesheet" href="menu.css">
 
     <style>
@@ -21,7 +19,6 @@
             overflow-x: hidden;
         }
         
-        /* Tightened margin for consistent layout */
         .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
         
         h1 { 
@@ -29,7 +26,6 @@
             margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
         }
 
-        /* Pearl White Tagline with Atmospheric Glow */
         .tagline { 
             text-align: center; font-style: italic; color: #eae0d5; 
             font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
@@ -46,8 +42,45 @@
         }
 
         .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
-
         .player-container { margin-top: 10px; margin-bottom: 30px; max-width: 100% !important; }
+
+        /* FOOTER FIXES */
+        #footer-placeholder {
+            clear: both;
+            width: 100%;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            position: relative !important;
+            display: block !important;
+        }
+
+        /* FORCE ICON VISIBILITY */
+        .social-links {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 30px !important;
+            margin-bottom: 25px !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-links a {
+            color: #fff !important;
+            font-size: 1.5rem !important;
+            opacity: 0.7;
+            text-decoration: none;
+            display: inline-block !important;
+        }
+
+        .social-links a:hover { opacity: 1; }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
         @media (max-width: 800px) { 
             .project-grid { grid-template-columns: 1fr; } 
@@ -58,7 +91,6 @@
 </head>
 <body>
 
-    <!-- 2. THE MENU PLACEHOLDER -->
     <div id="nav-placeholder"></div>
 
     <div class="container">
@@ -72,11 +104,9 @@
 
             <div class="details">
                 <p>Written and Directed by <strong>Tatiana Blackington James</strong>, <em>Lawyered Up</em> is an award-winning sci-fi short film and a 2026 Cannes Emerging Film Maker Showcase finalist.</p>
-                
                 <p>The original score creates a broad and unique sonic landscape via a fusion of electronic dance, futuristic synths, and classical acoustic instruments, bringing the not-too-distant futuristic world and its diverse cast of characters to life.</p>
                 
                 <h3>SOUNDTRACK</h3>
-                
                 <div class="player-container">
                     <button class="skip-btn" id="prevBtn">«</button>
                     <div class="console">
@@ -88,7 +118,6 @@
                     <button class="skip-btn" id="nextBtn">»</button>
                 </div>
 
-                <!-- Hidden playlist data for player.js -->
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="audio/Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
                     <li class="track" data-src="audio/Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
@@ -103,38 +132,19 @@
         </div>
     </div>
 
-    <!-- 3. THE FOOTER PLACEHOLDER -->
     <div id="footer-placeholder"></div>
 
-    <!-- Your existing player logic -->
     <script src="player.js"></script>
-
     <script>
-        // COMPONENT LOADER
-        fetch('menu.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-            });
+        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
-
-        // Universal scroll logic to manage menu background opacity
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
-                if (window.pageYOffset > 50) {
-                    nav.style.background = "rgba(10, 10, 10, 0.98)";
-                } else {
-                    nav.style.background = "rgba(10, 10, 10, 0.95)";
-                }
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
             }
         };
     </script>
-
 </body>
 </html>
