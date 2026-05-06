@@ -106,7 +106,7 @@ nav {
 
 /* The Logo Image itself */
 .logo-img {
-    height: 30px;        /* Adjust this to match your desired size */
+    height: 20px;        /* Adjust this to match your desired size */
     width: auto;
     filter: brightness(0) invert(1); /* Keeps it pure white to match your theme */
     transition: opacity 0.3s ease;
