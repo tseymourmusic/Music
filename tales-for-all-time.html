@@ -168,36 +168,26 @@
 
     <div class="container">
         
-        <!-- NEW AUDIO PLAYER SECTION (Replaced Soundcloud) -->
+        <!-- NEW AUDIO PLAYER SECTION -->
         <div class="audio-container">
-            <div class="player-container">
-                <button class="skip-btn" id="prevBtn">«</button>
-                <div class="console">
-                    <audio id="audio" controls controlsList="nodownload">
-                        <source id="audio-source" src="audio/Destiny.m4a" type="audio/mpeg">
-                    </audio>
-                    <div id="track-title">XIV. Destiny</div>
-                </div>
-                <button class="skip-btn" id="nextBtn">»</button>
-            </div>
-
-            <!-- Full Playlist Data for player.js -->
+            <div id="player-placeholder">
             <ul id="playlist" style="display: none !important;">
                 <li class="track active" data-src="audio/Destiny.m4a">XIV. Destiny</li>
-                </ul>
+            </ul>
         </div>
+
 
         <hr style="margin-top: 60px;">
 
         <!-- INTRO ARTWORK & TEXT -->
         <div class="intro-row">
-            <img src="images/AncientTree-Artwork.jpg" alt="Ancient Tree Artwork">
+            <img src="images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork">
             <div class="intro-text">
-                <p><strong>TalES fOr All TiME</strong> is a cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
+                <p><strong>TALES FOR ALL TIME</strong> is a cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
                 <p>Grounding universal legends in the moss-drenched textures of the <strong>New Forest</strong>, the project is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
                 <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
             </div>
-            <img src="images/Raven-Artwork.jpg" alt="Raven Artwork">
+            <img src="images/courtney-leggett-4.jpg" alt="Raven Artwork">
         </div>
 
         <hr>
@@ -350,35 +340,71 @@
     <script src="player.js"></script>
 
     <script>
-        // COMPONENT LOADER
-        fetch('menu.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-            });
+// 1. Load Menu & Footer (Standard loaders)
+fetch('menu.html').then(res => res.text()).then(data => { 
+    document.getElementById('nav-placeholder').innerHTML = data; 
+});
+fetch('footer.html').then(res => res.text()).then(data => { 
+    document.getElementById('footer-placeholder').innerHTML = data; 
+});
 
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
+// 2. THE PLAYER HANDSHAKE (Add this specific block)
+fetch('player-component.html')
+    .then(res => res.text())
+    .then(data => {
+        const placeholder = document.getElementById('player-placeholder');
+        const localPlaylist = placeholder.querySelector('#playlist');
 
-        // HERO REVEAL ANIMATION
-        window.addEventListener('load', () => {
-            document.getElementById('hero').classList.add('reveal');
-        });
+        // Inject the master player UI into the placeholder
+        placeholder.innerHTML = data; 
 
-        // SCROLL LOGIC FOR NAV BACKGROUND
-        window.onscroll = function() {
-            var nav = document.getElementById('main-nav');
-            if (nav) {
-                if (window.pageYOffset > 50) {
-                    nav.style.background = "rgba(10, 10, 10, 0.98)";
-                } else {
-                    nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+        if (localPlaylist) {
+            const target = document.getElementById('playlist-target');
+            if (target) {
+                // Move your "Destiny" track list into the player component
+                target.appendChild(localPlaylist);
+                // Override the 'display: none !important' so it actually shows up
+                localPlaylist.setAttribute('style', 'display: block !important');
+            }
+            
+            // Set up the audio engine to recognize the first track
+            const firstTrack = localPlaylist.querySelector('.track');
+            if (firstTrack) {
+                const audio = document.getElementById('audio');
+                const source = document.getElementById('audio-source');
+                const title = document.getElementById('track-title');
+                
+                if (audio && source && title) {
+                    source.src = firstTrack.getAttribute('data-src');
+                    title.innerText = firstTrack.innerText;
+                    audio.load();
                 }
             }
-        };
+        }
+
+        // 3. Initialize the play/pause/seek logic from player.js
+        setTimeout(() => {
+            if (typeof initPlayer === "function") {
+                initPlayer();
+            }
+        }, 50);
+    });
+
+// 4. Hero & Scroll Logic (Keep your existing animations)
+window.addEventListener('load', () => {
+    document.getElementById('hero').classList.add('reveal');
+});
+
+window.onscroll = function() {
+    var nav = document.getElementById('main-nav');
+    if (nav) {
+        if (window.pageYOffset > 50) {
+            nav.style.background = "rgba(10, 10, 10, 0.98)";
+        } else {
+            nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+        }
+    }
+};
     </script>
 
 </body>
