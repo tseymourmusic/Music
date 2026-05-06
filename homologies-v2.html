@@ -106,17 +106,7 @@
                 <p>The score establishes a strange yet inviting sci-fi atmosphere via melodic swells of cinematic ambient synths. As the mystery unfolds, traditional orchestral textures and haunting melodies rise to the forefront, building tension and emotion toward a shocking reveal.</p>
                 
                 <h3>SOUNDTRACK</h3>
-                <div class="player-container">
-                    <button class="skip-btn" id="prevBtn">«</button>
-                    <div class="console">
-                        <audio id="audio" controls controlsList="nodownload">
-                            <source id="audio-source" src="audio/Homologies Pt1.m4a" type="audio/mp4">
-                        </audio>
-                        <div id="track-title">Homologies - Part 1</div>
-                    </div>
-                    <button class="skip-btn" id="nextBtn">»</button>
-                </div>
-
+                <div id="player-placeholder">
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="audio/Homologies Pt1.m4a">Homologies - Part 1</li>
                     <li class="track" data-src="audio/Homologies Pt2.m4a">Homologies - Part 2</li>
@@ -134,9 +124,51 @@
 
     <script src="player.js"></script>
     <script>
+        // 1. Load Menu & Footer
         fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
         fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
+        // 2. Load Player Component (Master Code)
+        fetch('player-component.html')
+            .then(res => res.text())
+            .then(data => {
+                const placeholder = document.getElementById('player-placeholder');
+                const localPlaylist = placeholder.querySelector('#playlist');
+
+                // Inject the player UI
+                placeholder.innerHTML = data; 
+
+                if (localPlaylist) {
+                    // Move tracks into the player target
+                    const target = document.getElementById('playlist-target');
+                    if (target) {
+                        target.appendChild(localPlaylist);
+                    }
+                    
+                    // Auto-load the first track
+                    const firstTrack = localPlaylist.querySelector('.track');
+                    if (firstTrack) {
+                        const audio = document.getElementById('audio');
+                        const source = document.getElementById('audio-source');
+                        const title = document.getElementById('track-title');
+                        
+                        if (audio && source && title) {
+                            source.src = firstTrack.getAttribute('data-src');
+                            title.innerText = firstTrack.innerText;
+                            audio.load();
+                        }
+                    }
+                }
+
+                // Initialize player logic
+                setTimeout(() => {
+                    if (typeof initPlayer === "function") {
+                        initPlayer();
+                    }
+                }, 50);
+            });
+
+        // Scroll Logic
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
