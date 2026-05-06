@@ -124,6 +124,23 @@ audio {
     line-height: 1; /* Reset to 1 to keep the "viewing window" centered */
 }
 
+.skip-btn:hover {
+    background: #D4AF37; /* Changes to Gold on hover to match your 'Tales' theme */
+    color: #121212;      /* Flip the text color for contrast */
+    transform: scale(1.1); /* Slight grow effect */
+    transition: all 0.2s ease;
+}
+
+.skip-btn:active {
+    transform: scale(0.95); /* Slight "click" depression effect */
+}
+
+/* Optional: Make the track title look clickable on hover */
+#track-title:hover {
+    color: #D4AF37 !important;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
 .menu-item:last-child { border-bottom: none; }
 .menu-item:hover { opacity: 1; background: #1e1e1e; }
 .menu-item.active-link { opacity: 1; color: #fff; background: #121212; }
