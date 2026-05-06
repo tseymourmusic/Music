@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homologies | Tim Seymour Composer</title>
+    <title>Lawyered Up | Tim Seymour Composer</title>
     
-    <!-- Montserrat only for this project -->
+    <!-- Ultra-modern Montserrat theme -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     
-    <!-- External Player Files -->
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
 
-    <!-- 1. ADDED MENU CSS LINK -->
+    <!-- 1. LINK TO YOUR STREAMLINED MENU STYLES -->
     <link rel="stylesheet" href="menu.css">
 
     <style>
@@ -23,82 +25,99 @@
             overflow-x: hidden;
         }
         
-        /* Container */
+        /* Tightened margin for consistent layout */
         .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
         
-        /* Modern Title Style */
         h1 { 
-            font-family: 'Montserrat', sans-serif;
-            text-align: center; 
-            font-size: 2.8rem; 
-            letter-spacing: 12px; 
-            margin-bottom: 15px; 
-            font-weight: 100; 
-            text-transform: uppercase;
+            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
+            margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
         }
 
         /* Pearl White Tagline with Atmospheric Glow */
         .tagline { 
-            text-align: center; 
-            font-style: italic; 
-            color: #eae0d5; 
-            font-size: 0.85rem; 
-            margin-bottom: 60px; 
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
+            text-align: center; font-style: italic; color: #eae0d5; 
+            font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
+            letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
         }
 
         .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
         .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); border-radius: 2px; }
 
-        /* Modern Section Labels */
         .details h3 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.7rem; 
-            letter-spacing: 4px; 
-            color: #666; 
-            margin: 45px 0 20px; 
-            border-bottom: 1px solid #333; 
-            padding-bottom: 10px; 
-            text-transform: uppercase; 
-            font-weight: 400;
+            font-size: 0.7rem; letter-spacing: 4px; color: #666; 
+            margin: 45px 0 20px; border-bottom: 1px solid #333; 
+            padding-bottom: 10px; text-transform: uppercase; font-weight: 400;
         }
 
         .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
 
-        /* Player Integration */
-        .player-container {
-            margin-top: 10px;
-            margin-bottom: 30px;
-            max-width: 100% !important; 
+        .player-container { margin-top: 10px; margin-bottom: 30px; max-width: 100% !important; }
+
+        /* FOOTER FIXES */
+        #footer-placeholder {
+            clear: both;
+            width: 100%;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            position: relative !important;
         }
 
-        /* Responsive Fixes */
+        footer {
+            text-align: center;
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .social-links a {
+            color: #fff !important;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 800px) { 
             .project-grid { grid-template-columns: 1fr; } 
-            .container { margin-top: 180px; } 
+            .container { margin-top: 150px; } 
             h1 { font-size: 1.8rem; letter-spacing: 6px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 2. NAV PLACEHOLDER -->
+    <!-- 2. THE MENU PLACEHOLDER -->
     <div id="nav-placeholder"></div>
 
     <div class="container">
-        <h1>HOMOLOGIES</h1>
-        <p class="tagline">"In the near future, parents who have paid to genetically enhance their children wonder if they have made a terrible mistake."</p>
+        <h1>LAWYERED UP</h1>
+        <p class="tagline">"In the near future, AI has infiltrated all aspects of human life. When a betrayed woman finds solace in the arms of her seemingly perfect divorce lawyer, she must confront the unsettling truth that perfection always comes at a price."</p>
 
         <div class="project-grid">
             <div class="poster">
-                <img src="images/Homologies-Poster.jpg" alt="Homologies Film Poster">
+                <img src="images/Lawyered-Up-Poster.jpg" alt="Lawyered Up Film Poster">
             </div>
 
             <div class="details">
-                <p><em>Homologies</em> is an award-winning sci-fi short film Directed by <strong>Bryerly Long</strong> and Produced & Written by <strong>Tatiana Blackington James</strong>.</p>
-                <p>The score establishes a strange yet inviting sci-fi atmosphere via melodic swells of cinematic ambient synths. As the mystery unfolds, traditional orchestral textures and haunting melodies rise to the forefront, building tension and emotion toward a shocking reveal.</p>
+                <p>Written and Directed by <strong>Tatiana Blackington James</strong>, <em>Lawyered Up</em> is an award-winning sci-fi short film and a 2026 Cannes Emerging Film Maker Showcase finalist.</p>
+                
+                <p>The original score creates a broad and unique sonic landscape via a fusion of electronic dance, futuristic synths, and classical acoustic instruments, bringing the not-too-distant futuristic world and its diverse cast of characters to life.</p>
                 
                 <h3>SOUNDTRACK</h3>
                 
@@ -106,29 +125,32 @@
                     <button class="skip-btn" id="prevBtn">«</button>
                     <div class="console">
                         <audio id="audio" controls controlsList="nodownload">
-                            <source id="audio-source" src="audio/Homologies Pt1.m4a" type="audio/mp4">
+                            <source id="audio-source" src="audio/Lawyered Up Pt1.m4a" type="audio/mp4">
                         </audio>
-                        <div id="track-title">Homologies - Part 1</div>
+                        <div id="track-title">Lawyered Up - Part 1</div>
                     </div>
                     <button class="skip-btn" id="nextBtn">»</button>
                 </div>
 
+                <!-- Hidden playlist data for player.js -->
                 <ul id="playlist" style="display: none !important;">
-                    <li class="track active" data-src="audio/Homologies Pt1.m4a">Homologies - Part 1</li>
-                    <li class="track" data-src="audio/Homologies Pt2.m4a">Homologies - Part 2</li>
+                    <li class="track active" data-src="audio/Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
+                    <li class="track" data-src="audio/Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
+                    <li class="track" data-src="audio/Lawyered Up Pt3.m4a">Lawyered Up - Part 3</li>
                 </ul>
 
                 <h3>TRAILER</h3>
                 <div style="padding-bottom: 56.25%; position: relative; margin-top: 20px;">
-                    <iframe width="100%" height="100%" src="https://player.vimeo.com/video/879200143" frameborder="0" allow="fullscreen" style="position: absolute; top: 0; left: 0;"></iframe>
+                    <iframe width="100%" height="100%" src="https://player.vimeo.com/video/1099433294?h=76f82cc33e" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></iframe>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 3. FOOTER PLACEHOLDER -->
+    <!-- 3. THE FOOTER PLACEHOLDER -->
     <div id="footer-placeholder"></div>
 
+    <!-- Your existing player logic -->
     <script src="player.js"></script>
 
     <script>
@@ -145,7 +167,7 @@
                 document.getElementById('footer-placeholder').innerHTML = data;
             });
 
-        // Universal scroll logic to manage menu background
+        // Universal scroll logic to manage menu background opacity
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
