@@ -130,8 +130,21 @@
             border: 1px solid rgba(255,255,255,0.05); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
-        .intro-text { text-align: center; font-size: 0.95rem; line-height: 2; font-weight: 300; color: #aaa; }
-        .intro-text strong { color: #fff; font-weight: 400; }
+        .intro-text { 
+    	text-align: left; 
+    	font-family: 'Cinzel', serif; /* Switches from Montserrat to Cinzel */
+    	font-size: 1rem;           /* Slightly smaller to look more "classic" */
+    	line-height: 1.8;             /* Increases space between lines for readability */
+    	font-weight: 400; 
+    	color: #aaa; 
+    	letter-spacing: 1px;        /* Spreads the letters for a cinematic feel */
+	}
+
+	.intro-text strong { 
+    	color: #fff;                  /* Keeps bold names bright white */
+    	font-weight: 400; 
+    	letter-spacing: 1.5px; 
+	}
 
         /* --- MOVEMENTS LIST --- */
         .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
@@ -220,7 +233,7 @@
             <img src="images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork">
             <div class="intro-text">
                 <p>A cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
-                <p>Grounding universal legends in the moss-drenched textures of the <strong>New Forest</strong>, <strong>Tales For All Time</strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
+                <p>Grounding universal legends in the moss-drenched textures of the New Forest, <strong><em>Tales For All Time</em></strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
                 <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
             </div>
             <img src="images/courtney-leggett-1.jpg" alt="Raven Artwork">
@@ -333,7 +346,7 @@
                 <div class="mvt-number">XV.</div>
                 <div class="mvt-content">
                     <div class="mvt-title">Ever After</div>
-                    <div class="mvt-desc">Destiny</div>
+                    <div class="mvt-desc">Legacy</div>
                 </div>
             </div>
         </div>
