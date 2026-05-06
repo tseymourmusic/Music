@@ -1,0 +1,18 @@
+<div class="audio-container">
+    <div class="player-container">
+        <button class="skip-btn" id="prevBtn" aria-label="Previous">«</button>
+        
+        <div class="console">
+            <audio id="audio" controls controlsList="nodownload">
+                <!-- No 'src' here; the script will grab it from your playlist -->
+                <source id="audio-source" src="" type="audio/mp4">
+            </audio>
+            <div id="track-title">Loading Track...</div>
+        </div>
+
+        <button class="skip-btn" id="nextBtn" aria-label="Next">»</button>
+    </div>
+    
+    <!-- This is where the playlist from your page will be injected -->
+    <div id="playlist-target"></div>
+</div>
