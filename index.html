@@ -9,18 +9,16 @@
     
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- 1. FONTS: Keep these here so they load for the whole page -->
+    <!-- 1. FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     
-    <!-- 2. MENU CSS: This replaces all the 'nav' CSS you used to have below -->
+    <!-- 2. MENU CSS -->
     <link rel="stylesheet" href="menu.css">
 
-    <!-- 3. Footer font call: Corrected Font Awesome link -->
+    <!-- 3. Corrected Font Awesome link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    
     <style>
-        /* 3. PAGE-SPECIFIC STYLES: Keep only the stuff for body and hero here */
         body, html {
             margin: 0;
             padding: 0;
@@ -96,30 +94,109 @@
             50% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); border-color: rgba(212, 175, 55, 1); }
         }
 
-        /* BIOGRAPHY SECTION */
+        /* CONTENT CONTAINER & BIO GRID */
         .content-container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 120px 24px;
         }
 
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 60px;
+            align-items: start;
+            margin-top: 50px;
+        }
+
+        .bio-headshot img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            filter: grayscale(10%); /* Reduced grayscale for more life */
+        }
+
+        /* UNIFIED HEADER STYLE */
         h2.section-label {
-            color: #444;
-            font-size: 0.65rem;
-            letter-spacing: 5px;
+            color: #bbb; /* Lightened from #444 to be readable */
+            font-size: 0.7rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            border-bottom: 1px solid #1a1a1a;
-            padding-bottom: 10px;
-            margin-bottom: 50px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 300;
+            text-align: center; /* Centered as requested */
+            grid-column: 1 / -1; 
         }
 
         .bio-text p {
             font-size: 1.05rem;
             line-height: 1.9;
-            color: #aaa;
-            margin-bottom: 35px;
+            color: #ccc; /* Lightened slightly for readability */
+            margin-bottom: 25px;
             font-weight: 300;
+        }
+
+        .bio-text p:first-of-type {
+            margin-top: 0;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            padding: 100px 24px;
+            background: #080808;
+            border-top: 1px solid #111;
+        }
+
+        /* Matches Biography section label exactly */
+        .contact-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #bbb;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-align: center;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-text {
+            text-align: center;
+            font-size: 1rem;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .contact-text a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #D4AF37;
+            padding-bottom: 2px;
+            transition: 0.3s;
+        }
+
+        .contact-text a:hover {
+            color: #D4AF37;
+        }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 850px) {
+            .bio-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .bio-headshot {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .content-container { padding: 80px 24px; }
         }
     </style>
 </head>
@@ -136,21 +213,36 @@
         <a href="https://www.tim-seymour.com/music/tales-for-all-time" target="_blank" class="mythic-button">CHAPTER I</a>
     </section>
 
-    <!-- 3. BIOGRAPHY -->
+    <!-- 3. BIOGRAPHY SECTION WITH HEADSHOT -->
     <div class="content-container">
         <h2 class="section-label">Tim Seymour | Cinematic Composer Biography</h2>
-        <div class="bio-text">
-            <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
-            <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
-            <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>TalES fOr All TiME</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> in 2026.</p>
+        
+        <div class="bio-grid">
+            <div class="bio-headshot">
+                <img src="images/Headshot.jpg" alt="Tim Seymour Composer">
+            </div>
+            
+            <div class="bio-text">
+                <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
+                <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
+                <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales For All TimeE</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> at St Luke's in 2026.</p>
+                <p>By combining high-end musical architecture with professional delivery, Tim provides world-class cinematic experiences from the heart of the Hampshire landscape.</p>
+            </div>
         </div>
     </div>
 
-    <!-- 4. FOOTER -->
+    <!-- 4. CONTACT SECTION -->
+    <section class="contact-section">
+        <h2>Get In Touch</h2>
+        <div class="contact-text">
+            <p>To discuss a project, please fill out the <a href="https://docs.google.com/forms/d/1JV3OjVSIaQQlhX1Ba-WrXvDUh7OD8BjIeNs2dWuz6fk/viewform" target="_blank">contact form</a> or email <a href="mailto:TSeymourMusic@gmail.com">TSeymourMusic@gmail.com</a></p>
+        </div>
+    </section>
+
+    <!-- 5. FOOTER -->
     <div id="footer-placeholder"></div>
 
-
-    <!-- 5. SCRIPTS: Components & Animations -->
+    <!-- 6. SCRIPTS -->
     <script>
         // Load Menu
         fetch('menu.html')
@@ -180,7 +272,7 @@
         // Scroll logic for the Navigation Background
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
-            if (nav) { // Check if nav has loaded yet
+            if (nav) {
                 if (window.pageYOffset > 50) {
                     nav.style.background = "rgba(10, 10, 10, 0.98)";
                 } else {
@@ -190,5 +282,4 @@
         };
     </script>
 </body>
-
 </html>
