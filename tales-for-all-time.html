@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalES fOr All TiME | Tim Seymour Music</title>
     
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- External Player & Menu Styles -->
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="menu.css">
+
     <style>
-        /* --- RESET & BASE --- */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- LAYOUT OVERRIDE --- */
+        /* Forces the page to stack vertically even if style.css tries to flex it */
         body {
-            margin: 0; 
+            display: block !important; 
+            margin: 0;
             padding: 0;
             background-color: #0a0a0a;
             color: #FFFFFF;
@@ -23,52 +29,24 @@
             line-height: 1.6;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: absolute; 
-            top: 0; 
-            width: 100%;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 30px 50px; 
-            box-sizing: border-box; 
-            z-index: 1000;
-        }
-        .nav-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            text-decoration: none;
-            color: #fff;
-            letter-spacing: 3px;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 0.75rem;
-            font-weight: 300;
-            margin-left: 25px;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover { color: #D4AF37; }
+        html { scroll-behavior: smooth; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Full Width) --- */
         .hero {
-            min-height: 90vh;
+            width: 100%;
+            min-height: 100vh; /* Changed to 100vh for a full first-look impact */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.2) 50%, rgba(10,10,10,1) 100%), 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
                         url('images/Tales-For-All-Time-bg.gif') no-repeat center center;
             background-size: cover;
-            padding: 100px 20px;
+            padding: 40px 20px;
+            box-sizing: border-box;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(10px);
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
         .hero.reveal { opacity: 1; transform: translateY(0); }
@@ -79,53 +57,63 @@
             font-size: clamp(2.5rem, 8vw, 5rem);
             letter-spacing: 0.15em;
             margin: 0 0 20px 0;
-            /* text-transform: none allows your specific casing to show */
-            text-transform: none; 
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
-        .hero .subtitle {
+
+        .hero-text-block {
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
             font-family: 'Cinzel', serif;
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            max-width: 800px;
-            letter-spacing: 2px;
             color: #F5F5DC;
-            opacity: 0.9;
+            text-transform: uppercase;
         }
 
-        /* --- LAYOUT UTILITIES --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
+        .hero-main-sub { font-size: clamp(0.8rem, 1.5vw, 1.1rem); letter-spacing: 4px; margin-bottom: 10px; }
+        .hero-details { font-size: clamp(0.6rem, 1.2vw, 0.85rem); letter-spacing: 3px; margin-bottom: 10px; font-weight: 300; }
+        .hero-credits { font-size: clamp(0.5rem, 1vw, 0.7rem); letter-spacing: 2px; margin-bottom: 25px; font-weight: 300; }
+        .hero-date { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 6px; font-weight: 400; margin-top: 20px; }
+
+        /* --- CONTENT CONTAINER --- */
+        .container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 80px 20px;
+            box-sizing: border-box;
         }
+        
         hr {
             border: 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin: 60px auto;
-            width: 60%;
-        }
-        .section-label {
-            color: #444; 
-            font-size: 0.65rem; 
-            letter-spacing: 5px; 
-            text-transform: uppercase; 
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: 400;
+            width: 100%;
+            max-width: 800px;
         }
 
-        /* --- AUDIO SECTION --- */
-        .audio-container {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .audio-title {
+        .section-label {
             font-family: 'Cinzel', serif;
-            color: #D4AF37;
-            font-size: 1rem;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
+            color: #fff; 
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+            letter-spacing: 5px; 
+            text-transform: none;
+            font-variant: medium-caps;		 
+            text-align: center;
+            margin: -15px auto 60px auto;
+            padding-bottom: 30px; 
+            font-weight: 200;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+        }
+
+        /* --- PLAYER ADJUSTMENT --- */
+        .player-container {
+            margin: 0 auto 80px auto;
+            max-width: 700px !important;
+            display: flex; /* Ensures the pill and arrows stay together */
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         /* --- INTRO ROW --- */
@@ -138,114 +126,70 @@
         }
         .intro-row img { 
             width: 100%; 
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: auto;
+            border: 1px solid rgba(255,255,255,0.05); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
-        .intro-text { 
-            text-align: center; 
-            font-size: 0.95rem; 
-            line-height: 2; 
-            font-weight: 300; 
-            color: #aaa;
-        }
+        .intro-text { text-align: center; font-size: 0.95rem; line-height: 2; font-weight: 300; color: #aaa; }
         .intro-text strong { color: #fff; font-weight: 400; }
 
         /* --- MOVEMENTS LIST --- */
-        .movements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .movement-item {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .m-num {
-            font-family: 'Cinzel', serif;
-            color: #D4AF37;
-            font-size: 0.9rem;
-            min-width: 30px;
-        }
-        .m-title {
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
+        .mvt-row { display: flex; width: 100%; margin-bottom: 45px; text-align: left; }
+        .mvt-number { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #D4AF37; min-width: 70px; }
+        .mvt-title { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: #FFFFFF; margin-bottom: 5px; text-transform: uppercase; }
+        .mvt-desc { font-size: 0.75rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
 
-        /* --- LOGO ROW --- */
-        .logo-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            padding: 40px 0;
-            opacity: 0.7;
-        }
-        .logo-row img { 
-            height: 45px; 
-            filter: brightness(0) invert(1);
-        }
+        /* --- SCORE SECTION --- */
+        .score-container { width: 100%; max-width: 900px; margin: 0 auto 40px auto; aspect-ratio: 16 / 9; }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 80px 20px 40px;
-            text-align: center;
-            background: #050505;
-        }
-        .social-links { margin-bottom: 30px; }
-        .social-links a {
-            color: #fff;
-            font-size: 1.2rem;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        .social-links a:hover { color: #D4AF37; }
-        .copyright { font-size: 0.7rem; color: #444; letter-spacing: 1px; }
-
-        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .intro-row { grid-template-columns: 1fr; }
             .intro-row img { max-width: 300px; justify-self: center; }
             .intro-text { order: -1; }
-            nav { padding: 20px; flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">TIM SEYMOUR MUSIC</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="https://www.tim-seymour.com/contact">Contact</a>
-        </div>
-    </nav>
+    <!-- 1. THE MENU PLACEHOLDER -->
+    <div id="nav-placeholder"></div>
 
+    <!-- HERO SECTION -->
     <header class="hero" id="hero">
-        <!-- Exact casing applied here -->
         <h1>TalES fOr All TiME</h1>
-        <div class="subtitle">
-            A Cinematic Audio-Visual Odyssey featuring the London Symphony Orchestra
+        <div class="hero-text-block">
+            <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
+            <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
+            <p class="hero-credits">COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> ILLUSTRATED BY <strong>COURTNEY LEGGETT</strong></p>
+            <p class="hero-date">COMING 2026 / 2027</p>
         </div>
     </header>
 
     <div class="container">
         
+        <!-- NEW AUDIO PLAYER SECTION (Replaced Soundcloud) -->
         <div class="audio-container">
-            <div class="audio-title">MOVEMENT XIV: DESTINY</div>
-            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/YOUR_TRACK_ID&color=%23D4AF37&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            <div class="player-container">
+                <button class="skip-btn" id="prevBtn">«</button>
+                <div class="console">
+                    <audio id="audio" controls controlsList="nodownload">
+                        <source id="audio-source" src="audio/Destiny.m4a" type="audio/mpeg">
+                    </audio>
+                    <div id="track-title">XIV. Destiny</div>
+                </div>
+                <button class="skip-btn" id="nextBtn">»</button>
+            </div>
+
+            <!-- Full Playlist Data for player.js -->
+            <ul id="playlist" style="display: none !important;">
+                <li class="track active" data-src="audio/Destiny.m4a">XIV. Destiny</li>
+                </ul>
         </div>
 
-        <hr>
+        <hr style="margin-top: 60px;">
 
+        <!-- INTRO ARTWORK & TEXT -->
         <div class="intro-row">
             <img src="images/AncientTree-Artwork.jpg" alt="Ancient Tree Artwork">
             <div class="intro-text">
@@ -258,27 +202,139 @@
 
         <hr>
 
-        <h2 class="section-label">The 15 Movements</h2>
-        <div class="movements-grid">
-            <div class="movement-item"><span class="m-num">I.</span><span class="m-title">Icarus' Flight</span></div>
-            <div class="movement-item"><span class="m-num">II.</span><span class="m-title">Taming Pegasus</span></div>
-            <div class="movement-item"><span class="m-num">III.</span><span class="m-title">Fall from Grace</span></div>
-            <div class="movement-item"><span class="m-num">IV.</span><span class="m-title">Siren Seduction</span></div>
-            <div class="movement-item"><span class="m-num">V.</span><span class="m-title">Pandora's Box</span></div>
-            <div class="movement-item"><span class="m-num">VI.</span><span class="m-title">Swan Song</span></div>
-            <div class="movement-item"><span class="m-num">VII.</span><span class="m-title">Star-Crossed Lovers</span></div>
-            <div class="movement-item"><span class="m-num">VIII.</span><span class="m-title">Orpheus' Persuasion</span></div>
-            <div class="movement-item"><span class="m-num">IX.</span><span class="m-title">Tears of Babylon</span></div>
-            <div class="movement-item"><span class="m-num">X.</span><span class="m-title">Hidden Psyche</span></div>
-            <div class="movement-item"><span class="m-num">XI.</span><span class="m-title">Narcissus' Trance</span></div>
-            <div class="movement-item"><span class="m-num">XII.</span><span class="m-title">Halcyon Days</span></div>
-            <div class="movement-item"><span class="m-num">XIII.</span><span class="m-title">To Elysium</span></div>
-            <div class="movement-item"><span class="m-num">XIV.</span><span class="m-title">Destiny</span></div>
-            <div class="movement-item"><span class="m-num">XV.</span><span class="m-title">Ever After</span></div>
+        <h2 class="section-label">The Movements</h2>
+        
+        <div class="movements-classic-list">
+            <div class="mvt-row">
+                <div class="mvt-number">I.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Icarus' Flight</div>
+                    <div class="mvt-desc">Ambition</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">II.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Taming Pegasus</div>
+                    <div class="mvt-desc">Unity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">III.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Fall From Grace</div>
+                    <div class="mvt-desc">Hubris</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">IV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Siren Seduction</div>
+                    <div class="mvt-desc">Desire</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">V.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Pandora's Box</div>
+                    <div class="mvt-desc">Curiosity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VI.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Swan Song</div>
+                    <div class="mvt-desc">Allure</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Star-Crossed Lovers</div>
+                    <div class="mvt-desc">Tragedy</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">VIII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Orpheus' Persuasion</div>
+                    <div class="mvt-desc">Eloquence</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">IX.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Tears Of Babylon</div>
+                    <div class="mvt-desc">Woe</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">X.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Hidden Psyche</div>
+                    <div class="mvt-desc">Vulnerability</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XI.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Narcissus' Trance</div>
+                    <div class="mvt-desc">Obsession</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Halcyon Days</div>
+                    <div class="mvt-desc">Serenity</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XIII.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">To Elysium</div>
+                    <div class="mvt-desc">Transcendence</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XIV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Destiny</div>
+                    <div class="mvt-desc">Fate</div>
+                </div>
+            </div>
+            <div class="mvt-row">
+                <div class="mvt-number">XV.</div>
+                <div class="mvt-content">
+                    <div class="mvt-title">Ever After</div>
+                    <div class="mvt-desc">Destiny</div>
+                </div>
+            </div>
         </div>
 
         <hr>
 
+        <!-- FLIPBOOK SECTION -->
+        <h2 class="section-label">The Score</h2>
+        <div class="score-container">
+            <iframe 
+                src="https://heyzine.com/flip-book/34f7a61096.html" 
+                style="width:100%; height:100%; border:none;" 
+                allowfullscreen 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+        </div>
+
+        <hr>
+
+        <!-- CREDITS SECTION -->
+        <div class="score-footer-credits" style="text-align: center; margin: 80px auto;">
+            MUSIC COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> FEATURING THE <strong>LONDON SYMPHONY ORCHESTRA</strong> WITH THE <strong>LONDON CONTEMPORARY VOICES</strong> VISUAL ART BY <strong>COURTNEY LEGGETT</strong> ANIMATED AND DIRECTED BY <strong>TIM SEYMOUR</strong>
+        </div>
+
+        <hr>
+
+        <!-- COLLABORATORS SECTION -->
         <h2 class="section-label">Collaborators</h2>
         <div class="logo-row">
             <img src="logos/LSO.png" alt="London Symphony Orchestra">
@@ -286,25 +342,43 @@
             <img src="logos/ArtsCouncil.png" alt="Arts Council England">
         </div>
 
-    </div>
+    </div> <!-- End of Container -->
 
-    <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-spotify"></i></a>
-            <a href="#"><i class="fab fa-soundcloud"></i></a>
-        </div>
-        <div class="copyright">
-            COMING 2026 / 2027<br>
-            © 2026 TIM SEYMOUR MUSIC. ALL RIGHTS RESERVED.
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
+
+    <!-- SCRIPTS -->
+    <script src="player.js"></script>
 
     <script>
+        // COMPONENT LOADER
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // HERO REVEAL ANIMATION
         window.addEventListener('load', () => {
             document.getElementById('hero').classList.add('reveal');
         });
+
+        // SCROLL LOGIC FOR NAV BACKGROUND
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                if (window.pageYOffset > 50) {
+                    nav.style.background = "rgba(10, 10, 10, 0.98)";
+                } else {
+                    nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+                }
+            }
+        };
     </script>
 
 </body>
