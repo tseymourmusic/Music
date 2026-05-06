@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags -->
     <title>Tim Seymour | Cinematic Composer & Producer</title>
-    <meta name="description" content="Award-winning composer based in the New Forest, UK. Specialising in Modern British Pastoral cinematic music and orchestral production.">
+    <meta name="description" content="Award-winning composer based in the New Forest, UK.">
     
-    <!-- Favicon (Make sure favicon.png is in your images folder) -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <!-- 1. FONTS: Keep these here so they load for the whole page -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <!-- 2. MENU CSS: This replaces all the 'nav' CSS you used to have below -->
+    <link rel="stylesheet" href="menu.css">
+
+    <!-- 3. Footer font call: Corrected Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     
     <style>
+        /* 3. PAGE-SPECIFIC STYLES: Keep only the stuff for body and hero here */
         body, html {
             margin: 0;
             padding: 0;
@@ -25,68 +31,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 50px;
-            box-sizing: border-box;
-            z-index: 1000;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-            transition: background 0.5s;
-        }
-
-        .nav-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 200;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 300;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover { color: #D4AF37; }
-
-        /* Dropdown Setup */
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: rgba(10, 10, 10, 0.98);
-            min-width: 180px;
-            top: 100%;
-            left: 0;
-            padding: 10px 0;
-            border: 1px solid #1a1a1a;
-        }
-        .dropdown-content a {
-            padding: 10px 20px;
-            display: block;
-            border: none;
-        }
-        .dropdown:hover .dropdown-content { display: block; }
-
-        /* --- HERO SECTION --- */
+        /* HERO SECTION */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -109,13 +54,12 @@
 
         .mythic-title {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: clamp(1.8rem, 8vw, 4rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
             letter-spacing: 0.15em;
-            text-shadow: 0px 0px 12px rgba(212, 175, 55, 0.5);
             margin: 0;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
         }
-
-        .low-case { text-transform: lowercase; }
 
         .mythic-tagline {
             font-family: 'Cinzel', serif;
@@ -152,7 +96,7 @@
             50% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); border-color: rgba(212, 175, 55, 1); }
         }
 
-        /* --- BIOGRAPHY SECTION --- */
+        /* BIOGRAPHY SECTION */
         .content-container {
             max-width: 900px;
             margin: 0 auto;
@@ -177,50 +121,52 @@
             margin-bottom: 35px;
             font-weight: 300;
         }
-
-        @media (max-width: 900px) {
-            nav { padding: 20px; flex-direction: column; gap: 15px; }
-            .nav-links { gap: 15px; }
-        }
     </style>
 </head>
+
 <body>
 
-    <nav id="main-nav">
-        <a href="#" class="nav-logo">Tim Seymour &middot; Composer &middot; Producer</a>
-        <div class="nav-links">
-            <a href="#hero">Home</a>
-            <div class="dropdown">
-                <a href="#">Music &#9662;</a>
-                <div class="dropdown-content">
-                    <a href="tales-for-all-time.html">Tales For All Time</a>
-                    <a href="lawyered-up-v2.html">Lawyered Up</a>
-                    <a href="homologies-v2.html">Homologies</a>
-                    <a href="https://www.tim-seymour.com/music/saviour">Saviour (Album)</a>
-                </div>
-            </div>
-            <a href="https://www.tim-seymour.com/live">Live</a>
-            <a href="https://www.tim-seymour.com/store">Store</a>
-            <a href="https://www.tim-seymour.com/contact">Contact</a>
-        </div>
-    </nav>
+    <!-- 1. NAVIGATION -->
+    <div id="nav-placeholder"></div>
 
+    <!-- 2. HERO SECTION -->
     <section class="hero-section" id="hero">
-        <h1 class="mythic-title">T<span class="low-case">al</span>ES <span class="low-case">f</span>O<span class="low-case">r</span> A<span class="low-case">ll</span> T<span class="low-case">i</span>ME</h1>
+        <h1 class="mythic-title">TalES fOr All TiME</h1>
         <p class="mythic-tagline">Ancient myths & legends classically retold for our time.</p>
         <a href="https://www.tim-seymour.com/music/tales-for-all-time" target="_blank" class="mythic-button">CHAPTER I</a>
     </section>
 
+    <!-- 3. BIOGRAPHY -->
     <div class="content-container">
         <h2 class="section-label">Tim Seymour | Cinematic Composer Biography</h2>
         <div class="bio-text">
             <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
             <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
-            <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales for All Time</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> in 2026.</p>
+            <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>TalES fOr All TiME</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> in 2026.</p>
         </div>
     </div>
 
+    <!-- 4. FOOTER -->
+    <div id="footer-placeholder"></div>
+
+
+    <!-- 5. SCRIPTS: Components & Animations -->
     <script>
+        // Load Menu
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        // Load Footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Intersection Observer for the Hero reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -231,14 +177,18 @@
 
         observer.observe(document.getElementById('hero'));
 
+        // Scroll logic for the Navigation Background
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
-            if (window.pageYOffset > 50) {
-                nav.style.background = "rgba(10, 10, 10, 0.98)";
-            } else {
-                nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+            if (nav) { // Check if nav has loaded yet
+                if (window.pageYOffset > 50) {
+                    nav.style.background = "rgba(10, 10, 10, 0.98)";
+                } else {
+                    nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+                }
             }
         };
     </script>
 </body>
+
 </html>
