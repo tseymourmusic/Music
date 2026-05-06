@@ -11,6 +11,9 @@
     <!-- External Player Files -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- 1. ADDED MENU CSS LINK -->
+    <link rel="stylesheet" href="menu.css">
+
     <style>
         body, html { 
             margin: 0; padding: 0; 
@@ -20,16 +23,6 @@
             overflow-x: hidden;
         }
         
-        /* Navigation */
-        nav { 
-            position: fixed; top: 0; width: 100%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 25px 50px; box-sizing: border-box; z-index: 1000; 
-            background: rgba(10, 10, 10, 0.95); 
-        }
-        .nav-logo { font-size: 0.75rem; letter-spacing: 3px; text-decoration: none; color: #fff; font-weight: 200; text-transform: uppercase; }
-        .nav-links a { text-decoration: none; color: #fff; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-left: 30px; font-weight: 300; }
-
         /* Container */
         .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
         
@@ -86,19 +79,13 @@
             .project-grid { grid-template-columns: 1fr; } 
             .container { margin-top: 180px; } 
             h1 { font-size: 1.8rem; letter-spacing: 6px; }
-            nav { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">Tim Seymour &middot; Composer &middot; Producer</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="https://www.tim-seymour.com/contact">Contact</a>
-        </div>
-    </nav>
+    <!-- 2. NAV PLACEHOLDER -->
+    <div id="nav-placeholder"></div>
 
     <div class="container">
         <h1>HOMOLOGIES</h1>
@@ -115,7 +102,6 @@
                 
                 <h3>SOUNDTRACK</h3>
                 
-                <!-- The original player structure for player.js -->
                 <div class="player-container">
                     <button class="skip-btn" id="prevBtn">«</button>
                     <div class="console">
@@ -127,7 +113,6 @@
                     <button class="skip-btn" id="nextBtn">»</button>
                 </div>
 
-                <!-- Hidden data for player.js -->
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="audio/Homologies Pt1.m4a">Homologies - Part 1</li>
                     <li class="track" data-src="audio/Homologies Pt2.m4a">Homologies - Part 2</li>
@@ -141,7 +126,37 @@
         </div>
     </div>
 
+    <!-- 3. FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
     <script src="player.js"></script>
+
+    <script>
+        // COMPONENT LOADER
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Universal scroll logic to manage menu background
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                if (window.pageYOffset > 50) {
+                    nav.style.background = "rgba(10, 10, 10, 0.98)";
+                } else {
+                    nav.style.background = "rgba(10, 10, 10, 0.95)";
+                }
+            }
+        };
+    </script>
 
 </body>
 </html>
