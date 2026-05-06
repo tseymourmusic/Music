@@ -4,17 +4,12 @@
     --dark-grey: #121212; 
 }
 
-body {
+.player-page-layout {
     background: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 0;
-    padding: 10px 5px; 
-    font-family: 'Montserrat', sans-serif;
     overflow: hidden; 
-    touch-action: auto;
-    -webkit-text-size-adjust: none;
 }
 
 .player-container {
