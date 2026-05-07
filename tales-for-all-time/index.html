@@ -162,21 +162,26 @@
             .intro-text { order: -1; }
         }
         .audio-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* This forces the player to the middle */
-            justify-content: center;
             width: 100%;
             margin: 0 auto;
+            /* We use block here so the child can expand naturally */
+            display: block; 
             text-align: center;
         }
 
         #player-placeholder {
             width: 100%;
-            max-width: 800px; /* Or whatever width your player was */
+            /* This matches your Lawyered Up container width */
+            max-width: 1100px; 
+            margin: 0 auto;
             display: flex;
             justify-content: center;
-        }   
+        }
+
+            /* This targets the actual player inside the placeholder */
+            #player-placeholder > div {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
