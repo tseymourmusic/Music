@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homologies | Tim Seymour Composer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #1a1f21; 
+            color: #FFFFFF; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        .container { max-width: 1100px; margin: 100px auto 60px; padding: 0 20px; }
+        
+        h1 { 
+            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
+            margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
+        }
+
+        .tagline { 
+            text-align: center; font-style: italic; color: #eae0d5; 
+            font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
+            letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
+        }
+
+        .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+        .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); border-radius: 2px; }
+
+        .details h3 { 
+            font-size: 0.7rem; letter-spacing: 4px; color: #666; 
+            margin: 45px 0 20px; border-bottom: 1px solid #333; 
+            padding-bottom: 10px; text-transform: uppercase; font-weight: 400;
+        }
+
+        .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
+        .player-container { margin-top: 10px; margin-bottom: 30px; max-width: 100% !important; }
+
+        /* FOOTER FIXES */
+        #footer-placeholder {
+            clear: both;
+            width: 100%;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            position: relative !important;
+            display: block !important;
+        }
+
+        .social-links {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 30px !important;
+            margin-bottom: 25px !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-links a {
+            color: #fff !important;
+            font-size: 1.5rem !important;
+            opacity: 0.7;
+            text-decoration: none;
+            display: inline-block !important;
+        }
+
+        .social-links a:hover { opacity: 1; }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 800px) { 
+            .project-grid { grid-template-columns: 1fr; } 
+            .container { margin-top: 180px; } 
+            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <h1>HOMOLOGIES</h1>
+        <p class="tagline">"In the near future, parents who have paid to genetically enhance their children wonder if they have made a terrible mistake."</p>
+
+        <div class="project-grid">
+            <div class="poster">
+                <img src="images/Homologies-Poster.jpg" alt="Homologies Film Poster">
+            </div>
+
+            <div class="details">
+    <p><em>Homologies</em> is an award-winning sci-fi short film Directed by <strong>Bryerly Long</strong> and Produced & Written by <strong>Tatiana Blackington James</strong>.</p>
+    <p>The score establishes a strange yet inviting sci-fi atmosphere via melodic swells of cinematic ambient synths. As the mystery unfolds, traditional orchestral textures and haunting melodies rise to the forefront, building tension and emotion toward a shocking reveal.</p>
+    
+    <h3>SOUNDTRACK</h3>
+    <!-- The player placeholder stays here -->
+    <div id="player-placeholder">
+        <ul id="playlist" style="display: none !important;">
+            <li class="track active" data-src="audio/Homologies Pt1.m4a">Homologies - Part 1</li>
+            <li class="track" data-src="audio/Homologies Pt2.m4a">Homologies - Part 2</li>
+        </ul>
+    </div>
+
+    <!-- Move the Trailer OUTSIDE of the placeholder so it doesn't get overwritten -->
+    <h3>TRAILER</h3>
+    <div style="padding-bottom: 56.25%; position: relative; margin-top: 20px;">
+        <iframe width="100%" height="100%" src="https://player.vimeo.com/video/879200143" frameborder="0" allow="fullscreen" style="position: absolute; top: 0; left: 0;"></iframe>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="player.js"></script>
+    <script>
+        // 1. Load Menu & Footer
+        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+
+        // 2. Load Player Component (Master Code)
+        fetch('player-component.html')
+            .then(res => res.text())
+            .then(data => {
+                const placeholder = document.getElementById('player-placeholder');
+                const localPlaylist = placeholder.querySelector('#playlist');
+
+                // Inject the player UI
+                placeholder.innerHTML = data; 
+
+                if (localPlaylist) {
+                    // Move tracks into the player target
+                    const target = document.getElementById('playlist-target');
+                    if (target) {
+                        target.appendChild(localPlaylist);
+                    }
+                    
+                    // Auto-load the first track
+                    const firstTrack = localPlaylist.querySelector('.track');
+                    if (firstTrack) {
+                        const audio = document.getElementById('audio');
+                        const source = document.getElementById('audio-source');
+                        const title = document.getElementById('track-title');
+                        
+                        if (audio && source && title) {
+                            source.src = firstTrack.getAttribute('data-src');
+                            title.innerText = firstTrack.innerText;
+                            audio.load();
+                        }
+                    }
+                }
+
+                // Initialize player logic
+                setTimeout(() => {
+                    if (typeof initPlayer === "function") {
+                        initPlayer();
+                    }
+                }, 50);
+            });
+
+        // Scroll Logic
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
+    </script>
+</body>
+</html>
