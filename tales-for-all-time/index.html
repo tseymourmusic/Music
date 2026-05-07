@@ -168,17 +168,20 @@
             text-align: center;
         }
 
+        /* --- RESTORED PLAYER ADJUSTMENT --- */
         #player-placeholder .player-container {
-            max-width: 100% !important; /* Matches Lawyered Up logic */
+            margin: 0 auto 80px auto !important;
+            max-width: 700px !important; /* Forces it back to the wide look */
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
             width: 100%;
         }
 
-        #player-placeholder {
-            width: 100%;
-            /* Set this to the width you liked in the screenshot (e.g., 650px) */
-            max-width: 650px; 
-            margin: 0 auto !important;
-            display: block;
+        /* Essential to make the black bar actually stretch into the 700px */
+        #player-placeholder .console {
+            flex: 1 !important; 
         }
     </style>
 </head>
