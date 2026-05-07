@@ -9,13 +9,10 @@
     
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- 1. FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     
-    <!-- 2. MENU CSS -->
     <link rel="stylesheet" href="menu.css">
 
-    <!-- 3. Corrected Font Awesome link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -114,12 +111,11 @@
             height: auto;
             border-radius: 2px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            filter: grayscale(10%); /* Reduced grayscale for more life */
+            filter: grayscale(10%); 
         }
 
-        /* UNIFIED HEADER STYLE */
         h2.section-label {
-            color: #bbb; /* Lightened from #444 to be readable */
+            color: #bbb;
             font-size: 0.7rem;
             letter-spacing: 6px;
             text-transform: uppercase;
@@ -127,20 +123,16 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
             font-weight: 300;
-            text-align: center; /* Centered as requested */
+            text-align: center;
             grid-column: 1 / -1; 
         }
 
         .bio-text p {
             font-size: 1.05rem;
             line-height: 1.9;
-            color: #ccc; /* Lightened slightly for readability */
+            color: #ccc;
             margin-bottom: 25px;
             font-weight: 300;
-        }
-
-        .bio-text p:first-of-type {
-            margin-top: 0;
         }
 
         /* CONTACT SECTION */
@@ -150,7 +142,6 @@
             border-top: 1px solid #111;
         }
 
-        /* Matches Biography section label exactly */
         .contact-section h2 {
             font-family: 'Montserrat', sans-serif;
             color: #bbb;
@@ -186,7 +177,6 @@
             color: #D4AF37;
         }
 
-        /* MOBILE ADJUSTMENTS */
         @media (max-width: 850px) {
             .bio-grid {
                 grid-template-columns: 1fr;
@@ -203,17 +193,14 @@
 
 <body>
 
-    <!-- 1. NAVIGATION -->
     <div id="nav-placeholder"></div>
 
-    <!-- 2. HERO SECTION -->
     <section class="hero-section" id="hero">
         <h1 class="mythic-title">TAlES fOr All TiME</h1>
         <p class="mythic-tagline">Ancient myths & legends classically retold for our time.</p>
-        <a href="tales-for-all-time.html" class="mythic-button">CHAPTER I</a>
+        <a href="tales-for-all-time/index.html" class="mythic-button">CHAPTER I</a>
     </section>
 
-    <!-- 3. BIOGRAPHY SECTION WITH HEADSHOT -->
     <div class="content-container">
         <h2 class="section-label">Tim Seymour | Composer Biography</h2>
         
@@ -225,40 +212,31 @@
             <div class="bio-text">
                 <p>Tim Seymour is an award-winning composer and producer based in the New Forest, England. His compositions symphonise rich orchestral heritage with contemporary cinematic production, creating unique and immersive sonic landscapes rooted in emotive, modern British Pastoral melodies.</p>
                 <p>A graduate of the European Academy of Fine Arts, Tim’s craft has been shaped by elite mentorship from <strong>Andy Hill</strong> and <strong>Dr. Norman Ludwin</strong>. This foundation is bolstered by his professional background in project management (<strong>ACMA</strong>), ensuring artistic depth with technical precision.</p>
-                <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales For All TimeE</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> at St Luke's in 2026.</p>
+                <p>A former <strong>LSO SoundHub Associate Composer</strong>, Tim is currently architecting his most ambitious work to date: <em>Tales For All Time</em>, scheduled for recording with the <strong>London Symphony Orchestra</strong> at St Luke's in 2026.</p>
                 <p>By combining high-end musical architecture with professional delivery, Tim provides world-class cinematic experiences from the heart of the Hampshire landscape.</p>
             </div>
         </div>
     </div>
 
-    <!-- 4. CONTACT SECTION -->
     <section class="contact-section">
         <h2>Get In Touch</h2>
         <div class="contact-text">
-            <p>To discuss a project, please fill out the <a href="contact.html">contact form</a> or email <a href="mailto:TSeymourMusic@gmail.com">TSeymourMusic@gmail.com</a></p>
+            <p>To discuss a project, please fill out the <a href="contact/index.html">contact form</a> or email <a href="mailto:TSeymourMusic@gmail.com">TSeymourMusic@gmail.com</a></p>
         </div>
     </section>
 
-    <!-- 5. FOOTER -->
     <div id="footer-placeholder"></div>
 
-    <!-- 6. SCRIPTS -->
     <script>
-        // Load Menu
-        fetch('menu.html')
-            .then(res => res.text())
-            .then(data => {
+        // Load Menu & Footer (Root paths remain same)
+        fetch('menu.html').then(res => res.text()).then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
             });
 
-        // Load Footer
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(data => {
+        fetch('footer.html').then(res => res.text()).then(data => {
                 document.getElementById('footer-placeholder').innerHTML = data;
             });
 
-        // Intersection Observer for the Hero reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -269,7 +247,6 @@
 
         observer.observe(document.getElementById('hero'));
 
-        // Scroll logic for the Navigation Background
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
