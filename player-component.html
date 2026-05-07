@@ -1,17 +1,14 @@
 <div class="audio-container">
     <div class="player-container">
-        <!-- Added title for hover text -->
         <button class="skip-btn" id="prevBtn" title="Previous Track" aria-label="Skip to previous track">«</button>
         
-        <div class="console">
+        <div class="console" title="Play / Pause">
             <audio id="audio" controls controlsList="nodownload">
                 <source id="audio-source" src="" type="audio/mp4">
             </audio>
-            <!-- Title attribute works here too if the text is cut off -->
             <div id="track-title" title="Click to view playlist">Loading Track...</div>
         </div>
 
-        <!-- Added title for hover text -->
         <button class="skip-btn" id="nextBtn" title="Next Track" aria-label="Skip to next track">»</button>
     </div>
     
