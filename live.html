@@ -62,10 +62,48 @@
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
+            /* Prevents desktop drag interference */
+            pointer-events: none;
+            user-select: none;
         }
 
         .carousel-item:hover {
             transform: translateY(-10px);
+        }
+
+        /* --- NAVIGATION BUTTONS --- */
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #666;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            border-color: #D4AF37;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .carousel-hint {
+            font-size: 0.7rem;
+            opacity: 0.4;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
         }
 
         /* --- DATES LIST STYLING --- */
@@ -125,7 +163,7 @@
         <h1>LIVE</h1>
 
         <div class="carousel-wrapper">
-            <div class="poster-carousel">
+            <div class="poster-carousel" id="liveCarousel">
                 <div class="carousel-item">
                     <img src="images/rising-star-concert-poster.jpg" alt="Saviour">
                 </div>
@@ -136,7 +174,12 @@
                     <img src="images/fantasia-concert-poster.jpg" alt="Fantasia (Water & Truth)">
                 </div>
             </div>
-            <p style="font-size: 0.7rem; opacity: 0.4; letter-spacing: 2px;">‹ SCROLL TO VIEW ›</p>
+
+            <div class="carousel-nav">
+                <button class="nav-btn" onclick="scrollLiveCarousel(-1)">«</button>
+                <p class="carousel-hint">SCROLL TO VIEW</p>
+                <button class="nav-btn" onclick="scrollLiveCarousel(1)">»</button>
+            </div>
         </div>
 
         <div class="dates-content">
@@ -185,6 +228,18 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        // Script to handle Live carousel navigation
+        function scrollLiveCarousel(direction) {
+            const carousel = document.getElementById('liveCarousel');
+            // Scrolls by one item width (300px) + gap (20px)
+            const scrollAmount = 320; 
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Placeholders
         fetch('menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
