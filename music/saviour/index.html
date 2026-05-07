@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../menu.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/menu.css">
 
     <style>
         body, html { 
@@ -76,17 +76,17 @@
 
         <div class="project-grid">
             <div class="poster">
-                <img src="../images/Saviour-album-cover.jpg" alt="Saviour Album Cover">
+                <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album Cover">
 
                 <div class="widescreen-carousel" id="sessionCarousel">
-                    <div class="carousel-shot"><img src="../images/saviour-recording-1.jpg" alt="Saviour Session 1"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-2.jpg" alt="Saviour Session 2"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-3.jpg" alt="Saviour Session 3"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-4.jpg" alt="Saviour Session 4"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-5.jpg" alt="Saviour Session 5"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-6.jpg" alt="Saviour Session 6"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-7.jpg" alt="Saviour Session 7"></div>
-                    <div class="carousel-shot"><img src="../images/saviour-recording-8.jpg" alt="Saviour Session 8"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-1.jpg" alt="Saviour Session 1"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-2.jpg" alt="Saviour Session 2"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-3.jpg" alt="Saviour Session 3"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-4.jpg" alt="Saviour Session 4"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-5.jpg" alt="Saviour Session 5"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-6.jpg" alt="Saviour Session 6"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-7.jpg" alt="Saviour Session 7"></div>
+                    <div class="carousel-shot"><img src="/images/saviour-recording-8.jpg" alt="Saviour Session 8"></div>
                 </div>
 
                 <div class="carousel-nav">
@@ -104,12 +104,12 @@
                 
                 <h3>LISTEN & PURCHASE</h3>
                 <div class="action-buttons">
-                    <a href="../store/" class="action-btn">CD</a>
+                    <a href="/store/" class="action-btn">CD</a>
                     <a href="https://music.apple.com/gb/album/saviour/1810550702" class="action-btn">iTunes</a>
                     <a href="#" class="action-btn">Spotify</a>
                     <a href="https://amazon.co.uk/music/player/albums/B0F5K62DFJ" class="action-btn">Amazon Music</a>
                     <a href="https://music.youtube.com/playlist?list=OLAK5uy_kkfR5u3VVUWNqrXzQ-4qmmkBFWDyILqBE" class="action-btn">YouTube</a>
-                    <a href="../live/" class="action-btn">Live</a>
+                    <a href="/live/" class="action-btn">Live</a>
                 </div>
 
                 <h3>MUSIC VIDEO - IMMORTAL</h3>
@@ -130,8 +130,8 @@
         }
 
         // FETCH PATHS UPDATED
-        fetch('../menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
-        fetch('../footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        fetch('/menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('/footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
     </script>
 </body>
 </html>
