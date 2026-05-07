@@ -7,8 +7,9 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../menu.css">
 
     <style>
         body, html { 
@@ -33,93 +34,26 @@
         }
 
         .project-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-        
         .poster img { width: 100%; box-shadow: 0 15px 50px rgba(0,0,0,0.7); border-radius: 2px; }
 
-        /* --- WIDESCREEN CAROUSEL STYLING --- */
         .widescreen-carousel {
-            margin-top: 40px;
-            width: 100%;
-            overflow-x: auto;
-            display: flex;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-            gap: 10px;
+            margin-top: 40px; width: 100%; overflow-x: auto; display: flex;
+            scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; gap: 10px;
         }
-
         .widescreen-carousel::-webkit-scrollbar { display: none; }
+        .carousel-shot { flex: 0 0 100%; scroll-snap-align: center; position: relative; }
+        .carousel-shot img { width: 100%; height: auto; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block; pointer-events: none; user-select: none; }
 
-        .carousel-shot {
-            flex: 0 0 100%; 
-            scroll-snap-align: center;
-            position: relative;
-        }
+        .carousel-nav { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; }
+        .nav-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: #666; padding: 5px 15px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 1rem; transition: all 0.3s ease; border-radius: 2px; }
+        .nav-btn:hover { color: #fff; border-color: #eae0d5; background: rgba(255,255,255,0.05); }
+        .carousel-hint { text-align: center; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px; color: #666; margin: 0; }
 
-        .carousel-shot img {
-            width: 100%;
-            height: auto;
-            border-radius: 2px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: block;
-            /* Prevents the "red stop sign" drag error on desktop */
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* --- CAROUSEL NAVIGATION --- */
-        .carousel-nav {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .nav-btn {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #666;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .nav-btn:hover {
-            color: #fff;
-            border-color: #eae0d5;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .carousel-hint {
-            text-align: center;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #666;
-            margin: 0;
-        }
-
-        /* --- DETAILS & BUTTONS --- */
-        .details h3 { 
-            font-size: 0.7rem; letter-spacing: 4px; color: #666; 
-            margin: 45px 0 20px; border-bottom: 1px solid #333; 
-            padding-bottom: 10px; text-transform: uppercase; font-weight: 400;
-        }
-
+        .details h3 { font-size: 0.7rem; letter-spacing: 4px; color: #666; margin: 45px 0 20px; border-bottom: 1px solid #333; padding-bottom: 10px; text-transform: uppercase; font-weight: 400; }
         .details p { font-size: 0.9rem; line-height: 1.8; color: #bbb; margin-bottom: 25px; font-weight: 300; }
         
         .action-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        
-        .action-btn {
-            display: block; text-align: center; padding: 12px; border: 1px solid #444; color: #bbb;
-            text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
-            transition: all 0.3s ease; background: rgba(0,0,0,0.2);
-        }
-        
+        .action-btn { display: block; text-align: center; padding: 12px; border: 1px solid #444; color: #bbb; text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s ease; background: rgba(0,0,0,0.2); }
         .action-btn:hover { border-color: #eae0d5; color: #fff; background: rgba(255,255,255,0.05); }
 
         #footer-placeholder { clear: both; width: 100%; margin-top: 80px; padding-bottom: 40px; position: relative !important; display: block !important; }
@@ -142,17 +76,17 @@
 
         <div class="project-grid">
             <div class="poster">
-                <img src="images/Saviour-album-cover.jpg" alt="Saviour Album Cover">
+                <img src="../images/Saviour-album-cover.jpg" alt="Saviour Album Cover">
 
                 <div class="widescreen-carousel" id="sessionCarousel">
-                    <div class="carousel-shot"><img src="images/saviour-recording-1.jpg" alt="Saviour Session 1"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-2.jpg" alt="Saviour Session 2"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-3.jpg" alt="Saviour Session 3"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-4.jpg" alt="Saviour Session 4"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-5.jpg" alt="Saviour Session 5"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-6.jpg" alt="Saviour Session 6"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-7.jpg" alt="Saviour Session 7"></div>
-                    <div class="carousel-shot"><img src="images/saviour-recording-8.jpg" alt="Saviour Session 8"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-1.jpg" alt="Saviour Session 1"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-2.jpg" alt="Saviour Session 2"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-3.jpg" alt="Saviour Session 3"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-4.jpg" alt="Saviour Session 4"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-5.jpg" alt="Saviour Session 5"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-6.jpg" alt="Saviour Session 6"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-7.jpg" alt="Saviour Session 7"></div>
+                    <div class="carousel-shot"><img src="../images/saviour-recording-8.jpg" alt="Saviour Session 8"></div>
                 </div>
 
                 <div class="carousel-nav">
@@ -170,12 +104,12 @@
                 
                 <h3>LISTEN & PURCHASE</h3>
                 <div class="action-buttons">
-                    <a href="store.html" class="action-btn">CD</a>
+                    <a href="../store/" class="action-btn">CD</a>
                     <a href="https://music.apple.com/gb/album/saviour/1810550702" class="action-btn">iTunes</a>
                     <a href="#" class="action-btn">Spotify</a>
                     <a href="https://amazon.co.uk/music/player/albums/B0F5K62DFJ" class="action-btn">Amazon Music</a>
                     <a href="https://music.youtube.com/playlist?list=OLAK5uy_kkfR5u3VVUWNqrXzQ-4qmmkBFWDyILqBE" class="action-btn">YouTube</a>
-                    <a href="live.html" class="action-btn">Live</a>
+                    <a href="../live/" class="action-btn">Live</a>
                 </div>
 
                 <h3>MUSIC VIDEO - IMMORTAL</h3>
@@ -189,19 +123,15 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Function to handle desktop navigation buttons
         function scrollCarousel(direction) {
             const carousel = document.getElementById('sessionCarousel');
             const scrollAmount = carousel.clientWidth; 
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
+            carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
 
-        // Placeholders
-        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
-        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        // FETCH PATHS UPDATED
+        fetch('../menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('../footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
     </script>
 </body>
 </html>
