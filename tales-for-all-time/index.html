@@ -161,6 +161,22 @@
             .intro-row img { max-width: 300px; justify-self: center; }
             .intro-text { order: -1; }
         }
+        .audio-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* This forces the player to the middle */
+            justify-content: center;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #player-placeholder {
+            width: 100%;
+            max-width: 800px; /* Or whatever width your player was */
+            display: flex;
+            justify-content: center;
+        }   
     </style>
 </head>
 <body>
