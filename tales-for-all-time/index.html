@@ -168,15 +168,17 @@
             text-align: center;
         }
 
-        #player-placeholder {
+        #player-placeholder .player-container {
+            max-width: 100% !important; /* Matches Lawyered Up logic */
             width: 100%;
-            max-width: 440px; /* Matches Lawyered Up exactly */
-            margin: 0 auto;   /* This handles the centering */
-            display: block;   /* Changed from flex to block to stop the 'shrink' */
         }
 
-        #player-placeholder > div {
+        #player-placeholder {
             width: 100%;
+            /* Set this to the width you liked in the screenshot (e.g., 650px) */
+            max-width: 650px; 
+            margin: 0 auto !important;
+            display: block;
         }
     </style>
 </head>
