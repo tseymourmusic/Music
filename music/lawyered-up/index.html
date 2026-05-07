@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../menu.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/menu.css">
 
     <style>
         body, html { 
@@ -71,7 +71,7 @@
 
         <div class="project-grid">
             <div class="poster">
-                <img src="../images/Lawyered-Up-Poster.jpg" alt="Lawyered Up Film Poster">
+                <img src="/images/Lawyered-Up-Poster.jpg" alt="Lawyered Up Film Poster">
             </div>
 
             <div class="details">
@@ -81,9 +81,9 @@
                 <h3>SOUNDTRACK</h3>
                 <div id="player-placeholder">
                     <ul id="playlist" style="display: none !important;">
-                        <li class="track active" data-src="../audio/Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
-                        <li class="track" data-src="../audio/Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
-                        <li class="track" data-src="../audio/Lawyered Up Pt3.m4a">Lawyered Up - Part 3</li>
+                        <li class="track active" data-src="/audio/Lawyered Up Pt1.m4a">Lawyered Up - Part 1</li>
+                        <li class="track" data-src="/audio/Lawyered Up Pt2.m4a">Lawyered Up - Part 2</li>
+                        <li class="track" data-src="/audio/Lawyered Up Pt3.m4a">Lawyered Up - Part 3</li>
                     </ul>
                 </div>
 
@@ -97,14 +97,14 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="../player.js"></script>
+    <script src="/player.js"></script>
     <script>
         // Load Menu & Footer
-        fetch('../menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
-        fetch('../footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        fetch('/menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('/footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
         // Load Player Component
-        fetch('../player-component.html')
+        fetch('/player-component.html')
             .then(res => res.text())
             .then(data => {
                 const placeholder = document.getElementById('player-placeholder');
