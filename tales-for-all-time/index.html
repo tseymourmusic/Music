@@ -170,18 +170,13 @@
 
         #player-placeholder {
             width: 100%;
-            max-width: 1100px; 
-            margin: 0 auto !important; 
-            display: flex;
-            justify-content: center;
+            max-width: 440px; /* Matches Lawyered Up exactly */
+            margin: 0 auto;   /* This handles the centering */
+            display: block;   /* Changed from flex to block to stop the 'shrink' */
         }
 
-        /* THE CRITICAL FIX: Force the injected player to be wide */
         #player-placeholder > div {
-            flex: 1; /* Forces it to grow and fill the 1100px */
             width: 100%;
-            min-width: 100%; /* Prevents the 'pinched' look */
-            display: block;
         }
     </style>
 </head>
