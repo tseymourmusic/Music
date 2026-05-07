@@ -103,27 +103,95 @@
             max-width: 800px;
         }
 
-        .intro-row {
+        /* --- CAROUSEL SYSTEM --- */
+        .intro-carousel-container {
+            max-width: 1100px;
+            margin: 60px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .carousel-wrapper {
             display: grid;
             grid-template-columns: 1fr 1.5fr 1fr;
             gap: 40px;
             align-items: center;
-            margin: 80px 0;
+            width: 100%;
         }
-        .intro-row img { 
-            width: 100%; 
+
+        .image-carousel {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .image-carousel::-webkit-scrollbar { display: none; }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            display: flex; /* Ensures image fills container perfectly */
+        }
+
+        .carousel-item img {
+            width: 100%;
             height: auto;
-            border: 1px solid rgba(255,255,255,0.05); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            vertical-align: middle; /* Removes the bottom "ghost" margin */
+            margin-bottom: -1px; /* Slight overlap to ensure no sub-pixel gaps */
         }
-        .intro-text { 
-            text-align: left; 
+
+        .intro-text {
+            text-align: left;
             font-family: 'Cinzel', serif;
-            font-size: 1rem; 
-            line-height: 1.8; 
-            font-weight: 400; 
-            color: #aaa; 
-            letter-spacing: 1px; 
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #666;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            border-color: #D4AF37;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .carousel-hint {
+            text-align: center;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #666;
+            margin: 0;
         }
 
         .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
@@ -157,10 +225,11 @@
         .logo-row img:hover { opacity: 1; }
 
         @media (max-width: 900px) {
-            .intro-row { grid-template-columns: 1fr; }
-            .intro-row img { max-width: 300px; justify-self: center; }
-            .intro-text { order: -1; }
+            .carousel-wrapper { grid-template-columns: 1fr; }
+            .image-carousel { max-width: 400px; justify-self: center; }
+            .intro-text { order: -1; text-align: center; }
         }
+
         .audio-container {
             width: 100%;
             margin: 0 auto;
@@ -215,14 +284,30 @@
 
         <hr style="margin-top: 60px;">
 
-        <div class="intro-row">
-            <img src="../images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork">
-            <div class="intro-text">
-                <p>A cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
-                <p>Grounding universal legends in the moss-drenched textures of the New Forest, <strong><em>Tales For All Time</em></strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
-                <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
+        <div class="intro-carousel-container">
+            <div class="carousel-wrapper">
+                <div class="image-carousel" id="leftCarousel">
+                    <div class="carousel-item"><img src="../images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
+                    <div class="carousel-item"><img src="../images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
+                </div>
+
+                <div class="intro-text">
+                    <p>A cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
+                    <p>Grounding universal legends in the moss-drenched textures of the New Forest, <strong><em>Tales For All Time</em></strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
+                    <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
+                </div>
+
+                <div class="image-carousel" id="rightCarousel">
+                    <div class="carousel-item"><img src="../images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
+                    <div class="carousel-item"><img src="../images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
+                </div>
             </div>
-            <img src="../images/courtney-leggett-1.jpg" alt="Raven Artwork">
+
+            <div class="carousel-controls">
+                <button class="nav-btn" onclick="scrollDoubleCarousel(-1)">«</button>
+                <p class="carousel-hint">ARTWORK GALLERY</p>
+                <button class="nav-btn" onclick="scrollDoubleCarousel(1)">»</button>
+            </div>
         </div>
 
         <hr>
@@ -291,6 +376,15 @@
     <script src="../player.js"></script>
 
     <script>
+        function scrollDoubleCarousel(direction) {
+            const leftCarousel = document.getElementById('leftCarousel');
+            const rightCarousel = document.getElementById('rightCarousel');
+            const scrollAmountLeft = leftCarousel.clientWidth;
+            const scrollAmountRight = rightCarousel.clientWidth;
+            leftCarousel.scrollBy({ left: direction * scrollAmountLeft, behavior: 'smooth' });
+            rightCarousel.scrollBy({ left: direction * scrollAmountRight, behavior: 'smooth' });
+        }
+
         // Standard loaders with root paths
         fetch('../menu.html').then(res => res.text()).then(data => { 
             document.getElementById('nav-placeholder').innerHTML = data; 
