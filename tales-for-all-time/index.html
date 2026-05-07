@@ -164,12 +164,10 @@
         .audio-container {
             width: 100%;
             margin: 0 auto;
-            /* We use block here so the child can expand naturally */
             display: block; 
             text-align: center;
         }
 
-        /* 1. Center the box on the page */
         #player-placeholder {
             width: 100%;
             max-width: 1100px; 
@@ -178,9 +176,12 @@
             justify-content: center;
         }
 
-        /* 2. Force the player component inside to stretch wide */
+        /* THE CRITICAL FIX: Force the injected player to be wide */
         #player-placeholder > div {
-            width: 100% !important;
+            flex: 1; /* Forces it to grow and fill the 1100px */
+            width: 100%;
+            min-width: 100%; /* Prevents the 'pinched' look */
+            display: block;
         }
     </style>
 </head>
