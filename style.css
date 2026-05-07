@@ -2,6 +2,7 @@
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
     --dark-grey: #121212; 
+    --gold: #D4AF37; /* Tales Gold */
 }
 
 .player-page-layout {
@@ -38,6 +39,19 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+/* KEEPS YOUR GOLD HOVER FLIP */
+.skip-btn:hover {
+    background: var(--gold); 
+    color: #121212;      
+    transform: scale(1.1); 
+    transition: all 0.2s ease;
+}
+
+.skip-btn:active {
+    transform: scale(0.95);
 }
 
 .console {
@@ -55,15 +69,22 @@
     overflow: visible; 
 }
 
-/* KEPT YOUR ORIGINAL DETAILED AUDIO BLOCK */
+/* AUDIO BLOCK: Added the Gold Morph on Hover */
 audio {
     width: 100% !important;
     height: 30px;
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    filter: invert(100%) brightness(100%); /* Default White */
     display: block;
     background: transparent !important;
+    transition: filter 0.3s ease;
 }
 
+/* This is the new part: makes play button gold when console is hovered */
+.console:hover audio {
+    filter: invert(72%) sepia(51%) saturate(543%) hue-rotate(3deg) brightness(91%) contrast(89%);
+}
+
+/* TRACK TITLE: Preserving your exact hard-won positioning */
 #track-title {
     color: #ffffff !important; 
     font-size: 9px;
@@ -74,7 +95,7 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    top: 31px; 
+    top: 31px; /* Locked at your original value */
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
@@ -86,9 +107,7 @@ audio {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* NEW: Prevents the phone from trying to swipe the whole page when touching this */
     touch-action: pan-y !important;
-    
 }
 
 #track-title:hover {
@@ -98,11 +117,12 @@ audio {
     -webkit-overflow-scrolling: touch;
     padding: 8px 0;
     width: 100%; 
-    top: 30px; 
+    top: 30px; /* Locked at your original value */
     position: absolute; 
+    color: var(--gold) !important;
+    border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
-/* Custom scrollbar for the popup menu */
 #track-title::-webkit-scrollbar {
     width: 4px;
 }
@@ -116,29 +136,12 @@ audio {
 }
 
 .menu-item {
-    padding: 10px 5px; /* Reduced from 12px to bring the first item back up */
+    padding: 10px 5px;
     display: block;
     opacity: 0.6;
     transition: 0.2s;
     border-bottom: 1px solid #222;
-    line-height: 1; /* Reset to 1 to keep the "viewing window" centered */
-}
-
-.skip-btn:hover {
-    background: #D4AF37; /* Changes to Gold on hover to match your 'Tales' theme */
-    color: #121212;      /* Flip the text color for contrast */
-    transform: scale(1.1); /* Slight grow effect */
-    transition: all 0.2s ease;
-}
-
-.skip-btn:active {
-    transform: scale(0.95); /* Slight "click" depression effect */
-}
-
-/* Optional: Make the track title look clickable on hover */
-#track-title:hover {
-    color: #D4AF37 !important;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    line-height: 1;
 }
 
 .menu-item:last-child { border-bottom: none; }
