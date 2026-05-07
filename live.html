@@ -6,6 +6,7 @@
     <title>Live | Tim Seymour Composer</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="menu.css">
 
@@ -44,14 +45,14 @@
             scroll-snap-type: x mandatory;
             gap: 20px;
             padding: 20px 0;
-            scrollbar-width: none; /* Hide scrollbar Firefox */
-            -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
         }
 
-        .poster-carousel::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+        .poster-carousel::-webkit-scrollbar { display: none; }
 
         .carousel-item {
-            flex: 0 0 300px; /* Width of each poster */
+            flex: 0 0 300px; 
             scroll-snap-align: center;
             transition: transform 0.4s ease;
         }
@@ -62,7 +63,6 @@
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
-            /* Prevents desktop drag interference */
             pointer-events: none;
             user-select: none;
         }
@@ -165,7 +165,7 @@
         <div class="carousel-wrapper">
             <div class="poster-carousel" id="liveCarousel">
                 <div class="carousel-item">
-                    <img src="images/rising-star-concert-poster.jpg" alt="Saviour">
+                    <img src="images/rising-star-concert-poster.jpg" alt="Rising Stars Concert">
                 </div>
                 <div class="carousel-item">
                     <img src="images/cry-concert-poster.jpg" alt="Cry of the Forest">
@@ -202,7 +202,7 @@
                 <div class="date-row past-row">
                     <div class="date-info">
                         <span class="date-day">01 NOV 2025</span>
-                        <span class="event-title">Saviour Premier</span>
+                        <span class="event-title">Rising Stars Concert (Saviour Premier)</span>
                     </div>
                     <div class="venue-location">St Thomas' Church, Lymington</div>
                 </div>
@@ -221,17 +221,14 @@
                     <div class="venue-location">St Thomas' Church, Lymington</div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div id="footer-placeholder"></div>
 
     <script>
-        // Script to handle Live carousel navigation
         function scrollLiveCarousel(direction) {
             const carousel = document.getElementById('liveCarousel');
-            // Scrolls by one item width (300px) + gap (20px)
             const scrollAmount = 320; 
             carousel.scrollBy({
                 left: direction * scrollAmount,
@@ -239,7 +236,6 @@
             });
         }
 
-        // Placeholders
         fetch('menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
