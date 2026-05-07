@@ -37,16 +37,16 @@
 
         /* FRAMING THE PAYPAL EMBED */
         .paypal-card {
-            background: #fdfdfd; /* Light background to make the PayPal text readable */
+            background: #fdfdfd; 
             padding: 40px 20px;
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             max-width: 550px;
             margin: 0 auto;
-            color: #333; /* Dark text for the inside of the card */
+            color: #333; 
+            min-height: 300px; /* Prevents the 'empty' look while loading */
         }
 
-        /* Ensures the PayPal-hosted image looks consistent */
         #paypal-container-WSNG66GZ9UJNS img {
             max-width: 100% !important;
             height: auto !important;
@@ -67,5 +67,40 @@
         <h1>STORE</h1>
 
         <div class="paypal-card">
-            <script 
-              src="https
+            <script src="https://www.paypal.com/sdk/js?client-id=BAAdMZFpDHq_vhwEOk_MkZnxIRSxonRmcBWVSk72RsLZjiNtJq1d1b8zr3Efv-N4OeP-TF-ciuBH9J_hTI&components=hosted-buttons&disable-funding=venmo&currency=GBP"></script>
+            <div id="paypal-container-WSNG66GZ9UJNS"></div>
+            <script>
+              paypal.HostedButtons({
+                hostedButtonId: "WSNG66GZ9UJNS",
+              }).render("#paypal-container-WSNG66GZ9UJNS")
+            </script>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load Menu
+        fetch('menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+
+        // Load Footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Scroll Logic
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
+    </script>
+</body>
+</html>
