@@ -81,7 +81,7 @@ audio {
 
 /* This is the new part: makes play button gold when console is hovered */
 .console:hover audio {
-    filter: invert(72%) sepia(51%) saturate(543%) hue-rotate(3deg) brightness(85%) contrast(150%);
+    filter: invert(72%) sepia(20%) saturate(300%) hue-rotate(3deg) brightness(80%) contrast(120%);
 }
 
 /* TRACK TITLE: Preserving your exact hard-won positioning */
