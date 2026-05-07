@@ -169,18 +169,18 @@
             text-align: center;
         }
 
+        /* 1. Center the box on the page */
         #player-placeholder {
             width: 100%;
-            /* This matches your Lawyered Up container width */
             max-width: 1100px; 
-            margin: 0 auto;
+            margin: 0 auto !important; 
             display: flex;
             justify-content: center;
         }
 
-            /* This targets the actual player inside the placeholder */
-            #player-placeholder > div {
-            width: 100%;
+        /* 2. Force the player component inside to stretch wide */
+        #player-placeholder > div {
+            width: 100% !important;
         }
     </style>
 </head>
