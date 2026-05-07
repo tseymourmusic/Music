@@ -7,8 +7,9 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../menu.css">
 
     <style>
         body, html { 
@@ -165,13 +166,13 @@
         <div class="carousel-wrapper">
             <div class="poster-carousel" id="liveCarousel">
                 <div class="carousel-item">
-                    <img src="images/rising-star-concert-poster.jpg" alt="Rising Stars Concert">
+                    <img src="../images/rising-star-concert-poster.jpg" alt="Rising Stars Concert">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/cry-concert-poster.jpg" alt="Cry of the Forest">
+                    <img src="../images/cry-concert-poster.jpg" alt="Cry of the Forest">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/fantasia-concert-poster.jpg" alt="Fantasia (Water & Truth)">
+                    <img src="../images/fantasia-concert-poster.jpg" alt="Fantasia (Water & Truth)">
                 </div>
             </div>
 
@@ -236,10 +237,11 @@
             });
         }
 
-        fetch('menu.html').then(res => res.text()).then(data => {
+        // UPDATED FETCH PATHS
+        fetch('../menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
-        fetch('footer.html').then(res => res.text()).then(data => {
+        fetch('../footer.html').then(res => res.text()).then(data => {
             document.getElementById('footer-placeholder').innerHTML = data;
         });
     </script>
