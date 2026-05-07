@@ -7,8 +7,9 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../menu.css">
 
     <style>
         body, html { 
@@ -42,8 +43,6 @@
             max-width: 800px; 
             margin: 0 auto;
             min-height: 500px;
-            
-            /* The key: treat the card as a centering flexbox */
             display: flex;
             justify-content: center;
         }
@@ -51,12 +50,11 @@
         /* THE INNER WRAPPER: Forces the PayPal widget to stay centered and wide */
         #paypal-container-WSNG66GZ9UJNS {
             width: 100%;
-            max-width: 550px; /* The "Desktop" sweet spot */
+            max-width: 550px; 
             filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
             text-align: center;
         }
 
-        /* Specifically forcing the PayPal-generated content to center */
         #paypal-container-WSNG66GZ9UJNS > div {
             margin: 0 auto !important;
         }
@@ -89,17 +87,16 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Load Menu
-        fetch('menu.html').then(res => res.text()).then(data => {
+        // Load Menu & Footer from root
+        fetch('../menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
 
-        // Load Footer
-        fetch('footer.html').then(res => res.text()).then(data => {
+        fetch('../footer.html').then(res => res.text()).then(data => {
             document.getElementById('footer-placeholder').innerHTML = data;
         });
 
-        // Sticky Nav
+        // Sticky Nav Logic
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
