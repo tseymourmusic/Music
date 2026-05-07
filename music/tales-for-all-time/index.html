@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tales For All Time | Tim Seymour Music</title>
+    
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css"> 
+    <link rel="stylesheet" href="../menu.css">
+
+    <style>
+        /* --- LAYOUT OVERRIDE --- */
+        body {
+            display: block !important; 
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* PATH UPDATED */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
+                        url('../images/Tales-For-All-Time-bg.gif') no-repeat center center;
+            background-size: cover;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 2s ease-out, transform 2s ease-out;
+        }
+        .hero.reveal { opacity: 1; transform: translateY(0); }
+
+        .hero h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 0.15em;
+            margin: 0 0 20px 0;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .hero-text-block {
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
+            font-family: 'Cinzel', serif;
+            color: #F5F5DC;
+            text-transform: uppercase;
+        }
+
+        .hero-main-sub { font-size: clamp(0.8rem, 1.5vw, 1.1rem); letter-spacing: 4px; margin-bottom: 10px; }
+        .hero-details { font-size: clamp(0.6rem, 1.2vw, 0.85rem); letter-spacing: 3px; margin-bottom: 10px; font-weight: 300; }
+        .hero-credits { font-size: clamp(0.5rem, 1vw, 0.7rem); letter-spacing: 2px; margin-bottom: 25px; font-weight: 300; }
+        .hero-date { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 6px; font-weight: 400; margin-top: 20px; }
+
+        .container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 80px 20px;
+            box-sizing: border-box;
+        }
+        
+        hr {
+            border: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 60px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .section-label {
+            font-family: 'Cinzel', serif;
+            color: #fff; 
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+            letter-spacing: 5px; 
+            text-transform: none;
+            font-variant: medium-caps;          
+            text-align: center;
+            margin: -15px auto 60px auto;
+            padding-bottom: 30px; 
+            font-weight: 200;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+        }
+
+        /* --- CAROUSEL SYSTEM --- */
+        .intro-carousel-container {
+            max-width: 1100px;
+            margin: 60px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .carousel-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .image-carousel {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .image-carousel::-webkit-scrollbar { display: none; }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            display: flex; /* Ensures image fills container perfectly */
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            vertical-align: middle; /* Removes the bottom "ghost" margin */
+            margin-bottom: -1px; /* Slight overlap to ensure no sub-pixel gaps */
+        }
+
+        .intro-text {
+            text-align: left;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #666;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            border-color: #D4AF37;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .carousel-hint {
+            text-align: center;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #666;
+            margin: 0;
+        }
+
+        .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
+        .mvt-row { display: flex; width: 100%; margin-bottom: 45px; text-align: left; }
+        .mvt-number { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #D4AF37; min-width: 70px; }
+        .mvt-title { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: #FFFFFF; margin-bottom: 5px; text-transform: uppercase; }
+        .mvt-desc { font-size: 0.75rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
+
+        .score-container { width: 100%; max-width: 900px; margin: 0 auto 40px auto; aspect-ratio: 16 / 9; }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 40px auto;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .logo-row img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-row img:hover { opacity: 1; }
+
+        @media (max-width: 900px) {
+            .carousel-wrapper { grid-template-columns: 1fr; }
+            .image-carousel { max-width: 400px; justify-self: center; }
+            .intro-text { order: -1; text-align: center; }
+        }
+
+        .audio-container {
+            width: 100%;
+            margin: 0 auto;
+            display: block; 
+            text-align: center;
+        }
+
+        /* --- RESTORED PLAYER ADJUSTMENT --- */
+        #player-placeholder .player-container {
+            margin: 0 auto 80px auto !important;
+            max-width: 700px !important; /* Forces it back to the wide look */
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* Essential to make the black bar actually stretch into the 700px */
+        #player-placeholder .console {
+            flex: 1 !important; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <header class="hero" id="hero">
+        <h1>TAlES fOr All TiME</h1>
+        <div class="hero-text-block">
+            <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
+            <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
+            <p class="hero-credits">COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> ILLUSTRATED BY <strong>COURTNEY LEGGETT</strong></p>
+            <p class="hero-date">COMING 2026 / 2027</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="audio-container">
+            <h2 class="section-label" style="margin-top: 0; border-bottom: none; padding-bottom: 10px;">
+                The Odyssey
+            </h2>
+
+            <div id="player-placeholder">
+                <ul id="playlist" style="display: none !important;">
+                    <li class="track active" data-src="../audio/Destiny.m4a">XIV. Destiny (preview)</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="margin-top: 60px;">
+
+        <div class="intro-carousel-container">
+            <div class="carousel-wrapper">
+                <div class="image-carousel" id="leftCarousel">
+                    <div class="carousel-item"><img src="../images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
+                    <div class="carousel-item"><img src="../images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
+                </div>
+
+                <div class="intro-text">
+                    <p>A cinematic reimagining of 15 ancient myths recorded with the <strong>London Symphony Orchestra</strong> at St Luke's.</p>
+                    <p>Grounding universal legends in the moss-drenched textures of the New Forest, <strong><em>Tales For All Time</em></strong> is a collaboration between composer <strong>Tim Seymour</strong> and painter <strong>Courtney Leggett</strong>.</p>
+                    <p>Each musical movement is accompanied by an evolving 2.5D animated tableau, breathing life into physical art.</p>
+                </div>
+
+                <div class="image-carousel" id="rightCarousel">
+                    <div class="carousel-item"><img src="../images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
+                    <div class="carousel-item"><img src="../images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
+                </div>
+            </div>
+
+            <div class="carousel-controls">
+                <button class="nav-btn" onclick="scrollDoubleCarousel(-1)">«</button>
+                <p class="carousel-hint">ARTWORK GALLERY</p>
+                <button class="nav-btn" onclick="scrollDoubleCarousel(1)">»</button>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="section-label">The Movements</h2>
+        
+        <div class="movements-classic-list">
+            <div class="mvt-row"><div class="mvt-number">I.</div><div class="mvt-content"><div class="mvt-title">Icarus' Flight</div><div class="mvt-desc">Ambition</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">II.</div><div class="mvt-content"><div class="mvt-title">Taming Pegasus</div><div class="mvt-desc">Unity</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">III.</div><div class="mvt-content"><div class="mvt-title">Fall From Grace</div><div class="mvt-desc">Hubris</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">IV.</div><div class="mvt-content"><div class="mvt-title">Siren Seduction</div><div class="mvt-desc">Desire</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">V.</div><div class="mvt-content"><div class="mvt-title">Pandora's Box</div><div class="mvt-desc">Curiosity</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">VI.</div><div class="mvt-content"><div class="mvt-title">Swan Song</div><div class="mvt-desc">Allure</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">VII.</div><div class="mvt-content"><div class="mvt-title">Star-Crossed Lovers</div><div class="mvt-desc">Tragedy</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">VIII.</div><div class="mvt-content"><div class="mvt-title">Orpheus' Persuasion</div><div class="mvt-desc">Eloquence</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">IX.</div><div class="mvt-content"><div class="mvt-title">Tears Of Babylon</div><div class="mvt-desc">Woe</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">X.</div><div class="mvt-content"><div class="mvt-title">Hidden Psyche</div><div class="mvt-desc">Vulnerability</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">XI.</div><div class="mvt-content"><div class="mvt-title">Narcissus' Trance</div><div class="mvt-desc">Obsession</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">XII.</div><div class="mvt-content"><div class="mvt-title">Halcyon Days</div><div class="mvt-desc">Serenity</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">XIII.</div><div class="mvt-content"><div class="mvt-title">To Elysium</div><div class="mvt-desc">Transcendence</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">XIV.</div><div class="mvt-content"><div class="mvt-title">Destiny</div><div class="mvt-desc">Fate</div></div></div>
+            <div class="mvt-row"><div class="mvt-number">XV.</div><div class="mvt-content"><div class="mvt-title">Ever After</div><div class="mvt-desc">Legacy</div></div></div>
+        </div>
+
+        <hr>
+
+        <h2 class="section-label">The Score</h2>
+        <div class="score-container">
+            <iframe 
+                src="https://heyzine.com/flip-book/34f7a61096.html" 
+                style="width:100%; height:100%; border:none;" 
+                allowfullscreen 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+        </div>
+
+        <hr>
+
+        <div class="score-footer-credits" style="text-align: center; margin: 80px auto;">
+            MUSIC COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> FEATURING THE <strong>LONDON SYMPHONY ORCHESTRA</strong> WITH THE <strong>LONDON CONTEMPORARY VOICES</strong> VISUAL ART BY <strong>COURTNEY LEGGETT</strong> ANIMATED AND DIRECTED BY <strong>TIM SEYMOUR</strong>
+        </div>
+
+        <hr>
+
+        <h2 class="section-label">Collaborators</h2>
+        <div class="logo-row">
+            <img src="../logos/lso-logo.png" alt="London Symphony Orchestra">
+            <img src="../logos/LCV-logo.png" alt="London Contemporary Voices">
+            <img src="../logos/ace-logo.png" alt="Arts Council England">
+            <img src="../logos/vwf-logo.png" alt="Vaughan Williams Foundation">
+            <img src="../logos/favicon.png" alt="Tim Seymour Music">
+        </div>
+
+        <div class="endorsement-container" style="text-align: center; margin-bottom: 40px;">
+            <a href="https://drive.google.com/file/d/1nZjhQnD_H3FDdRdzlEWT-pzIfxyctBqi/view?usp=drive_link" 
+               target="_blank" 
+               class="endorsement-link">
+                Project Partner Endorsement Letter: LCV (PDF)
+            </a>
+        </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../player.js"></script>
+
+    <script>
+        function scrollDoubleCarousel(direction) {
+            const leftCarousel = document.getElementById('leftCarousel');
+            const rightCarousel = document.getElementById('rightCarousel');
+            const scrollAmountLeft = leftCarousel.clientWidth;
+            const scrollAmountRight = rightCarousel.clientWidth;
+            leftCarousel.scrollBy({ left: direction * scrollAmountLeft, behavior: 'smooth' });
+            rightCarousel.scrollBy({ left: direction * scrollAmountRight, behavior: 'smooth' });
+        }
+
+        // Standard loaders with root paths
+        fetch('../menu.html').then(res => res.text()).then(data => { 
+            document.getElementById('nav-placeholder').innerHTML = data; 
+        });
+        fetch('../footer.html').then(res => res.text()).then(data => { 
+            document.getElementById('footer-placeholder').innerHTML = data; 
+        });
+
+        // Player handshake with root path
+        fetch('../player-component.html')
+            .then(res => res.text())
+            .then(data => {
+                const placeholder = document.getElementById('player-placeholder');
+                const localPlaylist = placeholder.querySelector('#playlist');
+
+                placeholder.innerHTML = data; 
+
+                if (localPlaylist) {
+                    const target = document.getElementById('playlist-target');
+                    if (target) { target.appendChild(localPlaylist); }
+                    
+                    const firstTrack = localPlaylist.querySelector('.track');
+                    if (firstTrack) {
+                        const audio = document.getElementById('audio');
+                        const source = document.getElementById('audio-source');
+                        const title = document.getElementById('track-title');
+                        
+                        if (audio && source && title) {
+                            source.src = firstTrack.getAttribute('data-src');
+                            title.innerText = firstTrack.innerText.trim();
+                            audio.load();
+                        }
+                    }
+                }
+
+                setTimeout(() => {
+                    if (typeof initPlayer === "function") { initPlayer(); }
+                }, 50);
+            });
+
+        window.addEventListener('load', () => {
+            document.getElementById('hero').classList.add('reveal');
+        });
+
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                if (window.pageYOffset > 50) {
+                    nav.style.background = "rgba(10, 10, 10, 0.98)";
+                } else {
+                    nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+                }
+            }
+        };
+    </script>
+
+</body>
+</html>
