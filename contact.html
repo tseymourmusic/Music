@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tim Seymour Composer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #1a1f21; 
+            color: #FFFFFF; 
+            font-family: 'Montserrat', sans-serif; 
+        }
+        
+        .contact-container { 
+            max-width: 900px; 
+            margin: 120px auto 100px; 
+            padding: 0 20px; 
+            text-align: center; 
+        }
+        
+        h1 { 
+            font-size: 2.8rem; 
+            letter-spacing: 12px; 
+            margin-bottom: 40px; 
+            font-weight: 100; 
+            text-transform: uppercase;
+        }
+
+        /* GOLD EMAIL STYLING */
+        .email-block {
+            margin-bottom: 60px;
+        }
+
+        .email-link {
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            /* Gold Gradient */
+            background: linear-gradient(to right, #c5a059, #f1d592, #c5a059);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.4s ease;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .email-link:hover {
+            /* Glow Effect */
+            text-shadow: 0 0 15px rgba(241, 213, 146, 0.6);
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* GOOGLE FORM CARD */
+        .form-card {
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            border-radius: 8px;
+            max-width: 700px; 
+            margin: 0 auto;
+        }
+
+        /* Dark-mode filter for white Google Form */
+        .form-card iframe {
+            width: 100%;
+            max-width: 640px;
+            filter: invert(90%) hue-rotate(180deg) brightness(105%) contrast(90%);
+            border-radius: 4px;
+            border: none;
+        }
+
+        #footer-placeholder { 
+            margin-top: 100px; 
+            padding-bottom: 40px; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="contact-container">
+        <h1>CONTACT</h1>
+
+        <div class="email-block">
+            <a href="mailto:TSeymourMusic@Gmail.com" class="email-link">
+                TSeymourMusic@Gmail.com
+            </a>
+        </div>
+
+        <div class="form-card">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdYRrRYJtL-DDGGj44HstORJ6jUQvWmArNzsoozt4Z_49bI9w/viewform?embedded=true" 
+                    height="1000" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">
+                Loading…
+            </iframe>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        fetch('menu.html').then(res => res.text()).then(data => {
+            document.getElementById('nav-placeholder').innerHTML = data;
+        });
+
+        fetch('footer.html').then(res => res.text()).then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
+    </script>
+</body>
+</html>
