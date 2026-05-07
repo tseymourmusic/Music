@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store | Tim Seymour Composer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #1a1f21; 
+            color: #FFFFFF; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        /* SINGLE COLUMN STORE LAYOUT */
+        .store-container { 
+            max-width: 600px; /* Narrower for a focused 1-column look */
+            margin: 120px auto 100px; 
+            padding: 0 20px; 
+            text-align: center; 
+        }
+        
+        h1 { 
+            font-size: 2.8rem; letter-spacing: 12px; 
+            margin-bottom: 40px; font-weight: 100; text-transform: uppercase;
+        }
+
+        .product-display {
+            margin-bottom: 40px;
+        }
+
+        .product-display img { 
+            width: 100%; 
+            max-width: 450px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7); 
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: #D4AF37; /* Gold accent for the price */
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* PAYPAL EMBED CENTERING */
+        #paypal-container-WSNG66GZ9UJNS {
+            margin: 0 auto;
+            max-width: 300px;
+        }
+
+        /* FOOTER CONSISTENCY */
+        #footer-placeholder {
+            margin-top: 80px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="store-container">
+        <h1>STORE</h1>
+
+        <div class="product-display">
+            <img src="images/Saviour-CD-Cover.jpg" alt="Saviour - Tim Seymour CD">
+            
+            <div class="product-title">SAVIOUR — CD (LIMITED EDITION)</div>
+            <div class="price">£10.00 GBP</div>
+        </div>
+
+        <script 
+          src="https://www.paypal.com/sdk/js?client-id=BAAdMZFpDHq_vhwEOk_MkZnxIRSxonRmcBWVSk72RsLZjiNtJq1d1b8zr3Efv-N4OeP-TF-ciuBH9J_hTI&components=hosted-buttons&disable-funding=venmo&currency=GBP">
+        </script>
+        <div id="paypal-container-WSNG66GZ9UJNS"></div>
+        <script>
+          paypal.HostedButtons({
+            hostedButtonId: "WSNG66GZ9UJNS",
+          }).render("#paypal-container-WSNG66GZ9UJNS")
+        </script>
+        </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load Menu & Footer
+        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+
+        // Scroll Logic for Nav Transparency
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
+    </script>
+</body>
+</html>
