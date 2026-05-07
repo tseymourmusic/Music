@@ -124,7 +124,7 @@
                         
                         if (audio && source && title) {
                             source.src = firstTrack.getAttribute('data-src');
-                            title.innerText = firstTrack.innerText;
+                            title.innerText = firstTrack.innerText.trim();
                             audio.load();
                         }
                     }
