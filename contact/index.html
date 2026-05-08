@@ -41,15 +41,19 @@
         .email-link {
             text-decoration: none;
             font-weight: 300;
-            font-size: 1.4rem;
-            letter-spacing: 3px;
+            /* Fluid font size for mobile */
+            font-size: 5.5vw; 
+            letter-spacing: 2px;
             background: linear-gradient(to right, #c5a059, #f1d592, #c5a059);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             transition: all 0.4s ease;
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px;
             border-radius: 4px;
+            /* Allows breaking on very small screens to prevent overflow */
+            word-break: break-all;
+            max-width: 100%;
         }
 
         .email-link:hover {
@@ -61,7 +65,7 @@
         .form-card {
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 20px;
+            padding: 40px 10px;
             border-radius: 8px;
             max-width: 700px; 
             margin: 0 auto;
@@ -69,10 +73,29 @@
 
         .form-card iframe {
             width: 100%;
-            max-width: 640px;
             filter: invert(90%) hue-rotate(180deg) brightness(105%) contrast(90%);
             border-radius: 4px;
             border: none;
+        }
+
+        /* Mobile specific adjustments */
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+                letter-spacing: 6px;
+            }
+            .contact-container {
+                margin-top: 80px;
+            }
+        }
+
+        /* Desktop specific size limit */
+        @media screen and (min-width: 768px) {
+            .email-link {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+                word-break: normal;
+            }
         }
 
         #footer-placeholder { 
@@ -96,6 +119,7 @@
 
         <div class="form-card">
             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdYRrRYJtL-DDGGj44HstORJ6jUQvWmArNzsoozt4Z_49bI9w/viewform?embedded=true" 
+                    width="100%"
                     height="1000" 
                     frameborder="0" 
                     marginheight="0" 
@@ -108,7 +132,7 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // FETCH PATHS UPDATED TO LOOK UP ONE LEVEL
+        // FETCH PATHS
         fetch('/menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
