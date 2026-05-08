@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceptual Themes | Tim Seymour Composer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+
+    <style>
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #1a1f21; 
+            color: #FFFFFF; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+        
+        .container { max-width: 1000px; margin: 100px auto 60px; padding: 0 20px; }
+        
+        h1 { 
+            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
+            margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
+        }
+
+        .tagline { 
+            text-align: center; font-style: italic; color: #eae0d5; 
+            font-size: 0.85rem; margin-bottom: 60px; font-weight: 300;
+            letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
+        }
+
+        /* Hero Player Section */
+        .master-player-section {
+            margin-bottom: 50px;
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            border-radius: 2px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Themed Playlist Styling */
+        #playlist-target {
+            margin-top: 30px;
+        }
+
+        /* Overriding player.css to make the playlist visible and elegant */
+        #playlist {
+            display: block !important; /* Force visible for this page */
+            list-style: none;
+            padding: 0;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+        }
+
+        .track {
+            padding: 25px 15px;
+            border-bottom: 1px solid #222;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 200;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .track:hover {
+            background: rgba(234, 224, 213, 0.05);
+            padding-left: 25px;
+            color: #eae0d5;
+        }
+
+        .track.active {
+            color: #eae0d5;
+            background: rgba(234, 224, 213, 0.03);
+            border-left: 2px solid #eae0d5;
+        }
+
+        .track::before {
+            content: "\f04b"; /* FontAwesome Play Icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 20px;
+            font-size: 0.7rem;
+            opacity: 0.3;
+        }
+
+        #footer-placeholder {
+            margin-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 800px) { 
+            .container { margin-top: 150px; } 
+            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <h1>THEMATIC CONCEPTS</h1>
+        <p class="tagline">"A collection of sonic identities and musical seeds for film and media."</p>
+
+        <div class="master-player-section">
+            <div id="player-placeholder">
+                <ul id="playlist" style="display: none !important;">
+                    <li class="track active" data-src="audio/Concept-Noir.mp3">Nordic Noir - Tension</li>
+                    <li class="track" data-src="audio/Concept-Ancient.mp3">Ancient Echoes - Folk</li>
+                    <li class="track" data-src="audio/Concept-Urban.mp3">Urban Pulse - Modern</li>
+                    <li class="track" data-src="audio/Concept-Ethereal.mp3">Ethereal Myth - Dream</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="details" style="text-align: center; max-width: 700px; margin: 0 auto;">
+            <p>The following pieces represent conceptual starting points. Each can be expanded, re-arranged, or custom-tailored to suit the specific narrative needs of your project.</p>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="player.js"></script>
+    <script>
+        // Use your existing fetch logic
+        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+
+        fetch('player-component.html')
+            .then(res => res.text())
+            .then(data => {
+                const placeholder = document.getElementById('player-placeholder');
+                const localPlaylist = placeholder.querySelector('#playlist');
+
+                placeholder.innerHTML = data; 
+
+                // Inject the playlist into the target within the component
+                if (localPlaylist) {
+                    const target = document.getElementById('playlist-target');
+                    if (target) {
+                        target.appendChild(localPlaylist);
+                    }
+                    
+                    // Setup initial track based on your player.js requirements
+                    const firstTrack = localPlaylist.querySelector('.track');
+                    if (firstTrack) {
+                        const audio = document.getElementById('audio');
+                        const source = document.getElementById('audio-source');
+                        const title = document.getElementById('track-title');
+                        
+                        if (audio && source && title) {
+                            source.src = firstTrack.getAttribute('data-src');
+                            title.innerText = firstTrack.innerText.trim();
+                            audio.load();
+                        }
+                    }
+                }
+
+                // Standard initPlayer call from your player.js
+                setTimeout(() => {
+                    if (typeof initPlayer === "function") {
+                        initPlayer();
+                    }
+                }, 50);
+            });
+    </script>
+</body>
+</html>
