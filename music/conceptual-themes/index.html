@@ -23,7 +23,9 @@
         .container { max-width: 1000px; margin: 100px auto 60px; padding: 0 20px; }
         
         h1 { 
-            text-align: center; font-size: 2.8rem; letter-spacing: 12px; 
+            text-align: center; font-size: 2.8rem; 
+            /* Fix: Added 12px padding-left to offset the 12px letter-spacing on the last character */
+            letter-spacing: 12px; padding-left: 12px;
             margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
         }
 
@@ -40,6 +42,10 @@
             padding: 30px;
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.05);
+            /* Fix: Removed display: flex to allow standard block centering for children */
+            display: block; 
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* Playlist Styling */
@@ -97,37 +103,29 @@
 
         @media (max-width: 800px) { 
             .container { margin-top: 150px; } 
-            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+            h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
         }
         
-        /* 1. Center the outer placeholder */
+        /* Fix: Unified centering logic */
         #player-placeholder {
-            max-width: 700px; 
+            max-width: 750px; 
             margin: 0 auto;
             width: 100%;
         }
 
-        /* 2. Force the internal container to be wide and centered */
+        /* Fix: Removed gap to prevent right-side pushing, used padding on buttons in player.js if needed */
         #player-placeholder .player-container {
-            max-width: 700px !important;
+            max-width: 750px !important;
             margin: 0 auto !important;
             display: flex !important;
             width: 100%;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            padding: 0;
         }
 
-        /* 3. Tell the black bar to stretch and fill the 700px */
         #player-placeholder .console {
             flex: 1 !important;
-        }
-
-        /* 4. Ensure the parent section allows centering */
-        .master-player-section {
-            display: flex;
-            justify-content: center;
-            width: 100%;
         }
     </style>
 </head>
@@ -150,8 +148,8 @@
             </div>
         </div>
 
-        <div class="details" style="text-align: center; max-width: 700px; margin: 0 auto;">
-            <p>The following pieces represent conceptual starting points. Each can be expanded, re-arranged, or custom-tailored to suit the specific narrative needs of your project.</p>
+        <div class="details" style="text-align: center; max-width: 750px; margin: 0 auto;">
+            <p></p>
         </div>
     </div>
 
@@ -160,7 +158,6 @@
     <script src="/player.js"></script>
     
     <script>
-        // Fetch paths updated with root slashes to match Homologies logic
         fetch('/menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
         fetch('/footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
