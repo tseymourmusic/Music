@@ -24,7 +24,6 @@
         
         h1 { 
             text-align: center; font-size: 2.8rem; 
-            /* Fix: Added 12px padding-left to offset the 12px letter-spacing on the last character */
             letter-spacing: 12px; padding-left: 12px;
             margin-bottom: 15px; font-weight: 100; text-transform: uppercase;
         }
@@ -39,19 +38,16 @@
         .master-player-section {
             margin-bottom: 50px;
             background: rgba(255,255,255,0.02);
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.05);
-            /* Fix: Removed display: flex to allow standard block centering for children */
             display: block; 
             width: 100%;
             box-sizing: border-box;
         }
 
         /* Playlist Styling */
-        #playlist-target {
-            margin-top: 30px;
-        }
+        #playlist-target { margin-top: 30px; }
 
         #playlist {
             display: block !important; 
@@ -96,24 +92,20 @@
             opacity: 0.3;
         }
 
-        #footer-placeholder {
-            margin-top: 80px;
-            padding-bottom: 40px;
-        }
+        #footer-placeholder { margin-top: 80px; padding-bottom: 40px; }
 
         @media (max-width: 800px) { 
             .container { margin-top: 150px; } 
             h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
         }
         
-        /* Fix: Unified centering logic */
+        /* THE PILL FIXES */
         #player-placeholder {
             max-width: 700px; 
             margin: 0 auto;
             width: 100%;
         }
 
-        /* Fix: Removed gap to prevent right-side pushing, used padding on buttons in player.js if needed */
         #player-placeholder .player-container {
             max-width: 700px !important;
             margin: 0 auto !important;
@@ -121,11 +113,32 @@
             width: 100%;
             justify-content: center;
             align-items: center;
-            padding: 0;
+            
+            /* Restoring the Pill Look */
+            background: #e0e0e0 !important; /* The light grey/white pill background */
+            padding: 10px 20px !important;
+            border-radius: 50px !important; /* Round edges for the pill */
+            gap: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         #player-placeholder .console {
             flex: 1 !important;
+            background: transparent !important;
+        }
+
+        /* Ensuring the Previous/Next buttons look correct inside the pill */
+        #player-placeholder .nav-btn {
+            background: #333 !important;
+            color: white !important;
+            border-radius: 50% !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -166,14 +179,11 @@
             .then(data => {
                 const placeholder = document.getElementById('player-placeholder');
                 const localPlaylist = placeholder.querySelector('#playlist');
-
                 placeholder.innerHTML = data; 
 
                 if (localPlaylist) {
                     const target = document.getElementById('playlist-target');
-                    if (target) {
-                        target.appendChild(localPlaylist);
-                    }
+                    if (target) target.appendChild(localPlaylist);
                     
                     const firstTrack = localPlaylist.querySelector('.track');
                     if (firstTrack) {
@@ -190,18 +200,9 @@
                 }
 
                 setTimeout(() => {
-                    if (typeof initPlayer === "function") {
-                        initPlayer();
-                    }
+                    if (typeof initPlayer === "function") initPlayer();
                 }, 50);
             });
-
-        window.onscroll = function() {
-            var nav = document.getElementById('main-nav');
-            if (nav) {
-                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
-            }
-        };
     </script>
 </body>
 </html>
