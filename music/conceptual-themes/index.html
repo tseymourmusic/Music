@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/menu.css">
 
     <style>
         body, html { 
@@ -42,14 +42,13 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Themed Playlist Styling */
+        /* Playlist Styling */
         #playlist-target {
             margin-top: 30px;
         }
 
-        /* Overriding player.css to make the playlist visible and elegant */
         #playlist {
-            display: block !important; /* Force visible for this page */
+            display: block !important; 
             list-style: none;
             padding: 0;
             margin-top: 40px;
@@ -83,7 +82,7 @@
         }
 
         .track::before {
-            content: "\f04b"; /* FontAwesome Play Icon */
+            content: "\f04b";
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             margin-right: 20px;
@@ -113,10 +112,10 @@
         <div class="master-player-section">
             <div id="player-placeholder">
                 <ul id="playlist" style="display: none !important;">
-                    <li class="track active" data-src="audio/Concept-Noir.mp3">Nordic Noir - Tension</li>
-                    <li class="track" data-src="audio/Concept-Ancient.mp3">Ancient Echoes - Folk</li>
-                    <li class="track" data-src="audio/Concept-Urban.mp3">Urban Pulse - Modern</li>
-                    <li class="track" data-src="audio/Concept-Ethereal.mp3">Ethereal Myth - Dream</li>
+                    <li class="track active" data-src="/audio/Concept-Noir.mp3">Nordic Noir - Tension</li>
+                    <li class="track" data-src="/audio/Concept-Ancient.mp3">Ancient Echoes - Folk</li>
+                    <li class="track" data-src="/audio/Concept-Urban.mp3">Urban Pulse - Modern</li>
+                    <li class="track" data-src="/audio/Concept-Ethereal.mp3">Ethereal Myth - Dream</li>
                 </ul>
             </div>
         </div>
@@ -128,13 +127,14 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="player.js"></script>
+    <script src="/player.js"></script>
+    
     <script>
-        // Use your existing fetch logic
-        fetch('menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
-        fetch('footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        // Fetch paths updated with root slashes to match Homologies logic
+        fetch('/menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('/footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
-        fetch('player-component.html')
+        fetch('/player-component.html')
             .then(res => res.text())
             .then(data => {
                 const placeholder = document.getElementById('player-placeholder');
@@ -142,14 +142,12 @@
 
                 placeholder.innerHTML = data; 
 
-                // Inject the playlist into the target within the component
                 if (localPlaylist) {
                     const target = document.getElementById('playlist-target');
                     if (target) {
                         target.appendChild(localPlaylist);
                     }
                     
-                    // Setup initial track based on your player.js requirements
                     const firstTrack = localPlaylist.querySelector('.track');
                     if (firstTrack) {
                         const audio = document.getElementById('audio');
@@ -164,13 +162,19 @@
                     }
                 }
 
-                // Standard initPlayer call from your player.js
                 setTimeout(() => {
                     if (typeof initPlayer === "function") {
                         initPlayer();
                     }
                 }, 50);
             });
+
+        window.onscroll = function() {
+            var nav = document.getElementById('main-nav');
+            if (nav) {
+                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(10, 10, 10, 0.95)";
+            }
+        };
     </script>
 </body>
 </html>
