@@ -41,9 +41,13 @@
             padding: 40px 30px;
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.05);
-            display: block; 
-            width: 100%;
-            box-sizing: border-box;
+        }
+
+        /* OVERRIDES: Use the global style.css but allow centering/width */
+        #player-placeholder .player-container {
+            max-width: 700px !important; /* Allow it to be wider than the default */
+            margin: 0 auto !important;   /* Force centering */
+            width: 100% !important;
         }
 
         /* Playlist Styling */
@@ -98,48 +102,6 @@
             .container { margin-top: 150px; } 
             h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
         }
-        
-        /* THE PILL FIXES */
-        #player-placeholder {
-            max-width: 700px; 
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        #player-placeholder .player-container {
-            max-width: 700px !important;
-            margin: 0 auto !important;
-            display: flex !important;
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            
-            /* Restoring the Pill Look */
-            background: #e0e0e0 !important; /* The light grey/white pill background */
-            padding: 10px 20px !important;
-            border-radius: 50px !important; /* Round edges for the pill */
-            gap: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        #player-placeholder .console {
-            flex: 1 !important;
-            background: transparent !important;
-        }
-
-        /* Ensuring the Previous/Next buttons look correct inside the pill */
-        #player-placeholder .nav-btn {
-            background: #333 !important;
-            color: white !important;
-            border-radius: 50% !important;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -160,10 +122,6 @@
                 </ul>
             </div>
         </div>
-
-        <div class="details" style="text-align: center; max-width: 700px; margin: 0 auto;">
-            <p></p>
-        </div>
     </div>
 
     <div id="footer-placeholder"></div>
@@ -179,6 +137,8 @@
             .then(data => {
                 const placeholder = document.getElementById('player-placeholder');
                 const localPlaylist = placeholder.querySelector('#playlist');
+                
+                // Inject the standard component
                 placeholder.innerHTML = data; 
 
                 if (localPlaylist) {
