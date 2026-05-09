@@ -1,4 +1,4 @@
-/* player.js - Independent Version */
+/* player.js */
 
 let audio, source, tracks, prevBtn, nextBtn, trackTitleDisplay;
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
@@ -13,29 +13,38 @@ function initPlayer() {
 
     if (!audio || !prevBtn || !nextBtn) return;
 
-    // Simplified Listeners: No more fighting iframes
-    nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: true});
-    nextBtn.addEventListener('touchend', (e) => onUp(e, 'next'), {passive: true});
-    prevBtn.addEventListener('touchstart', (e) => onDown(e, 'prev'), {passive: true});
-    prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: true});
-
-    // Desktop Mouse support
     nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
+    nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
     nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
+    nextBtn.addEventListener('touchend', (e) => onUp(e, 'next'), {passive: false});
+
     prevBtn.addEventListener('mousedown', (e) => onDown(e, 'prev'));
+    prevBtn.addEventListener('touchstart', (e) => onDown(e, 'prev'), {passive: false});
     prevBtn.addEventListener('mouseup', (e) => onUp(e, 'prev'));
+    prevBtn.addEventListener('touchend', (e) => onUp(e, 'prev'), {passive: false});
 
     audio.addEventListener('ended', skipNext);
 
     refreshMenu();
+
+    // MOBILE SCROLL FIX:
+    // We removed e.preventDefault() to allow the browser to handle 
+    // the internal scrolling of the track list.
+    trackTitleDisplay.addEventListener('touchmove', function(e) {
+        if (this.scrollHeight > this.offsetHeight) {
+            e.stopPropagation(); // Only stop the page from scrolling, let the div scroll
+        }
+    }, { passive: true });
 }
 
 function refreshMenu() {
     if (!trackTitleDisplay) return;
     trackTitleDisplay.innerHTML = '';
     
-    // Sort active to top so it's visible in the collapsed state
-    const sortedTracks = [...tracks].sort((a, b) => b.classList.contains('active') - a.classList.contains('active'));
+    // Keep active track at the top of the "window"
+    const sortedTracks = [...tracks].sort((a, b) => {
+        return b.classList.contains('active') - a.classList.contains('active');
+    });
 
     sortedTracks.forEach(track => {
         const item = document.createElement('div');
@@ -57,15 +66,30 @@ function playTrack(trackElement) {
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
     refreshMenu();
-    trackTitleDisplay.scrollTop = 0; // Reset scroll window
+    
+    // Reset scroll to top when a track is picked
+    trackTitleDisplay.scrollTop = 0;
 }
 
-// ... skipNext and skipPrev functions stay the same ...
+function skipNext() {
+    let currentIdx = tracks.findIndex(t => t.classList.contains('active'));
+    let nextIdx = (currentIdx + 1) % tracks.length;
+    playTrack(tracks[nextIdx]);
+}
+
+function skipPrev() {
+    let currentIdx = tracks.findIndex(t => t.classList.contains('active'));
+    let prevIdx = (currentIdx - 1 + tracks.length) % tracks.length;
+    playTrack(tracks[prevIdx]);
+}
 
 function onDown(e, direction) {
-    // Only prevent default on non-touch to avoid breaking tap-interactions
-    if (e.type !== 'touchstart') e.preventDefault();
-    
+    if (e.type === 'touchstart') {
+        // Don't prevent default on touchstart to allow tap-to-open menu
+    } else {
+        e.preventDefault();
+    }
+    e.stopPropagation();
     pressStartTime = Date.now();
     isScrubbing = false;
     holdTimer = setTimeout(() => {
@@ -80,8 +104,15 @@ function onUp(e, direction) {
     clearTimeout(holdTimer);
     clearInterval(scrubInterval);
     if (!pressStartTime) return;
-    const duration = Date.now() - pressStartTime;
-    if (duration < 250) {
+    const pressDuration = Date.now() - pressStartTime;
+    pressStartTime = null;
+    if (pressDuration < 250 && !isScrubbing) {
         direction === 'next' ? skipNext() : skipPrev();
     }
+    isScrubbing = false;
 }
+
+window.addEventListener('mouseup', () => { 
+    clearTimeout(holdTimer); 
+    clearInterval(scrubInterval); 
+});
