@@ -38,28 +38,37 @@
     width: 100%;
 }
 
-/* 4. Individual Pages (The "Pop" Effect) */
+/* 4. Individual Pages with "Rim Light" for Dark Backgrounds */
 canvas {
     max-width: 48%;
     height: auto !important;
     background: white;
     
-    /* Triple-layered shadow for realistic depth */
+    /* 1. Subtle light-gray rim to catch the eye 
+       2. Soft ambient glow to separate from the GIF 
+       3. Very dark core shadow */
     box-shadow: 
-        0 0 1px rgba(0,0,0,0.2),      /* Sharp paper edge */
-        0 15px 35px rgba(0,0,0,0.5),   /* Main lift shadow */
-        0 5px 15px rgba(0,0,0,0.4);    /* Soft ambient occlusion */
+        0 0 0 1px rgba(255, 255, 255, 0.05), /* Tiny light rim */
+        0 10px 30px rgba(0, 0, 0, 0.8),       /* Deep lift */
+        0 0 20px rgba(212, 175, 55, 0.05);   /* Very faint gold ambient glow */
     
     transition: transform 0.3s ease;
 }
 
-/* Internal spine shadow for the left page */
+/* Define the Spine (The center fold) */
 #canvas-left {
     box-shadow: 
-        5px 0 15px rgba(0,0,0,0.3), 
-        0 15px 35px rgba(0,0,0,0.5);
+        inset -10px 0 20px rgba(0,0,0,0.1), /* Soft inner fold shadow */
+        2px 0 10px rgba(0,0,0,0.5),         /* Shadow cast onto right page */
+        0 10px 30px rgba(0,0,0,0.8);
+    border-right: 1px solid rgba(0,0,0,0.1);
 }
 
+#canvas-right {
+    box-shadow: 
+        inset 10px 0 20px rgba(0,0,0,0.1),  /* Soft inner fold shadow */
+        0 10px 30px rgba(0,0,0,0.8);
+}
 /* 5. Bespoke Controls */
 .flipbook-controls {
     position: relative;
