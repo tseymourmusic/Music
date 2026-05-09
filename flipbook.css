@@ -1,56 +1,50 @@
 .flipbook-wrapper {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px; /* Slightly wider for spreads */
     margin: 40px auto;
-    background: #111;
-    padding: 20px;
+    padding: 60px 40px;
     border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* The dark atmospheric overlay for the wrapper background */
+.flipbook-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 1;
 }
 
 #flipbook-viewport {
+    position: relative;
+    z-index: 2;
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #000;
-    overflow: hidden;
-    border: 1px solid #222;
+    gap: 2px; /* Subtle "spine" line */
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
 }
 
-#flipbook-canvas {
-    max-width: 100%;
+#canvas-left, #canvas-right {
+    max-width: 50%; /* Ensures two fit side-by-side */
     height: auto;
-    display: block;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .flipbook-controls {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px;
-    margin-top: 20px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.flip-btn {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #D4AF37;
-    padding: 8px 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.7rem;
-    transition: all 0.3s ease;
-}
-
-.flip-btn:hover {
-    background: #D4AF37;
-    color: #000;
-}
-
-.page-info {
-    font-size: 0.8rem;
-    color: #888;
-    letter-spacing: 1px;
+    margin-top: 30px;
 }
