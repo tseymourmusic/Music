@@ -38,16 +38,26 @@
         .master-player-section {
             margin-bottom: 50px;
             background: rgba(255,255,255,0.02);
-            padding: 40px 30px;
+            padding: 40px 10px; /* Reduced side padding for mobile */
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.05);
+            width: 100%;        /* Ensure it doesn't exceed screen */
+            box-sizing: border-box;
         }
 
         /* OVERRIDES: Use the global style.css but allow centering/width */
         #player-placeholder .player-container {
-            max-width: 700px !important; /* Allow it to be wider than the default */
-            margin: 0 auto !important;   /* Force centering */
-            width: 100% !important;
+            max-width: 700px !important; 
+            margin: 0 auto !important;   
+            width: 100% !important;      /* Essential for scaling */
+            padding: 0 !important;       /* Remove extra padding that causes overflow */
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 800px) { 
+            .container { margin-top: 150px; padding: 0 15px; } /* Add padding here */
+            .master-player-section { padding: 20px 5px; }       /* Tighten player box for mobile */
+            h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
         }
 
         /* Playlist Styling */
