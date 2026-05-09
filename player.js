@@ -1,12 +1,9 @@
 /* player.js */
 
-// We declare these variables globally so all functions can see them, 
-// but we don't assign them until initPlayer() runs.
 let audio, source, tracks, prevBtn, nextBtn, trackTitleDisplay;
 let holdTimer, scrubInterval, isScrubbing = false, pressStartTime;
 
 function initPlayer() {
-    // 1. Assign the elements now that they exist in the DOM
     audio = document.getElementById('audio');
     source = document.getElementById('audio-source');
     tracks = Array.from(document.querySelectorAll('.track'));
@@ -14,9 +11,8 @@ function initPlayer() {
     nextBtn = document.getElementById('nextBtn');
     trackTitleDisplay = document.getElementById('track-title');
 
-    if (!audio || !prevBtn || !nextBtn) return; // Safety check
+    if (!audio || !prevBtn || !nextBtn) return;
 
-    // 2. Attach Event Listeners
     nextBtn.addEventListener('mousedown', (e) => onDown(e, 'next'));
     nextBtn.addEventListener('touchstart', (e) => onDown(e, 'next'), {passive: false});
     nextBtn.addEventListener('mouseup', (e) => onUp(e, 'next'));
@@ -29,25 +25,23 @@ function initPlayer() {
 
     audio.addEventListener('ended', skipNext);
 
-    // 3. Initialize the menu UI
     refreshMenu();
 
-    // Mobile touch fix for the menu
+    // MOBILE SCROLL FIX:
+    // We removed e.preventDefault() to allow the browser to handle 
+    // the internal scrolling of the track list.
     trackTitleDisplay.addEventListener('touchmove', function(e) {
         if (this.scrollHeight > this.offsetHeight) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.stopPropagation(); // Only stop the page from scrolling, let the div scroll
         }
-    }, { passive: false });
+    }, { passive: true });
 }
 
-/**
- * REFRESH MENU & PLAY TRACK LOGIC
- */
 function refreshMenu() {
     if (!trackTitleDisplay) return;
     trackTitleDisplay.innerHTML = '';
     
+    // Keep active track at the top of the "window"
     const sortedTracks = [...tracks].sort((a, b) => {
         return b.classList.contains('active') - a.classList.contains('active');
     });
@@ -72,6 +66,9 @@ function playTrack(trackElement) {
     tracks.forEach(t => t.classList.remove('active'));
     trackElement.classList.add('active');
     refreshMenu();
+    
+    // Reset scroll to top when a track is picked
+    trackTitleDisplay.scrollTop = 0;
 }
 
 function skipNext() {
@@ -86,11 +83,12 @@ function skipPrev() {
     playTrack(tracks[prevIdx]);
 }
 
-/**
- * SCRUBBING LOGIC (Hold to seek)
- */
 function onDown(e, direction) {
-    e.preventDefault();
+    if (e.type === 'touchstart') {
+        // Don't prevent default on touchstart to allow tap-to-open menu
+    } else {
+        e.preventDefault();
+    }
     e.stopPropagation();
     pressStartTime = Date.now();
     isScrubbing = false;
