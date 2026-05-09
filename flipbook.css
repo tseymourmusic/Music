@@ -1,45 +1,66 @@
-/* Container with Background Image Support */
+/* 1. Main Container with Background Image Support */
 .flipbook-wrapper {
     width: 100%;
-    max-width: 1100px; /* Wider for the spread */
+    max-width: 1100px;
     margin: 40px auto;
     padding: 60px 20px;
-    background: #111; /* Fallback */
+    background-color: #0a0a0a; /* Match body to prevent fringe/pixelation */
     background-size: cover;
     background-position: center;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+    
+    /* Clean edge fix */
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    background-clip: padding-box; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
 }
 
-/* Dark overlay for the background image */
+/* 2. Dark Overlay for Background Image */
 .flipbook-wrapper::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: -1px; left: -1px; right: -1px; bottom: -1px; /* Bleed to cover borders */
     background: rgba(0, 0, 0, 0.7); 
     z-index: 1;
+    pointer-events: none;
 }
 
+/* 3. The Spread Viewport */
 #flipbook-viewport {
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Prevents stretching */
-    gap: 4px; /* Subtle spine */
+    align-items: flex-start;
+    gap: 2px; /* Tiny gap for the book spine */
     width: 100%;
 }
 
+/* 4. Individual Pages (The "Pop" Effect) */
 canvas {
-    max-width: 48%; /* Ensures side-by-side fit */
+    max-width: 48%;
     height: auto !important;
     background: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    
+    /* Triple-layered shadow for realistic depth */
+    box-shadow: 
+        0 0 1px rgba(0,0,0,0.2),      /* Sharp paper edge */
+        0 15px 35px rgba(0,0,0,0.5),   /* Main lift shadow */
+        0 5px 15px rgba(0,0,0,0.4);    /* Soft ambient occlusion */
+    
+    transition: transform 0.3s ease;
 }
 
-/* Restoring Bespoke Buttons */
+/* Internal spine shadow for the left page */
+#canvas-left {
+    box-shadow: 
+        5px 0 15px rgba(0,0,0,0.3), 
+        0 15px 35px rgba(0,0,0,0.5);
+}
+
+/* 5. Bespoke Controls */
 .flipbook-controls {
     position: relative;
     z-index: 2;
@@ -48,6 +69,7 @@ canvas {
     align-items: center;
     gap: 30px;
     margin-top: 30px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .flip-btn {
@@ -56,7 +78,6 @@ canvas {
     color: #D4AF37;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 0.7rem;
@@ -72,5 +93,4 @@ canvas {
     font-size: 0.8rem;
     color: #888;
     letter-spacing: 1px;
-    font-family: 'Montserrat', sans-serif;
 }
