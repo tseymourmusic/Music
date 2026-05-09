@@ -4,14 +4,55 @@ let pdfDoc = null,
     pageNum = 1,
     pageRendering = false;
 
+/**
+ * 1. REUSABLE NAVIGATION FUNCTIONS
+ * These are called by both clicks and swipes
+ */
+function nextPage() {
+    if (pageRendering || !pdfDoc || pageNum + 2 > pdfDoc.numPages) return;
+    pageNum += 2;
+    renderSpread();
+}
+
+function prevPage() {
+    if (pageRendering || !pdfDoc || pageNum <= 1) return;
+    pageNum -= 2;
+    if (pageNum < 1) pageNum = 1;
+    renderSpread();
+}
+
+/**
+ * 2. INITIALIZATION
+ */
 function initFlipbook(pdfPath) {
     pdfjsLib.getDocument(pdfPath).promise.then(doc => {
         pdfDoc = doc;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
         renderSpread();
     }).catch(err => console.error("Error loading PDF:", err));
+
+    // --- Swipe Functionality for Mobile ---
+    const viewport = document.getElementById('flipbook-viewport');
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    viewport.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    viewport.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        const swipeDistance = touchendX - touchstartX;
+        
+        // Threshold of 50px to prevent accidental flips
+        if (swipeDistance < -50) nextPage();
+        if (swipeDistance > 50) prevPage();
+    }, {passive: true});
 }
 
+/**
+ * 3. RENDERING LOGIC
+ */
 async function renderSpread() {
     pageRendering = true;
     
@@ -25,7 +66,8 @@ async function renderSpread() {
     } else {
         // Clear right canvas if no page exists
         const canvas = document.getElementById('canvas-right');
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         document.getElementById('page-num').textContent = pageNum;
     }
     
@@ -37,7 +79,7 @@ async function renderPage(num, canvasId) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
     
-    // Use a scale of 1.0 to keep it smaller on desktop
+    // Use a scale of 1.0 for standard display
     const viewport = page.getViewport({ scale: 1.0 });
     canvas.height = viewport.height;
     canvas.width = viewport.width;
@@ -46,19 +88,16 @@ async function renderPage(num, canvasId) {
     await page.render(renderContext).promise;
 }
 
-// Navigation
+/**
+ * 4. EVENT LISTENERS
+ */
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.flip-btn');
-    if (!btn || pageRendering) return;
+    if (!btn) return;
 
     if (btn.id === 'prev-page') {
-        if (pageNum <= 1) return;
-        pageNum -= 2;
-        if (pageNum < 1) pageNum = 1;
-        renderSpread();
+        prevPage();
     } else if (btn.id === 'next-page') {
-        if (pageNum + 2 > pdfDoc.numPages) return;
-        pageNum += 2;
-        renderSpread();
+        nextPage();
     }
 });
