@@ -1,15 +1,15 @@
-<div class="flipbook-viewport">
-    <div class="flipbook-bg-overlay"></div>
-    <div class="flipbook-container" id="flipbook">
-        <div class="fb-loader">
-            <div class="fb-spinner"></div>
-            <p>ILLUMINATING THE SCORE...</p>
-        </div>
+<div class="flipbook-wrapper">
+    <div id="flipbook-viewport">
+        <canvas id="flipbook-canvas"></canvas>
     </div>
     
-    <div class="fb-controls">
-        <button onclick="fbPrevPage()"><i class="fa-solid fa-chevron-left"></i></button>
-        <span id="fb-page-num">PAGE 1 / --</span>
-        <button onclick="fbNextPage()"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="flipbook-controls">
+        <button class="flip-btn" id="prev-page">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span class="page-info">Page <span id="page-num">0</span> of <span id="page-count">0</span></span>
+        <button class="flip-btn" id="next-page">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 </div>
