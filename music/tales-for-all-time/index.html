@@ -18,18 +18,25 @@
 
     <style>
         /* --- LAYOUT OVERRIDE --- */
-        body {
-            display: block !important; 
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            overflow-x: hidden; /* This is the "lock" that prevents the pivot */
             background-color: #0a0a0a;
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        html { scroll-behavior: smooth; }
+body {
+    display: block !important; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
 
         /* --- HERO SECTION --- */
         .hero {
