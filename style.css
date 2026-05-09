@@ -96,15 +96,16 @@ audio {
     z-index: 100;
     max-height: 20px; 
     overflow: hidden;
-    /* TWEAK: Using display: block + line-height to enable scroll while keeping center */
-    display: block;
-    line-height: 20px;
+    /* FIXED: Restored flex to maintain perfect vertical centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     touch-action: pan-y !important; 
 }
 
 #track-title:hover, #track-title:active {
     height: auto;
-    max-height: 180px; /* Locked window height for mobile scroll */
+    max-height: 160px; /* Windowed height to prevent blowing out the design */
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch; 
     padding: 8px 0;
@@ -124,15 +125,14 @@ audio {
 }
 
 .menu-item {
-    padding: 12px 5px;
+    padding: 10px 5px; 
     display: block;
     opacity: 0.6;
     transition: 0.2s;
     border-bottom: 1px solid #222;
-    line-height: 1.4;
-    min-height: 40px; /* Better hit area for finger taps */
+    line-height: 1;
 }
 
 .menu-item:last-child { border-bottom: none; }
 .menu-item:hover { opacity: 1; background: #1e1e1e; }
-.menu-item.active-link { opacity: 1; color: var(--gold); background: #121212; }
+.menu-item.active-link { opacity: 1; color: #fff; background: #121212; }
