@@ -53,23 +53,24 @@
             font-weight: 400;
             letter-spacing: 0.15em;
             margin: 0;
+            /* Main Title Glow */
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
-        }
-
-        .brand-title {
-            font-family: 'Cinzel', serif;
-            text-transform: uppercase; /* Standard for Cinzel Small-Caps look */
-            letter-spacing: 2px;
-            color: #D4AF37;
+            color: #FFFFFF; /* Ensure base color is white for the glow to pop */
         }
 
         .tm-mark {
             font-family: 'Cinzel', serif;
-            font-size: 0.4em;      /* Scaled down */
-            vertical-align: super; /* Floats it high */
-            margin-left: 5px;      /* Gap so it doesn't touch the 'E' */
-            opacity: 0.7;          /* Makes it look like a watermark */
-            font-weight: 400;      /* Keep it elegant, not bulky */
+            font-size: 0.25em;      /* Slightly smaller to look more professional */
+            vertical-align: top;    /* Align to top */
+            position: relative;
+            top: 0.6em;             /* Nudges it precisely to the shoulder of the letters */
+            margin-left: 8px;       /* Spacing from the 'E' */
+            opacity: 0.9;
+            font-weight: 700;       /* Bolder so the glow has more "surface" to grab */
+            color: #D4AF37;         /* Gold color base */
+            /* The missing glow: */
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.8), 0 0 12px rgba(212, 175, 55, 0.4);
+            letter-spacing: normal;
         }
         
         .mythic-tagline {
