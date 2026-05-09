@@ -44,14 +44,15 @@ canvas {
     height: auto !important;
     background: white;
     
-    /* 1. Subtle light-gray rim to catch the eye 
-       2. Soft ambient glow to separate from the GIF 
-       3. Very dark core shadow */
+    /* THE COMBO:
+       1. 1px White Rim: Makes the edge crisp against the dark GIF.
+       2. Deep Shadow: Creates the 'lift' off the background. 
+    */
     box-shadow: 
-        0 0 0 1px rgba(255, 255, 255, 0.05), /* Tiny light rim */
-        0 10px 30px rgba(0, 0, 0, 0.8),       /* Deep lift */
-        0 0 20px rgba(212, 175, 55, 0.05);   /* Very faint gold ambient glow */
+        0 0 0 1px rgba(255, 255, 255, 0.15), 
+        0 20px 40px rgba(0, 0, 0, 0.9);
     
+    z-index: 5;
     transition: transform 0.3s ease;
 }
 
