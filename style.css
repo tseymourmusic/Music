@@ -5,14 +5,7 @@
     --gold: #D4AF37;
 }
 
-.player-page-layout {
-    background: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden; 
-}
-
+/* Cleaned for independent hosting */
 .player-container {
     background: var(--player-grey);
     padding: 6px 10px; 
@@ -26,29 +19,6 @@
     box-sizing: border-box;
 }
 
-.skip-btn {
-    background: #1e1e1e;
-    color: var(--player-grey);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-}
-
-.skip-btn:hover {
-    background: var(--gold); 
-    color: #121212;      
-    transform: scale(1.1); 
-    transition: all 0.2s ease;
-}
-
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
@@ -59,24 +29,10 @@
     flex: 1;
     min-width: 210px;
     height: 48px; 
-    justify-content: flex-start; 
     position: relative;
-    overflow: visible; 
 }
 
-audio {
-    width: 100% !important;
-    height: 30px;
-    filter: invert(100%) brightness(100%);
-    display: block;
-    background: transparent !important;
-    transition: filter 0.3s ease;
-}
-
-.console:hover audio {
-    filter: invert(72%) sepia(15%) saturate(150%) hue-rotate(3deg) brightness(110%) contrast(250%);
-}
-
+/* TRACK TITLE: The "Independent" Scroll Window */
 #track-title {
     color: #ffffff !important; 
     font-size: 9px;
@@ -96,43 +52,23 @@ audio {
     z-index: 100;
     max-height: 20px; 
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* Allows natural scrolling on mobile */
-    touch-action: pan-y !important; 
 }
 
+/* The Mobile Expansion */
 #track-title:hover, #track-title:active {
-    height: auto;
-    max-height: 200px; /* Increased slightly for better mobile viewing */
-    overflow-y: auto !important; /* Changed to auto */
-    -webkit-overflow-scrolling: touch; /* Essential for smooth iOS scroll */
-    padding: 8px 0;
+    max-height: 220px; 
+    overflow-y: auto !important; /* Let the browser do the work */
+    -webkit-overflow-scrolling: touch; 
+    padding: 10px 0;
     width: 100%; 
     top: 30px;
     color: var(--gold) !important;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-#track-title::-webkit-scrollbar {
-    width: 4px;
-}
-#track-title::-webkit-scrollbar-thumb {
-    background: var(--gold);
-    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 .menu-item {
-    padding: 12px 5px; /* Slightly larger hit area for fingers */
-    display: block;
-    opacity: 0.6;
-    transition: 0.2s;
+    padding: 14px 10px; /* Larger finger-tap area */
+    opacity: 0.7;
     border-bottom: 1px solid #222;
-    line-height: 1.2;
 }
-
-.menu-item:last-child { border-bottom: none; }
-.menu-item:hover { opacity: 1; background: #1e1e1e; }
-.menu-item.active-link { opacity: 1; color: #fff; background: #121212; }
