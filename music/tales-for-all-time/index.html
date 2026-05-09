@@ -89,6 +89,22 @@ html {
             box-sizing: border-box;
         }
         
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase; /* Standard for Cinzel Small-Caps look */
+            letter-spacing: 2px;
+            color: #D4AF37;
+        }
+
+        .tm-mark {
+            font-family: 'Cinzel', serif;
+            font-size: 0.4em;      /* Scaled down */
+            vertical-align: super; /* Floats it high */
+            margin-left: 5px;      /* Gap so it doesn't touch the 'E' */
+            opacity: 0.7;          /* Makes it look like a watermark */
+            font-weight: 400;      /* Keep it elegant, not bulky */
+        }
+        
         hr {
             border: 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -265,7 +281,8 @@ html {
     <div id="nav-placeholder"></div>
 
     <header class="hero" id="hero">
-        <h1>TAlES fOr All TiME</h1>
+        <h1>TAlES fOr All TiME<span class="tm-mark">&trade;</span>
+        </h1>
         <div class="hero-text-block">
             <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
             <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
