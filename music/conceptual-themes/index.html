@@ -34,30 +34,28 @@
             letter-spacing: 1px; text-shadow: 0 0 12px rgba(234, 224, 213, 0.5);
         }
 
-        /* Hero Player Section */
-        .master-player-section {
-            margin-bottom: 50px;
-            background: rgba(255,255,255,0.02);
-            padding: 40px 10px; /* Reduced side padding for mobile */
-            border-radius: 2px;
-            border: 1px solid rgba(255,255,255,0.05);
-            width: 100%;        /* Ensure it doesn't exceed screen */
-            box-sizing: border-box;
+        /* Standardised Audio Container (Matches Tales For All Time) */
+        .audio-container {
+            width: 100%;
+            margin: 0 auto;
+            display: block; 
+            text-align: center;
         }
 
-        /* OVERRIDES: Use the global style.css but allow centering/width */
+        /* Standardised Player Scaling Overrides */
         #player-placeholder .player-container {
-            max-width: 700px !important; 
-            margin: 0 auto !important;   
-            width: 100% !important;      /* Essential for scaling */
-            padding: 0 !important;       /* Remove extra padding that causes overflow */
-            box-sizing: border-box;
+            margin: 0 auto 80px auto !important;
+            max-width: 700px !important; /* Maintains the 'Pill' shape on desktop */
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100% !important;
         }
 
-        @media (max-width: 800px) { 
-            .container { margin-top: 150px; padding: 0 15px; } /* Add padding here */
-            .master-player-section { padding: 20px 5px; }       /* Tighten player box for mobile */
-            h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
+        /* Ensures the progress bar stretches correctly within the pill */
+        #player-placeholder .console {
+            flex: 1 !important; 
         }
 
         /* Playlist Styling */
@@ -109,8 +107,9 @@
         #footer-placeholder { margin-top: 80px; padding-bottom: 40px; }
 
         @media (max-width: 800px) { 
-            .container { margin-top: 150px; } 
+            .container { margin-top: 150px; padding: 0 15px; } 
             h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
+            #player-placeholder .player-container { gap: 10px; }
         }
     </style>
 </head>
@@ -122,7 +121,7 @@
         <h1>CONCEPTUAL THEMES</h1>
         <p class="tagline">"A collection of sonic identities and musical seeds for film and media which can be expanded, re-arranged, or custom-tailored to suit the specific narrative needs of your project"</p>
 
-        <div class="master-player-section">
+        <div class="audio-container">
             <div id="player-placeholder">
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="/audio/Concept-Noir.mp3">Nordic Noir - Tension</li>
@@ -132,6 +131,8 @@
                 </ul>
             </div>
         </div>
+
+        <div id="playlist-target"></div>
     </div>
 
     <div id="footer-placeholder"></div>
