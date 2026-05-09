@@ -5,7 +5,14 @@
     --gold: #D4AF37;
 }
 
-/* 1. The Pill Shape */
+.player-page-layout {
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden; 
+}
+
 .player-container {
     background: var(--player-grey);
     padding: 6px 10px; 
@@ -17,10 +24,31 @@
     max-width: 440px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     box-sizing: border-box;
-    height: 60px; /* Locked height to prevent "bloating" */
 }
 
-/* 2. The Black Console Inside */
+.skip-btn {
+    background: #1e1e1e;
+    color: var(--player-grey);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.skip-btn:hover {
+    background: var(--gold); 
+    color: #121212;      
+    transform: scale(1.1); 
+    transition: all 0.2s ease;
+}
+
 .console {
     background: var(--dark-grey);
     border-radius: 30px;
@@ -30,22 +58,25 @@
     align-items: center;
     flex: 1;
     min-width: 210px;
-    height: 48px; /* Locked height to keep audio inside */
+    height: 48px; 
+    justify-content: flex-start; 
     position: relative;
-    overflow: visible; /* Allows the playlist to pop OUT of the console */
+    overflow: visible; 
 }
 
-/* 3. The Audio Element - Fixed the "Popping Out" issue */
 audio {
     width: 100% !important;
-    height: 30px !important; /* Strict height */
+    height: 30px;
     filter: invert(100%) brightness(100%);
     display: block;
     background: transparent !important;
-    margin: 0;
+    transition: filter 0.3s ease;
 }
 
-/* 4. The Track Title & Scrollable Window */
+.console:hover audio {
+    filter: invert(72%) sepia(15%) saturate(150%) hue-rotate(3deg) brightness(110%) contrast(250%);
+}
+
 #track-title {
     color: #ffffff !important; 
     font-size: 9px;
@@ -56,7 +87,7 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    top: 31px; /* Precision placement below audio */
+    top: 31px; 
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
@@ -65,43 +96,43 @@ audio {
     z-index: 100;
     max-height: 20px; 
     overflow: hidden;
-    line-height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Allows natural scrolling on mobile */
+    touch-action: pan-y !important; 
 }
 
-/* Mobile/Hover Expansion */
 #track-title:hover, #track-title:active {
-    max-height: 220px; 
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch; 
-    padding: 10px 0;
+    height: auto;
+    max-height: 200px; /* Increased slightly for better mobile viewing */
+    overflow-y: auto !important; /* Changed to auto */
+    -webkit-overflow-scrolling: touch; /* Essential for smooth iOS scroll */
+    padding: 8px 0;
     width: 100%; 
     top: 30px;
     color: var(--gold) !important;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+#track-title::-webkit-scrollbar {
+    width: 4px;
+}
+#track-title::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
 }
 
 .menu-item {
-    padding: 14px 10px;
-    font-size: 10px;
-    opacity: 0.7;
+    padding: 12px 5px; /* Slightly larger hit area for fingers */
+    display: block;
+    opacity: 0.6;
+    transition: 0.2s;
     border-bottom: 1px solid #222;
-    text-align: center;
+    line-height: 1.2;
 }
 
-.menu-item.active-link { opacity: 1; color: var(--gold); }
-
-/* Buttons */
-.skip-btn {
-    background: #1e1e1e;
-    color: var(--player-grey);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+.menu-item:last-child { border-bottom: none; }
+.menu-item:hover { opacity: 1; background: #1e1e1e; }
+.menu-item.active-link { opacity: 1; color: #fff; background: #121212; }
