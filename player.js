@@ -27,12 +27,9 @@ function initPlayer() {
 
     refreshMenu();
 
-    // MOBILE SCROLL FIX:
-    // We removed e.preventDefault() to allow the browser to handle 
-    // the internal scrolling of the track list.
     trackTitleDisplay.addEventListener('touchmove', function(e) {
         if (this.scrollHeight > this.offsetHeight) {
-            e.stopPropagation(); // Only stop the page from scrolling, let the div scroll
+            e.stopPropagation(); 
         }
     }, { passive: true });
 }
@@ -41,7 +38,6 @@ function refreshMenu() {
     if (!trackTitleDisplay) return;
     trackTitleDisplay.innerHTML = '';
     
-    // Keep active track at the top of the "window"
     const sortedTracks = [...tracks].sort((a, b) => {
         return b.classList.contains('active') - a.classList.contains('active');
     });
@@ -67,7 +63,6 @@ function playTrack(trackElement) {
     trackElement.classList.add('active');
     refreshMenu();
     
-    // Reset scroll to top when a track is picked
     trackTitleDisplay.scrollTop = 0;
 }
 
@@ -85,7 +80,6 @@ function skipPrev() {
 
 function onDown(e, direction) {
     if (e.type === 'touchstart') {
-        // Don't prevent default on touchstart to allow tap-to-open menu
     } else {
         e.preventDefault();
     }
