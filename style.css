@@ -2,7 +2,7 @@
     --bg-color: #2c3338; 
     --player-grey: #d3d3d3;
     --dark-grey: #121212; 
-    --gold: #D4AF37; /* Tales Gold */
+    --gold: #D4AF37;
 }
 
 .player-page-layout {
@@ -42,16 +42,11 @@
     transition: all 0.3s ease;
 }
 
-/* KEEPS YOUR GOLD HOVER FLIP */
 .skip-btn:hover {
     background: var(--gold); 
     color: #121212;      
     transform: scale(1.1); 
     transition: all 0.2s ease;
-}
-
-.skip-btn:active {
-    transform: scale(0.95);
 }
 
 .console {
@@ -69,22 +64,19 @@
     overflow: visible; 
 }
 
-/* AUDIO BLOCK: Added the Gold Morph on Hover */
 audio {
     width: 100% !important;
     height: 30px;
-    filter: invert(100%) brightness(100%); /* Default White */
+    filter: invert(100%) brightness(100%);
     display: block;
     background: transparent !important;
     transition: filter 0.3s ease;
 }
 
-/* This is the new part: makes play button gold when console is hovered */
 .console:hover audio {
     filter: invert(72%) sepia(15%) saturate(150%) hue-rotate(3deg) brightness(110%) contrast(250%);
 }
 
-/* TRACK TITLE: Preserving your exact hard-won positioning */
 #track-title {
     color: #ffffff !important; 
     font-size: 9px;
@@ -95,7 +87,7 @@ audio {
     width: 90%;
     cursor: pointer;
     position: absolute; 
-    top: 31px; /* Locked at your original value */
+    top: 31px; 
     left: 50%;
     transform: translateX(-50%);
     background: var(--dark-grey);
@@ -107,41 +99,38 @@ audio {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    touch-action: pan-y !important;
+    /* Allows natural scrolling on mobile */
+    touch-action: pan-y !important; 
 }
 
-#track-title:hover {
+#track-title:hover, #track-title:active {
     height: auto;
-    max-height: 160px; 
-    overflow-y: scroll !important;
-    -webkit-overflow-scrolling: touch;
+    max-height: 200px; /* Increased slightly for better mobile viewing */
+    overflow-y: auto !important; /* Changed to auto */
+    -webkit-overflow-scrolling: touch; /* Essential for smooth iOS scroll */
     padding: 8px 0;
     width: 100%; 
-    top: 30px; /* Locked at your original value */
-    position: absolute; 
+    top: 30px;
     color: var(--gold) !important;
     border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 #track-title::-webkit-scrollbar {
     width: 4px;
 }
 #track-title::-webkit-scrollbar-thumb {
-    background: #333;
+    background: var(--gold);
     border-radius: 10px;
 }
 
-#playlist { 
-    display: none !important; 
-}
-
 .menu-item {
-    padding: 10px 5px;
+    padding: 12px 5px; /* Slightly larger hit area for fingers */
     display: block;
     opacity: 0.6;
     transition: 0.2s;
     border-bottom: 1px solid #222;
-    line-height: 1;
+    line-height: 1.2;
 }
 
 .menu-item:last-child { border-bottom: none; }
