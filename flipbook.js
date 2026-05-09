@@ -2,63 +2,63 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 let pdfDoc = null,
     pageNum = 1,
-    pageIsRendering = false;
-
-const scale = 1.0; // Lower scale for spreads to keep quality high but size manageable
+    pageRendering = false;
 
 function initFlipbook(pdfPath) {
-    pdfjsLib.getDocument(pdfPath).promise.then(pdfDoc_ => {
-        pdfDoc = pdfDoc_;
+    pdfjsLib.getDocument(pdfPath).promise.then(doc => {
+        pdfDoc = doc;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
-        renderSpread(pageNum);
-    });
+        renderSpread();
+    }).catch(err => console.error("Error loading PDF:", err));
 }
 
-function renderSpread(num) {
-    pageIsRendering = true;
+async function renderSpread() {
+    pageRendering = true;
     
     // Render Left Page
-    renderSinglePage(num, 'canvas-left');
+    await renderPage(pageNum, 'canvas-left');
     
-    // Render Right Page (if it exists)
-    if (num + 1 <= pdfDoc.numPages) {
-        renderSinglePage(num + 1, 'canvas-right');
-        document.getElementById('page-num').textContent = `${num}-${num+1}`;
+    // Render Right Page
+    if (pageNum + 1 <= pdfDoc.numPages) {
+        await renderPage(pageNum + 1, 'canvas-right');
+        document.getElementById('page-num').textContent = `${pageNum}-${pageNum + 1}`;
     } else {
-        // Clear right canvas if at the very end of a book with odd pages
-        const canvasR = document.getElementById('canvas-right');
-        canvasR.getContext('2d').clearRect(0, 0, canvasR.width, canvasR.height);
-        document.getElementById('page-num').textContent = num;
+        // Clear right canvas if no page exists
+        const canvas = document.getElementById('canvas-right');
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('page-num').textContent = pageNum;
     }
+    
+    pageRendering = false;
 }
 
-function renderSinglePage(num, canvasId) {
-    pdfDoc.getPage(num).then(page => {
-        const canvas = document.getElementById(canvasId);
-        const ctx = canvas.getContext('2d');
-        const viewport = page.getViewport({ scale });
-        
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+async function renderPage(num, canvasId) {
+    const page = await pdfDoc.getPage(num);
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    
+    // Use a scale of 1.0 to keep it smaller on desktop
+    const viewport = page.getViewport({ scale: 1.0 });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
 
-        const renderCtx = { canvasContext: ctx, viewport: viewport };
-        page.render(renderCtx).promise.then(() => {
-            pageIsRendering = false;
-        });
-    });
+    const renderContext = { canvasContext: ctx, viewport: viewport };
+    await page.render(renderContext).promise;
 }
 
-// Navigation Events - Jump by 2 for spreads
+// Navigation
 document.addEventListener('click', (e) => {
-    if (e.target.id === 'prev-page' || e.target.closest('#prev-page')) {
+    const btn = e.target.closest('.flip-btn');
+    if (!btn || pageRendering) return;
+
+    if (btn.id === 'prev-page') {
         if (pageNum <= 1) return;
         pageNum -= 2;
         if (pageNum < 1) pageNum = 1;
-        renderSpread(pageNum);
-    }
-    if (e.target.id === 'next-page' || e.target.closest('#next-page')) {
+        renderSpread();
+    } else if (btn.id === 'next-page') {
         if (pageNum + 2 > pdfDoc.numPages) return;
         pageNum += 2;
-        renderSpread(pageNum);
+        renderSpread();
     }
 });
