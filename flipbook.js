@@ -6,7 +6,6 @@ let pdfDoc = null,
 
 /**
  * 1. REUSABLE NAVIGATION FUNCTIONS
- * These are called by both clicks and swipes
  */
 function nextPage() {
     if (pageRendering || !pdfDoc || pageNum + 2 > pdfDoc.numPages) return;
@@ -22,7 +21,7 @@ function prevPage() {
 }
 
 /**
- * 2. INITIALIZATION
+ * 2. INITIALIZATION & INTERACTION LOGIC
  */
 function initFlipbook(pdfPath) {
     pdfjsLib.getDocument(pdfPath).promise.then(doc => {
@@ -31,8 +30,9 @@ function initFlipbook(pdfPath) {
         renderSpread();
     }).catch(err => console.error("Error loading PDF:", err));
 
-    // --- Swipe Functionality for Mobile ---
     const viewport = document.getElementById('flipbook-viewport');
+
+    // --- A. Swipe Functionality for Mobile ---
     let touchstartX = 0;
     let touchendX = 0;
 
@@ -43,11 +43,49 @@ function initFlipbook(pdfPath) {
     viewport.addEventListener('touchend', e => {
         touchendX = e.changedTouches[0].screenX;
         const swipeDistance = touchendX - touchstartX;
-        
-        // Threshold of 50px to prevent accidental flips
         if (swipeDistance < -50) nextPage();
         if (swipeDistance > 50) prevPage();
     }, {passive: true});
+
+    // --- B. Mouse Wheel Flipping (Desktop) ---
+    viewport.addEventListener('wheel', (e) => {
+        // Only trigger on horizontal scroll or Shift + Scroll
+        if (Math.abs(e.deltaX) > 40 || (e.shiftKey && Math.abs(e.deltaY) > 40)) {
+            e.preventDefault();
+            if (e.deltaX > 0 || e.deltaY > 0) nextPage();
+            else prevPage();
+        }
+    }, { passive: false });
+
+    // --- C. Grab & Drag Flipping (Desktop) ---
+    let isDragging = false;
+    let startX = 0;
+    viewport.style.cursor = 'grab';
+
+    viewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX;
+        viewport.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+    });
+
+    viewport.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        
+        const x = e.pageX;
+        const walk = x - startX;
+
+        // 100px drag threshold to flip
+        if (Math.abs(walk) > 100) {
+            if (walk > 0) prevPage();
+            else nextPage();
+            isDragging = false; // Reset to prevent multi-page skips
+        }
+    });
 }
 
 /**
@@ -64,7 +102,6 @@ async function renderSpread() {
         await renderPage(pageNum + 1, 'canvas-right');
         document.getElementById('page-num').textContent = `${pageNum}-${pageNum + 1}`;
     } else {
-        // Clear right canvas if no page exists
         const canvas = document.getElementById('canvas-right');
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,7 +116,6 @@ async function renderPage(num, canvasId) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
     
-    // Use a scale of 1.0 for standard display
     const viewport = page.getViewport({ scale: 1.0 });
     canvas.height = viewport.height;
     canvas.width = viewport.width;
