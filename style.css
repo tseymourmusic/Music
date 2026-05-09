@@ -94,23 +94,24 @@ audio {
     border-radius: 12px;
     transition: all 0.3s ease;
     z-index: 100;
+    height: 20px; /* Force the height so it doesn't squash */
     max-height: 20px; 
     overflow: hidden;
-    /* FIXED: Restored flex to maintain perfect vertical centering */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    display: block; /* Essential for mobile scroll trigger */
+    line-height: 20px; /* Vertically centers the text perfectly when closed */
+    white-space: nowrap;
     touch-action: pan-y !important; 
 }
 
 #track-title:hover, #track-title:active {
     height: auto;
-    max-height: 160px; /* Windowed height to prevent blowing out the design */
+    max-height: 150px; /* Tight window for the list */
     overflow-y: auto !important; 
     -webkit-overflow-scrolling: touch; 
-    padding: 8px 0;
+    padding: 4px 0; /* Tightened padding */
     width: 100%; 
     top: 30px;
+    white-space: normal;
     color: var(--gold) !important;
     border: 1px solid rgba(212, 175, 55, 0.3);
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
@@ -125,12 +126,14 @@ audio {
 }
 
 .menu-item {
-    padding: 10px 5px; 
+    padding: 8px 5px; /* Reduced padding for a tighter list */
     display: block;
     opacity: 0.6;
     transition: 0.2s;
     border-bottom: 1px solid #222;
-    line-height: 1;
+    line-height: 1.2;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .menu-item:last-child { border-bottom: none; }
