@@ -419,23 +419,29 @@
                 }, 50);
             });
 
-        // Flipbook handshake - pulls path from data-pdf
-        fetch('/flipbook-component.html')
-            .then(res => res.text())
-            .then(data => {
-                const placeholder = document.getElementById('flipbook-placeholder');
-                const pdfPath = placeholder.getAttribute('data-pdf');
-                placeholder.innerHTML = data;
+            // Flipbook handshake - pulls path from data-pdf
+             fetch('/flipbook-component.html')
+                .then(res => res.text())
+                 .then(data => {
+                     const placeholder = document.getElementById('flipbook-placeholder');
+                    const pdfPath = placeholder.getAttribute('data-pdf');
+                    const bgPath = placeholder.getAttribute('data-bg'); // Ensure you add this attribute!
+        
+                    placeholder.innerHTML = data;
 
-                const script = document.createElement('script');
-                script.src = '/flipbook.js';
-                script.onload = () => {
-                    if (typeof initFlipbook === "function") { 
-                        initFlipbook(pdfPath); 
+                    // NEW: Apply the background image specifically to the wrapper
+                    const wrapper = placeholder.querySelector('.flipbook-wrapper');
+                    if (wrapper && bgPath) {
+                        wrapper.style.backgroundImage = `url('${bgPath}')`;
                     }
-                };
-                document.body.appendChild(script);
-            });
+
+                    const script = document.createElement('script');
+                    script.src = '/flipbook.js';
+                    script.onload = () => {
+                        if (typeof initFlipbook === "function") { initFlipbook(pdfPath); }
+                    };
+                    document.body.appendChild(script);
+                });
 
         window.addEventListener('load', () => {
             document.getElementById('hero').classList.add('reveal');
