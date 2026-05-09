@@ -1,67 +1,67 @@
 // Configuration
-const pdfUrl = '/pdfs/Tales_For_All_Time_Score.pdf'; // Path on your GitHub
 let pdfDoc = null,
     pageNum = 1,
-    pageRendering = false;
+    pageIsRendering = false,
+    pageNumIsPending = null;
 
-// Load PDF.js
-const pdfjsLib = window['pdfjs-dist/build/pdf'];
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+const scale = 1.5,
+    canvas = document.getElementById('flipbook-canvas'),
+    ctx = canvas?.getContext('2d');
 
-async function initFlipbook() {
-    const container = document.getElementById('flipbook');
-    
-    try {
-        pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-        document.getElementById('fb-page-num').textContent = `PAGE ${pageNum} / ${pdfDoc.numPages}`;
-        renderSpread(pageNum);
-    } catch (error) {
-        console.error("Error loading PDF: ", error);
+function initFlipbook(pdfPath) {
+    if (!pdfPath) return;
+
+    // Initialize PDF.js
+    pdfjsLib.getDocument(pdfPath).promise.then(pdfDoc_ => {
+        pdfDoc = pdfDoc_;
+        document.getElementById('page-count').textContent = pdfDoc.numPages;
+        renderPage(pageNum);
+    });
+}
+
+function renderPage(num) {
+    pageIsRendering = true;
+
+    pdfDoc.getPage(num).then(page => {
+        const viewport = page.getViewport({ scale });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderCtx = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        page.render(renderCtx).promise.then(() => {
+            pageIsRendering = false;
+            if (pageNumIsPending !== null) {
+                renderPage(pageNumIsPending);
+                pageNumIsPending = null;
+            }
+        });
+
+        document.getElementById('page-num').textContent = num;
+    });
+}
+
+function queueRenderPage(num) {
+    if (pageIsRendering) {
+        pageNumIsPending = num;
+    } else {
+        renderPage(num);
     }
 }
 
-async function renderSpread(num) {
-    const container = document.getElementById('flipbook');
-    container.innerHTML = ''; // Clear for new pages
-    
-    // In a 2-page spread, we render 'num' and 'num + 1'
-    renderPage(num);
-    if(window.innerWidth > 800 && num + 1 <= pdfDoc.numPages) {
-        renderPage(num + 1);
+// Navigation Events
+document.addEventListener('click', (e) => {
+    if (e.target.id === 'prev-page' || e.target.closest('#prev-page')) {
+        if (pageNum <= 1) return;
+        pageNum--;
+        queueRenderPage(pageNum);
     }
-}
-
-async function renderPage(num) {
-    const page = await pdfDoc.getPage(num);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const viewport = page.getViewport({ scale: 2 }); // High Detail
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-
-    const renderContext = { canvasContext: ctx, viewport: viewport };
-    await page.render(renderContext).promise;
-
-    const pageDiv = document.createElement('div');
-    pageDiv.className = 'fb-page';
-    pageDiv.appendChild(canvas);
-    document.getElementById('flipbook').appendChild(pageDiv);
-}
-
-function fbNextPage() {
-    if (pageNum >= pdfDoc.numPages) return;
-    pageNum += (window.innerWidth > 800) ? 2 : 1;
-    updateUI();
-}
-
-function fbPrevPage() {
-    if (pageNum <= 1) return;
-    pageNum -= (window.innerWidth > 800) ? 2 : 1;
-    updateUI();
-}
-
-function updateUI() {
-    document.getElementById('fb-page-num').textContent = `PAGE ${pageNum} / ${pdfDoc.numPages}`;
-    renderSpread(pageNum);
-}
+    if (e.target.id === 'next-page' || e.target.closest('#next-page')) {
+        if (pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        queueRenderPage(pageNum);
+    }
+});
