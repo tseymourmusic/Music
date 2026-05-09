@@ -58,6 +58,10 @@ canvas {
     
     z-index: 5;
     transition: transform 0.3s ease;
+    
+    /* Prevent blue highlighting/ghosting when dragging pages on desktop */
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* Define the Spine (The center fold) */
