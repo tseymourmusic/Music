@@ -98,11 +98,17 @@ html {
 
         .tm-mark {
             font-family: 'Cinzel', serif;
-            font-size: 0.4em;      /* Scaled down */
-            vertical-align: super; /* Floats it high */
-            margin-left: 5px;      /* Gap so it doesn't touch the 'E' */
-            opacity: 0.7;          /* Makes it look like a watermark */
-            font-weight: 400;      /* Keep it elegant, not bulky */
+            font-size: 0.25em;      /* Scaled down for a more boutique look */
+            vertical-align: top;    /* Align to top of the letters */
+            position: relative;
+            top: 0.6em;             /* Nudges it precisely to the shoulder of the E */
+            margin-left: 8px;       /* Professional gap from the title */
+            opacity: 0.9;           /* Increased slightly so the glow is visible */
+            font-weight: 700;       /* Bolder weight gives the glow more "body" */
+            color: #D4AF37;         /* Matches your gold theme */
+            /* The Gold Aura Fix: */
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.8), 0 0 12px rgba(212, 175, 55, 0.4);
+            letter-spacing: normal;
         }
         
         hr {
