@@ -56,6 +56,22 @@
             text-shadow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
         }
 
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase; /* Standard for Cinzel Small-Caps look */
+            letter-spacing: 2px;
+            color: #D4AF37;
+        }
+
+        .tm-mark {
+            font-family: 'Cinzel', serif;
+            font-size: 0.4em;      /* Scaled down */
+            vertical-align: super; /* Floats it high */
+            margin-left: 5px;      /* Gap so it doesn't touch the 'E' */
+            opacity: 0.7;          /* Makes it look like a watermark */
+            font-weight: 400;      /* Keep it elegant, not bulky */
+        }
+        
         .mythic-tagline {
             font-family: 'Cinzel', serif;
             font-size: clamp(0.9rem, 3vw, 1.2rem);
@@ -196,7 +212,8 @@
     <div id="nav-placeholder"></div>
 
     <section class="hero-section" id="hero">
-        <h1 class="mythic-title">TAlES fOr All TiME</h1>
+        <h1 class="mythic-title">TAlES fOr All TiME<span class="tm-mark">&trade;</span>
+        </h1>
         <p class="mythic-tagline">Ancient myths & legends classically retold for our time.</p>
         <a href="/music/tales-for-all-time/index.html" class="mythic-button">CHAPTER I</a>
     </section>
