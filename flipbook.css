@@ -1,0 +1,103 @@
+.flipbook-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url('/images/Tales-For-All-Time-bg.gif') no-repeat center center;
+    background-size: cover;
+    border-radius: 4px;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+}
+
+.flipbook-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.414 / 1; /* Standard A4 spread ratio */
+    display: flex;
+    justify-content: center;
+    perspective: 2000px;
+}
+
+/* Individual Page Styling */
+.fb-page {
+    width: 50%;
+    height: 100%;
+    background: white;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    position: relative;
+    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-origin: left center;
+}
+
+.fb-page canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* The Shadow behind the score */
+.fb-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+.fb-controls {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 25px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.fb-controls button {
+    background: none;
+    border: none;
+    color: #D4AF37;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.fb-controls button:hover { transform: scale(1.2); }
+
+#fb-page-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+/* Loader Styling */
+.fb-loader {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.fb-spinner {
+    width: 40px; height: 40px;
+    border: 2px solid rgba(212, 175, 55, 0.1);
+    border-top: 2px solid #D4AF37;
+    border-radius: 50%;
+    animation: fb-spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes fb-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 800px) {
+    .fb-page { width: 100%; } /* Single page view on mobile */
+    .flipbook-container { aspect-ratio: 0.707 / 1; }
+}
