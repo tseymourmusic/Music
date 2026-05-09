@@ -12,6 +12,9 @@
 
     <link rel="stylesheet" href="/style.css"> 
     <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/flipbook.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.js"></script>
 
     <style>
         /* --- LAYOUT OVERRIDE --- */
@@ -37,7 +40,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* PATH UPDATED */
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
                         url('/images/Tales-For-All-Time-bg.gif') no-repeat center center;
             background-size: cover;
@@ -137,7 +139,7 @@
         .carousel-item {
             flex: 0 0 100%;
             scroll-snap-align: center;
-            display: flex; /* Ensures image fills container perfectly */
+            display: flex;
         }
 
         .carousel-item img {
@@ -146,8 +148,8 @@
             display: block;
             pointer-events: none;
             user-select: none;
-            vertical-align: middle; /* Removes the bottom "ghost" margin */
-            margin-bottom: -1px; /* Slight overlap to ensure no sub-pixel gaps */
+            vertical-align: middle; 
+            margin-bottom: -1px; 
         }
 
         .intro-text {
@@ -200,8 +202,6 @@
         .mvt-title { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: #FFFFFF; margin-bottom: 5px; text-transform: uppercase; }
         .mvt-desc { font-size: 0.75rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
 
-        .score-container { width: 100%; max-width: 900px; margin: 0 auto 40px auto; aspect-ratio: 16 / 9; }
-
         .logo-row {
             display: flex;
             justify-content: center;
@@ -237,10 +237,10 @@
             text-align: center;
         }
 
-        /* --- RESTORED PLAYER ADJUSTMENT --- */
+        /* --- PLAYER ADJUSTMENT --- */
         #player-placeholder .player-container {
             margin: 0 auto 80px auto !important;
-            max-width: 700px !important; /* Forces it back to the wide look */
+            max-width: 700px !important;
             display: flex; 
             align-items: center;
             justify-content: center;
@@ -248,7 +248,6 @@
             width: 100%;
         }
 
-        /* Essential to make the black bar actually stretch into the 700px */
         #player-placeholder .console {
             flex: 1 !important; 
         }
@@ -339,14 +338,7 @@
         <hr>
 
         <h2 class="section-label">The Score</h2>
-        <div class="score-container">
-            <iframe 
-                src="https://heyzine.com/flip-book/34f7a61096.html" 
-                style="width:100%; height:100%; border:none;" 
-                allowfullscreen 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-            </iframe>
-        </div>
+        <div id="flipbook-placeholder" data-pdf="/pdfs/tales-for-all-time-score.pdf"></div>
 
         <hr>
 
@@ -389,7 +381,7 @@
             rightCarousel.scrollBy({ left: direction * scrollAmountRight, behavior: 'smooth' });
         }
 
-        // Standard loaders with root paths
+        // Standard loaders
         fetch('/menu.html').then(res => res.text()).then(data => { 
             document.getElementById('nav-placeholder').innerHTML = data; 
         });
@@ -397,13 +389,12 @@
             document.getElementById('footer-placeholder').innerHTML = data; 
         });
 
-        // Player handshake with root path
+        // Player handshake
         fetch('/player-component.html')
             .then(res => res.text())
             .then(data => {
                 const placeholder = document.getElementById('player-placeholder');
                 const localPlaylist = placeholder.querySelector('#playlist');
-
                 placeholder.innerHTML = data; 
 
                 if (localPlaylist) {
@@ -423,10 +414,27 @@
                         }
                     }
                 }
-
                 setTimeout(() => {
                     if (typeof initPlayer === "function") { initPlayer(); }
                 }, 50);
+            });
+
+        // Flipbook handshake - pulls path from data-pdf
+        fetch('/flipbook-component.html')
+            .then(res => res.text())
+            .then(data => {
+                const placeholder = document.getElementById('flipbook-placeholder');
+                const pdfPath = placeholder.getAttribute('data-pdf');
+                placeholder.innerHTML = data;
+
+                const script = document.createElement('script');
+                script.src = '/flipbook.js';
+                script.onload = () => {
+                    if (typeof initFlipbook === "function") { 
+                        initFlipbook(pdfPath); 
+                    }
+                };
+                document.body.appendChild(script);
             });
 
         window.addEventListener('load', () => {
