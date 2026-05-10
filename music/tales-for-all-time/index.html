@@ -297,7 +297,22 @@
                 0 0 30px rgba(212, 175, 55, 0.3),            /* Stronger Outer */
                 inset 0 0 18px rgba(212, 175, 55, 0.4) !important; /* Stronger Inner */
         }
+        
+        /* FORCE GOLD CHEVRONS (Overriding external player.css) */
+        #player-placeholder .player-container button svg, 
+        #player-placeholder .player-container button svg path,
+        #player-placeholder .player-container button i {
+             fill: #D4AF37 !important;   /* For SVG shapes */
+             color: #D4AF37 !important;  /* For Icon Fonts */
+             stroke: #D4AF37 !important; /* For outlined icons */
+             opacity: 1 !important;      /* Removes any external "dimming" */
+        }
 
+        /* Ensure the button doesn't have a conflicting hover opacity change from outside */
+        #player-placeholder .player-container button {
+            opacity: 1 !important;
+        }
+        
         /* --- ENDORSEMENT LINK STYLE --- */
         .endorsement-link {
             display: inline-block;
