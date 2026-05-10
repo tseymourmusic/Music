@@ -11,8 +11,6 @@ nav {
     padding: 25px 50px;
     box-sizing: border-box;
     z-index: 1000;
-    
-    /* Cinematic Glass Effect */
     background: rgba(0, 0, 0, 0.4); 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -24,25 +22,46 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Logo Styling */
+/* --- LOGO & ARTIST BRANDING (LEFT SIDE) --- */
 .nav-logo {
+    display: flex;
+    align-items: center; 
+    gap: 15px;
+    text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 0.75rem;
     letter-spacing: 3px;
-    text-decoration: none;
     color: #fff;
     font-weight: 200;
     text-transform: uppercase;
+    transition: color 0.3s ease;
 }
 
-/* Links Container */
+/* Hover effect for Name/Title text */
+.nav-logo:hover {
+    color: #D4AF37 !important;
+}
+
+.logo-img {
+    height: 20px;
+    width: auto;
+    filter: brightness(0) invert(1); /* Pure White default */
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect for the Logo Image - Converts white to Gold */
+.nav-logo:hover .logo-img {
+    filter: sepia(100%) saturate(300%) hue-rotate(5deg) brightness(90%) contrast(100%) !important;
+    opacity: 1 !important;
+}
+
+/* --- NAV LINKS (RIGHT SIDE) --- */
 .nav-links {
     display: flex;
     gap: 30px;
     align-items: center;
 }
 
-/* Individual Links */
 .nav-links a {
     text-decoration: none;
     color: #fff;
@@ -80,14 +99,14 @@ html {
     padding: 10px 20px;
     display: block;
     border: none;
-    text-transform: none; /* Allows "TalES fOr All TiME" casing to show correctly */
+    text-transform: none;
 }
 
 .dropdown:hover .dropdown-content { 
     display: block; 
 }
 
-/* Mobile Adjustments */
+/* --- MOBILE ADJUSTMENTS --- */
 @media (max-width: 900px) {
     nav { 
         padding: 20px; 
@@ -97,32 +116,8 @@ html {
     .nav-links { 
         gap: 15px; 
     }
-}
-
-/* Logo Link Container */
-.nav-logo {
-    display: flex;
-    align-items: center; /* Vertically centers the logo with the text */
-    gap: 15px;           /* Space between the logo and the text */
-    text-decoration: none;
-}
-
-/* The Logo Image itself */
-.logo-img {
-    height: 20px;        /* Adjust this to match your desired size */
-    width: auto;
-    filter: brightness(0) invert(1); /* Keeps it pure white to match your theme */
-    transition: opacity 0.3s ease;
-}
-
-.nav-logo:hover .logo-img {
-    opacity: 0.8;
-}
-
-/* Optional: Mobile adjustment */
-@media (max-width: 900px) {
     .logo-img {
-        height: 25px; /* Slightly smaller on mobile */
+        height: 25px;
     }
 }
 
