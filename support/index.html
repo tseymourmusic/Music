@@ -29,7 +29,7 @@
         }
 
         h1 { 
-            font-size: clamp(1.8rem, 8vw, 2.8rem); 
+            font-size: clamp(1.6rem, 7vw, 2.8rem); 
             letter-spacing: 12px; 
             margin-bottom: 60px; 
             font-weight: 100; 
@@ -38,23 +38,22 @@
             width: 100%;
         }
 
-        /* THE VELVET POP BOX */
+        /* --- THE LETTER BOX --- */
         .letter-wrapper {
             position: relative;
             width: 100%;
             max-width: 900px;
             background: #fff;
-            aspect-ratio: 1 / 1.414; /* Standard A4 ratio */
+            /* Desktop remains A4 ratio */
+            aspect-ratio: 1 / 1.414; 
             border-radius: 2px;
             margin-bottom: 80px;
-
-            /* MULTI-LAYER SHADOW */
             box-shadow: 
                 0 5px 15px rgba(0,0,0,0.5),      
                 0 30px 80px rgba(0,0,0,0.8),     
                 0 0 40px rgba(212, 175, 55, 0.1); 
-                
-            z-index: 1; 
+            z-index: 1;
+            overflow: hidden; /* Prevents double scrollbars */
         }
 
         iframe {
@@ -64,7 +63,6 @@
             display: block;
         }
 
-        /* MATCHING THE CHAPTER I BUTTON STYLE */
         .back-link {
             display: inline-block;
             padding: 15px 40px;
@@ -82,44 +80,33 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 5px rgba(212, 175, 55, 0.1); 
-                border-color: rgba(212, 175, 55, 0.4); 
-            }
-            50% { 
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); 
-                border-color: rgba(212, 175, 55, 1); 
-            }
+            0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.1); border-color: rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); border-color: rgba(212, 175, 55, 1); }
         }
 
         .back-link:hover {
             background: #D4AF37;
             color: #000;
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* --- MOBILE FIXES --- */
         @media screen and (max-width: 768px) {
             .viewer-container {
                 padding: 100px 15px 60px;
             }
 
             h1 {
-                letter-spacing: 4px; /* Prevents 3-row break */
-                margin-bottom: 40px;
-                font-size: 1.6rem;
+                letter-spacing: 4px;
+                margin-bottom: 30px;
             }
 
             .letter-wrapper {
                 aspect-ratio: auto; 
-                height: 65vh; /* Prevents "huge" letter scroll on mobile */
-                margin-bottom: 50px;
-            }
-
-            .back-link {
-                padding: 12px 30px;
-                font-size: 0.75rem;
+                /* Fixed height to prevent the "huge" feeling */
+                height: 55vh; 
+                margin-bottom: 40px;
+                border: 1px solid rgba(255,255,255,0.1);
             }
         }
     </style>
@@ -132,7 +119,7 @@
         <h1>Letter of Support</h1>
 
         <div class="letter-wrapper">
-            <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#view=FitH&toolbar=0&navpanes=0"></iframe>
+            <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#view=Fit&toolbar=0&navpanes=0"></iframe>
         </div>
 
         <a href="/music/tales-for-all-time/index.html#bottom" target="_self" class="back-link">
@@ -143,7 +130,6 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Standard menu/footer loaders
         fetch('/menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
@@ -152,7 +138,6 @@
             document.getElementById('footer-placeholder').innerHTML = data;
         });
 
-        // Fixed nav background logic
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
