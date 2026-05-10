@@ -328,12 +328,14 @@
 
         .signup-container h3 {
             font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
+            font-weight: 400;             /* <--- ADD THIS (makes it thin/elegant) */
+            letter-spacing: 0.25em;      /* <--- INCREASE THIS (to match Collaborators) */
             color: #D4AF37;
             margin-bottom: 10px;
-            /* Scaling fix to prevent wrapping on mobile */
             font-size: clamp(1.2rem, 5vw, 1.75rem);
             white-space: nowrap;
+            /* Optional: adds the hazy glow you have on the link */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); 
         }
 
         .signup-container p {
