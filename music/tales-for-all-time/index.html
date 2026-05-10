@@ -294,19 +294,12 @@
             text-transform: uppercase;
             /* Subtle, slow glow animation */
             animation: letter-glimmer 4s infinite ease-in-out;
+            animation-delay: 1.5s;
         }
 
         @keyframes letter-glimmer {
-            0%, 100% { 
-                text-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
-                border-color: rgba(212, 175, 55, 0.2);
-                box-shadow: 0 0 5px rgba(212, 175, 55, 0.05);
-            }
-            50% { 
-                text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
-                border-color: rgba(212, 175, 55, 0.7);
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
-            }
+            0%, 100% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.2); box-shadow: 0 0 5px rgba(212, 175, 55, 0.05); }
+            50% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.7); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
         }
 
         .endorsement-link:hover {
