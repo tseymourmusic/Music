@@ -41,7 +41,7 @@
             color: #FFFFFF;
         }
 
-        /* THE GOLD RIMMED VELVET POP BOX */
+        /* THE GOLD RIMMED VELVET POP BOX - ENHANCED */
         .letter-wrapper {
             position: relative;
             width: 100%;
@@ -51,11 +51,15 @@
             margin-bottom: 80px;
             line-height: 0; 
 
-            border: 1px solid rgba(212, 175, 55, 0.4); /* The gold rim */
+            /* 1. INCREASED BORDER INTENSITY (0.4 to 0.8) */
+            border: 1px solid rgba(212, 175, 55, 0.8); 
+
+            /* 2. ENHANCED GLOW STACK */
             box-shadow: 
                 0 5px 15px rgba(0,0,0,0.5),      
                 0 30px 80px rgba(0,0,0,0.8),     
-                0 0 30px rgba(212, 175, 55, 0.25); /* The hazy gold glow */
+                /* Wider, more vibrant gold halo */
+                0 0 40px 5px rgba(212, 175, 55, 0.35); 
         
             z-index: 1; 
         }
