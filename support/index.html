@@ -62,27 +62,34 @@
         display: block;
     }
 
-    .back-link {
-        text-decoration: none;
-        font-weight: 300;
-        font-size: 1.2rem;
-        letter-spacing: 3px;
-        background: linear-gradient(to right, #c5a059, #f1d592, #c5a059);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transition: all 0.4s ease;
-        display: inline-block;
-        padding: 15px 30px;
-        border: 1px solid rgba(241, 213, 146, 0.3);
-        border-radius: 4px;
-        text-transform: uppercase;
-    }
+        /* THE BUTTON STYLING */
+        .back-link {
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif; /* Change to Cinzel if Chapter I uses it */
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: #f1d592; /* Match the gold exactly */
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid #f1d592;
+            background: transparent;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .back-link:hover {
-        text-shadow: 0 0 15px rgba(241, 213, 146, 0.6);
-        transform: translateY(-2px);
-        background-color: rgba(241, 213, 146, 0.05); /* Very slight background fill on hover */
-    }
+        /* THE HOVER GLOW (The "Pop") */
+        .back-link:hover {
+            color: #fff;
+            border-color: #fff;
+            background-color: rgba(241, 213, 146, 0.1); /* Subtle gold tint inside */
+    
+            /* This creates the 'bloom' effect around the button */
+            filter: drop-shadow(0 0 8px rgba(241, 213, 146, 0.6)); 
+            transform: translateY(-2px);
+        }
 </style>
 </head>
 <body>
@@ -96,8 +103,8 @@
             <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#view=FitH&toolbar=0&navpanes=0"></iframe>
         </div>
 
-        <a href="/" class="back-link">
-            Return to Odyssey
+        <a href="/music/tales-for-all-time/index.html#bottom" class="back-link">
+        Return to Tales
         </a>
     </div>
 
