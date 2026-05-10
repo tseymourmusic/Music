@@ -29,24 +29,26 @@
         }
 
         h1 { 
-            font-size: clamp(1.8rem, 8vw, 2.8rem); 
+            font-size: clamp(1.4rem, 5vw, 2.8rem); 
             letter-spacing: 12px; 
             margin-bottom: 60px; 
             font-weight: 100; 
             text-transform: uppercase;
             text-align: center;
             width: 100%;
+            /* Forces the title to stay on one line */
+            white-space: nowrap;
         }
 
         /* THE VELVET POP BOX */
         .letter-wrapper {
             position: relative;
             width: 100%;
-            max-width: 900px;
+            max-width: 850px;
             background: #fff;
-            aspect-ratio: 1 / 1.414; /* Standard A4 ratio */
             border-radius: 2px;
             margin-bottom: 80px;
+            line-height: 0; /* Removes bottom gap */
 
             /* MULTI-LAYER SHADOW */
             box-shadow: 
@@ -57,11 +59,11 @@
             z-index: 1; 
         }
 
-        iframe {
+        .letter-image {
             width: 100%;
-            height: 100%;
-            border: none;
+            height: auto;
             display: block;
+            border-radius: 2px;
         }
 
         /* MATCHING THE CHAPTER I BUTTON STYLE */
@@ -106,14 +108,11 @@
             }
 
             h1 {
-                letter-spacing: 4px; /* Prevents 3-row break */
-                margin-bottom: 40px;
-                font-size: 1.6rem;
+                letter-spacing: 4px; 
+                font-size: 1.4rem;
             }
 
             .letter-wrapper {
-                aspect-ratio: auto; 
-                height: 65vh; /* Prevents "huge" letter scroll on mobile */
                 margin-bottom: 50px;
             }
 
@@ -132,10 +131,12 @@
         <h1>Letter of Support</h1>
 
         <div class="letter-wrapper">
-            <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#view=FitH&toolbar=0&navpanes=0"></iframe>
+            <img src="/images/lcv-endorsement-letter-for-tim-seymour.jpg" 
+                 alt="Letter of Support" 
+                 class="letter-image">
         </div>
 
-        <a href="/music/tales-for-all-time/index.html#bottom" target="_self" class="back-link">
+        <a href="/music/tales-for-all-time/index.html#bottom" class="back-link">
             CONTINUE THE TALES
         </a>
     </div>
@@ -143,16 +144,21 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Standard menu/footer loaders
-        fetch('/menu.html').then(res => res.text()).then(data => {
-            document.getElementById('nav-placeholder').innerHTML = data;
-        });
+        // Load Menu
+        fetch('/menu.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
 
-        fetch('/footer.html').then(res => res.text()).then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        });
+        // Load Footer
+        fetch('/footer.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
 
-        // Fixed nav background logic
+        // Nav Scroll Effect
         window.onscroll = function() {
             var nav = document.getElementById('main-nav');
             if (nav) {
