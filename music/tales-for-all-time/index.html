@@ -622,6 +622,23 @@
             }
         };
     }
+    
+    // This function handles the jump after content loads
+    function forceScrollToBottom() {
+        if (window.location.hash === '#bottom') {
+            const target = document.getElementById('bottom');
+            if (target) {
+                // Small delay to ensure the browser has finished rendering the fetched HTML
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300); 
+            }
+        }
+    }
+
+    // Call it when the window finishes loading everything
+    window.addEventListener('load', forceScrollToBottom);
+    
 </script>
 </body>
 </html>
