@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Tim Seymour Composer</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="/style.css">
@@ -22,19 +22,18 @@
 
         .contact-container { 
             max-width: 900px; 
-            margin: 120px auto 100px; 
+            margin: 140px auto 100px; 
             padding: 0 20px; 
             text-align: center; 
         }
 
         h1 { 
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 8vw, 3.5rem); 
-            letter-spacing: 12px; 
+            font-size: clamp(2rem, 8vw, 3rem); 
+            letter-spacing: 15px; 
             margin-bottom: 20px; 
-            font-weight: 400; 
+            font-weight: 100; 
             text-transform: uppercase;
-            color: #D4AF37;
+            color: #FFFFFF; /* Kept standard white header */
         }
 
         .email-block {
@@ -43,11 +42,10 @@
 
         .email-link {
             text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
             font-weight: 300;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 4px;
-            color: #aaa;
+            color: #888;
             transition: all 0.4s ease;
             display: inline-block;
             word-wrap: break-word;
@@ -56,18 +54,25 @@
 
         .email-link:hover {
             color: #D4AF37;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         /* --- STYLED CONTACT FORM --- */
         .form-card {
             max-width: 600px;
             margin: 0 auto;
-            padding: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 50px 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Gold border for premium feel */
             background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        }
+
+        .form-card h2 {
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #D4AF37; /* Gold accent for the form header */
+            text-transform: uppercase;
         }
 
         .signup-form {
@@ -79,18 +84,20 @@
         .signup-form input, .signup-form textarea {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
+            padding: 18px;
             color: #fff;
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 1px;
+            font-weight: 300;
+            letter-spacing: 2px;
             outline: none;
             transition: 0.3s;
             width: 100%;
             box-sizing: border-box;
+            font-size: 0.9rem;
         }
 
         .signup-form textarea {
-            min-height: 150px;
+            min-height: 160px;
             resize: vertical;
         }
 
@@ -103,12 +110,15 @@
             background: transparent;
             border: 1px solid #D4AF37;
             color: #D4AF37;
-            padding: 18px;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 3px;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 4px;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-top: 10px;
         }
 
         .signup-submit:hover {
@@ -117,14 +127,15 @@
         }
 
         #success-msg {
-            padding: 40px 20px;
+            padding: 20px 0;
         }
 
         #success-msg h3 {
-            font-family: 'Cinzel', serif;
             color: #D4AF37;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
+            font-weight: 300;
             margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
         #footer-placeholder { 
@@ -134,8 +145,9 @@
 
         @media screen and (max-width: 480px) {
             .contact-container { margin-top: 100px; }
-            .form-card { padding: 25px; }
-            .email-link { font-size: 0.9rem; letter-spacing: 2px; }
+            .form-card { padding: 30px 20px; }
+            h1 { letter-spacing: 8px; }
+            .email-link { font-size: 0.85rem; letter-spacing: 2px; }
         }
     </style>
 </head>
@@ -154,6 +166,7 @@
 
         <div class="form-card">
             <div id="form-content">
+                <h2>Send a Message</h2>
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
                 
                 <form action="https://docs.google.com/forms/d/e/1FAIpQLSdYRrRYJtL-DDGGj44HstORJ6jUQvWmArNzsoozt4Z_49bI9w/formResponse" 
@@ -164,17 +177,17 @@
 
                     <input type="text" name="entry.90022461" placeholder="NAME" required>
                     <input type="email" name="entry.1977158895" placeholder="EMAIL ADDRESS" required>
-                    <textarea name="entry.844073854" placeholder="YOUR MESSAGE" required></textarea>
+                    <textarea name="entry.844073854" placeholder="MESSAGE" required></textarea>
 
-                    <button type="submit" class="signup-submit">SEND MESSAGE</button>
+                    <button type="submit" class="signup-submit">Send Message</button>
                 </form>
             </div>
 
             <div id="success-msg" style="display:none;">
-                <h3>MESSAGE SENT</h3>
-                <p style="color: #888; font-size: 0.9rem; letter-spacing: 1px;">Thank you for reaching out. I will get back to you shortly.</p>
+                <h3>Message Received</h3>
+                <p style="color: #888; font-size: 0.9rem; letter-spacing: 2px; font-weight: 200;">Thank you for getting in touch.</p>
                 <br>
-                <button onclick="location.reload()" class="signup-submit" style="padding: 10px 25px;">SEND ANOTHER</button>
+                <button onclick="location.reload()" class="signup-submit" style="padding: 10px 25px;">Back to Form</button>
             </div>
         </div>
     </div>
@@ -184,7 +197,6 @@
     <script>
         var submitted = false;
 
-        // FETCH PATHS
         fetch('/menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
@@ -193,7 +205,6 @@
             document.getElementById('footer-placeholder').innerHTML = data;
         });
 
-        // Form Success Logic
         const iframe = document.getElementById('hidden_iframe');
         if (iframe) {
             iframe.onload = function() {
