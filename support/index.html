@@ -62,34 +62,42 @@
         display: block;
     }
 
-        /* THE BUTTON STYLING */
-        .back-link {
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif; /* Change to Cinzel if Chapter I uses it */
-            font-weight: 300;
-            font-size: 1rem;
-            letter-spacing: 4px;
-            color: #f1d592; /* Match the gold exactly */
-            display: inline-block;
-            padding: 15px 40px;
-            border: 1px solid #f1d592;
-            background: transparent;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+    /* MATCHING THE CHAPTER I BUTTON EXACTLY */
+    .back-link {
+        display: inline-block;
+        padding: 12px 35px;
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        color: #FFFFFF;
+        text-decoration: none;
+        border: 1px solid #D4AF37;
+        background: rgba(212, 175, 55, 0.1);
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        animation: pulse-glow 3s infinite;
+        cursor: pointer;
+    }
 
-        /* THE HOVER GLOW (The "Pop") */
-        .back-link:hover {
-            color: #fff;
-            border-color: #fff;
-            background-color: rgba(241, 213, 146, 0.1); /* Subtle gold tint inside */
-    
-            /* This creates the 'bloom' effect around the button */
-            filter: drop-shadow(0 0 8px rgba(241, 213, 146, 0.6)); 
-            transform: translateY(-2px);
-        }
+    /* THE PULSING ANIMATION FROM YOUR HOME PAGE */
+    @keyframes pulse-glow {
+        0%, 100% { 
+        box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); 
+        border-color: rgba(212, 175, 55, 0.5); 
+    }
+        50% { 
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); 
+        border-color: rgba(212, 175, 55, 1); 
+    }
+    }
+
+    /* THE HOVER EFFECT */
+    .back-link:hover {
+        background: rgba(212, 175, 55, 0.3);
+        color: #fff;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        transform: translateY(-2px);
+    }
 </style>
 </head>
 <body>
@@ -104,7 +112,7 @@
         </div>
 
         <a href="/music/tales-for-all-time/index.html#bottom" class="back-link">
-        Return to Tales
+        Resume the Tale
         </a>
     </div>
 
