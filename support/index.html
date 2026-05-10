@@ -13,7 +13,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #1a1f21; /* Matched to your Contact page */
+            background-color: #1a1f21; 
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
@@ -23,32 +23,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 100px 20px 60px;
+            padding: 120px 20px 100px; /* Matched to Contact page margins */
             min-height: 100vh;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            letter-spacing: 8px;
-            margin-bottom: 40px;
-            font-weight: 100;
+        /* MATCHED TO CONTACT PAGE H1 */
+        h1 { 
+            font-size: 2.8rem; 
+            letter-spacing: 12px; 
+            margin-bottom: 60px; 
+            font-weight: 100; 
             text-transform: uppercase;
             text-align: center;
-            opacity: 0.8;
         }
 
         .letter-wrapper {
             position: relative;
             width: 100%;
             max-width: 900px;
-            background: #fff; /* The "Paper" background */
-            aspect-ratio: 1 / 1.414; /* A4 Proportions */
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7), 
-                        0 0 20px rgba(197, 160, 89, 0.15); /* Subtle gold glow */
+            background: #fff;
+            aspect-ratio: 1 / 1.414;
+            /* Enhanced Shadow for that "Floating" look */
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
             border-radius: 2px;
             overflow: hidden;
-            margin-bottom: 50px;
+            margin-bottom: 80px;
         }
 
         iframe {
@@ -57,33 +56,33 @@
             border: none;
         }
 
-        .back-btn-container {
-            margin-bottom: 50px;
-        }
-
+        /* MATCHED TO YOUR EMAIL LINK STYLING */
         .back-link {
             text-decoration: none;
             font-weight: 300;
-            font-size: 1rem;
+            font-size: 1.2rem;
             letter-spacing: 3px;
-            color: #f1d592; /* Gold color from your gradient */
-            border: 1px solid rgba(241, 213, 146, 0.3);
-            padding: 12px 30px;
+            background: linear-gradient(to right, #c5a059, #f1d592, #c5a059);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             transition: all 0.4s ease;
+            display: inline-block;
+            padding: 15px 30px;
+            border: 1px solid rgba(241, 213, 146, 0.2); /* Subtle frame */
+            border-radius: 4px;
             text-transform: uppercase;
         }
 
         .back-link:hover {
-            background: rgba(241, 213, 146, 0.1);
-            border-color: #f1d592;
-            box-shadow: 0 0 15px rgba(241, 213, 146, 0.2);
+            text-shadow: 0 0 15px rgba(241, 213, 146, 0.6);
             transform: translateY(-2px);
+            border-color: rgba(241, 213, 146, 0.5);
+            opacity: 0.9;
         }
 
-        /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            h1 { font-size: 1.2rem; letter-spacing: 4px; }
-            .viewer-container { padding-top: 80px; }
+            h1 { font-size: 1.8rem; letter-spacing: 6px; }
+            .viewer-container { padding-top: 100px; }
         }
     </style>
 </head>
@@ -95,21 +94,17 @@
         <h1>Letter of Support</h1>
 
         <div class="letter-wrapper">
-            <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#toolbar=0&navpanes=0"></iframe>
+            <iframe src="/pdfs/lcv-endorsement-letter-for-tim-seymour.pdf#view=FitH&toolbar=0&navpanes=0"></iframe>
         </div>
 
-        <div class="back-btn-container">
-            <a href="javascript:history.back()" class="back-link">
-                <i class="fa-solid fa-arrow-left" style="margin-right: 10px; font-size: 0.8rem;"></i> 
-                Return to Odyssey
-            </a>
-        </div>
+        <a href="/" class="back-link">
+            Return to Odyssey
+        </a>
     </div>
 
     <div id="footer-placeholder"></div>
 
     <script>
-        // Fetch Nav and Footer to maintain consistency
         fetch('/menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
