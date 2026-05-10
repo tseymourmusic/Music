@@ -301,6 +301,9 @@
             letter-spacing: 4px;
             color: #D4AF37;
             margin-bottom: 10px;
+            /* Scaling fix to prevent wrapping on mobile */
+            font-size: clamp(1.2rem, 5vw, 1.75rem);
+            white-space: nowrap;
         }
 
         .signup-container p {
@@ -479,7 +482,7 @@
             <div class="signup-container">
                 <div id="form-content">
                     <h3>JOIN THE JOURNEY</h3>
-                    <p>We would be honored to have you with us.</p>
+                    <p>The echoes of the past are calling. We would be honored to have you with us.</p>
         
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         
@@ -490,7 +493,7 @@
                           class="signup-form">
             
                         <input type="text" name="entry.90022461" placeholder="NAME" required>
-                        <input type="email" name="entry.1977158895" placeholder="EMAIL ADDRESS" required>
+                        <input type="email" name="entry.1977158895" placeholder="EMAIL ADDRESS" required>    
             
                         <button type="submit" class="signup-submit">SUBSCRIBE TO THE TALES</button>
                     </form>
@@ -498,7 +501,7 @@
     
                 <div id="success-msg" style="display:none; text-align: center;">
                     <h3 style="color: #c5a059; letter-spacing: 2px;">YOUR JOURNEY HAS BEGUN</h3>
-                    <p>You will be notified as the journey unfolds</p>
+                    <p>You will be notified as the myth unfolds.</p>
                     <br>
                     <button onclick="location.reload()" class="signup-submit" style="width: auto; padding: 10px 25px; cursor: pointer;">
                         RETURN TO THE TALES
