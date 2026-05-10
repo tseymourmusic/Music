@@ -17,8 +17,11 @@ nav {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    
     transition: all 0.5s ease;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 /* Logo Styling */
