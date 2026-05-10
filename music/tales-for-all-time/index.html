@@ -224,11 +224,47 @@
             margin: 0;
         }
 
-        .movements-classic-list { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; }
-        .mvt-row { display: flex; width: 100%; margin-bottom: 45px; text-align: left; }
-        .mvt-number { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #D4AF37; min-width: 70px; }
-        .mvt-title { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: #FFFFFF; margin-bottom: 5px; text-transform: uppercase; }
-        .mvt-desc { font-size: 0.75rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
+        /* THE SYMPHONIC MOVEMENTS LIST - CENTERED & BALANCED */
+        .movements-classic-list { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            max-width: 500px; /* Tightened slightly for better vertical flow */
+            margin: 0 auto; 
+        }
+
+        .mvt-row { 
+            display: flex; 
+            width: 100%; 
+            margin-bottom: 45px; 
+            text-align: left;
+            justify-content: flex-start; /* Keeps the start of text aligned */
+        }
+
+        .mvt-number { 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.1rem; /* Slightly smaller to match elegance */
+            color: #D4AF37; 
+            min-width: 55px; /* Reduced gap to pull titles closer to center */
+            opacity: 0.8;
+        }
+
+        .mvt-title { 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.1rem; 
+            letter-spacing: 3px; 
+            color: #FFFFFF; 
+            margin-bottom: 6px; 
+            text-transform: uppercase; 
+        }
+
+        .mvt-desc { 
+            font-size: 0.7rem; /* Sharper, smaller font */
+            letter-spacing: 4px; /* Increased tracking for "Thematic" feel */
+            color: #666; 
+            text-transform: uppercase; 
+            font-weight: 300;
+        }
 
         .logo-row {
             display: flex;
