@@ -11,117 +11,189 @@
 
     <style>
         .store-container { 
-            max-width: 1200px; 
-            margin: 140px auto 100px; 
+            max-width: 1100px; 
+            margin: 160px auto 100px; 
             padding: 0 20px; 
-            text-align: center; 
-        }
-        
-        h1 { 
-            font-size: clamp(2rem, 8vw, 2.8rem); 
-            letter-spacing: 12px; 
-            margin-bottom: 60px; 
-            font-weight: 100; 
-            text-transform: uppercase;
         }
 
-        .album-showcase {
+        /* The "Pro" Two-Column Grid */
+        .product-grid {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 40px;
+            flex-wrap: wrap;
+            gap: 60px;
+            align-items: flex-start;
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
             border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Left Column: Image */
+        .product-image-area {
+            flex: 1;
+            min-width: 300px;
         }
 
         .album-artwork {
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            height: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .price-tag {
-            color: var(--gold);
-            font-size: 1.6rem;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            font-weight: 300;
+        /* Right Column: Details */
+        .product-details-area {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
         }
 
-        #paypal-button-container {
-            width: 100%;
-            min-height: 150px;
+        .product-category {
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1.product-title {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin: 0 0 20px 0;
+            font-weight: 200;
+            text-align: left; /* Override global center */
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .product-description {
+            line-height: 1.8;
+            color: #ccc;
+            font-weight: 300;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Quantity & Controls */
+        .order-controls {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+        
+        #quantity-input {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            padding: 8px;
+            width: 60px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sku-text {
+            display: block;
+            margin-top: 40px;
+            font-size: 0.65rem;
+            color: #444;
+            letter-spacing: 2px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 15px;
+        }
+
+        #paypal-button-container { width: 100%; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            .product-grid { padding: 20px; gap: 30px; }
+            .product-details-area { text-align: center; }
+            h1.product-title { text-align: center; font-size: 2rem; }
+            .order-controls { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=ASW-6sgbSRCiG98RzAtTbnan3OlZ1Yb1yA09GO6GwAOdelFoyrXnZrS4Yi3AhHqWLEqRx-PqBNYkv8qW&currency=GBP"></script>
-
     <div id="nav-placeholder"></div>
 
     <div class="store-container">
-        <h1>STORE</h1>
-        <div class="album-showcase">
-            <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album Cover" class="album-artwork">
-            <div class="purchase-details">
-                <h2>SAVIOUR</h2>
-                <p style="color: #888; letter-spacing: 3px; font-weight: 200; margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem;">
-                    Physical CD & Digital Download
-                </p>
-                <div class="price-tag">£10.00 GBP</div>
-                <div id="paypal-button-container"></div>
+        <div class="product-grid">
+            
+            <div class="product-image-area">
+                <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album Cover" class="album-artwork">
             </div>
+
+            <div class="product-details-area">
+                <div class="product-category">Physical Edition</div>
+                <h1 class="product-title">SAVIOUR</h1>
+                <div class="price-tag">£10.00</div>
+
+                <div class="product-description">
+                    The debut album from Tim Seymour. A journey through cinematic soundscapes and emotive orchestration. 
+                    This physical edition includes a high-quality CD and an immediate digital download link sent to your email.
+                </div>
+
+                <div class="order-controls">
+                    <span class="quantity-label">Quantity</span>
+                    <input type="number" id="quantity-input" value="1" min="1" max="10">
+                </div>
+                
+                <div id="paypal-button-container"></div>
+
+                <span class="sku-text">BARCODE: 1 99199 21168 4 | SKU: SAV-CD-001</span>
+            </div>
+
         </div>
     </div>
 
     <div id="footer-placeholder"></div>
 
-    <script>
-        // Load Menu & Footer
-        fetch('/menu.html').then(res => res.text()).then(data => {
-            document.getElementById('nav-placeholder').innerHTML = data;
-        });
-        fetch('/footer.html').then(res => res.text()).then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        });
+    <script src="https://www.paypal.com/sdk/js?client-id=ASW-6sgbSRCiG98RzAtTbnan3OlZ1Yb1yA09GO6GwAOdelFoyrXnZrS4Yi3AhHqWLEqRx-PqBNYkv8qW&currency=GBP"></script>
 
-        // Initialize PayPal Buttons
+    <script>
+        fetch('/menu.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
+        fetch('/footer.html').then(res => res.text()).then(data => document.getElementById('footer-placeholder').innerHTML = data);
+
         function initPayPal() {
-            if (window.paypal) {
-                paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        color:  'gold',
-                        shape:  'rect',
-                        label:  'paypal'
-                    },
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                description: "Saviour - Tim Seymour CD",
-                                amount: {
-                                    currency_code: "GBP",
-                                    value: "10.00"
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+                createOrder: function(data, actions) {
+                    // Grab the current quantity from the input field
+                    const qty = document.getElementById('quantity-input').value;
+                    const totalAmount = (10.00 * qty).toFixed(2);
+
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: "Saviour CD - Tim Seymour",
+                            amount: {
+                                currency_code: "GBP",
+                                value: totalAmount,
+                                breakdown: {
+                                    item_total: { currency_code: "GBP", value: totalAmount }
                                 }
+                            },
+                            items: [{
+                                name: "Saviour CD",
+                                unit_amount: { currency_code: "GBP", value: "10.00" },
+                                quantity: qty,
+                                sku: "1 99199 21168 4"
                             }]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                        });
-                    },
-                    onError: function(err) {
-                        console.error('PayPal Error:', err);
-                    }
-                }).render('#paypal-button-container');
-            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Thank you for your order, ' + details.payer.name.given_name + '!');
+                    });
+                }
+            }).render('#paypal-button-container');
         }
 
         window.addEventListener('load', initPayPal);
