@@ -7,11 +7,9 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <link rel="stylesheet" href="/menu.css">
 
     <style>
-        /* Store-Specific Layout */
         .store-container { 
             max-width: 1200px; 
             margin: 140px auto 100px; 
@@ -45,29 +43,10 @@
             max-width: 450px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .album-artwork:hover {
-            transform: scale(1.03);
-        }
-
-        .purchase-details {
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .purchase-details h2 {
-            font-weight: 200;
-            letter-spacing: 6px;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-            text-transform: uppercase;
         }
 
         .price-tag {
-            color: var(--gold); /* Uses the variable from your menu.css */
+            color: var(--gold);
             font-size: 1.6rem;
             letter-spacing: 3px;
             margin-bottom: 30px;
@@ -76,41 +55,26 @@
 
         #paypal-button-container {
             width: 100%;
-            min-height: 150px; /* Reserves space while loading */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-        }
-
-        #footer-placeholder { 
-            margin-top: 100px; 
-            padding-bottom: 40px; 
-        }
-
-        @media screen and (max-width: 480px) {
-            .store-container { margin-top: 100px; }
-            .album-showcase { padding: 40px 20px; }
-            h1 { letter-spacing: 8px; }
+            min-height: 150px;
         }
     </style>
 </head>
 <body>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=ASW-6sgbSRCiG98RzAtTbnan3OIZ1Yb1yA09GO6GwAOcPq7-f4e9zGzV3u6M8I1Jp6S7O9N7-8Z&currency=GBP"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ASW-6sgbSRCiG98RzAtTbnan3OlZ1Yb1yA09GO6GwAOdelFoyrXnZrS4Yi3AhHqWLEqRx-PqBNYkv8qW&currency=GBP"></script>
 
     <div id="nav-placeholder"></div>
 
     <div class="store-container">
         <h1>STORE</h1>
-
         <div class="album-showcase">
             <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album Cover" class="album-artwork">
-
             <div class="purchase-details">
                 <h2>SAVIOUR</h2>
                 <p style="color: #888; letter-spacing: 3px; font-weight: 200; margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem;">
                     Physical CD & Digital Download
                 </p>
                 <div class="price-tag">£10.00 GBP</div>
-                
                 <div id="paypal-button-container"></div>
             </div>
         </div>
@@ -119,16 +83,15 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Load Menu & Footer from root
+        // Load Menu & Footer
         fetch('/menu.html').then(res => res.text()).then(data => {
             document.getElementById('nav-placeholder').innerHTML = data;
         });
-
         fetch('/footer.html').then(res => res.text()).then(data => {
             document.getElementById('footer-placeholder').innerHTML = data;
         });
 
-        // Initialize PayPal
+        // Initialize PayPal Buttons
         function initPayPal() {
             if (window.paypal) {
                 paypal.Buttons({
@@ -141,7 +104,7 @@
                     createOrder: function(data, actions) {
                         return actions.order.create({
                             purchase_units: [{
-                                description: "Saviour - Tim Seymour - CD",
+                                description: "Saviour - Tim Seymour CD",
                                 amount: {
                                     currency_code: "GBP",
                                     value: "10.00"
@@ -151,7 +114,7 @@
                     },
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(details) {
-                            alert('Order successful! Thank you, ' + details.payer.name.given_name);
+                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
                         });
                     },
                     onError: function(err) {
@@ -161,16 +124,7 @@
             }
         }
 
-        // Run after the window (and SDK) has fully loaded
         window.addEventListener('load', initPayPal);
-
-        // Sticky Nav Background Logic
-        window.onscroll = function() {
-            var nav = document.querySelector('nav');
-            if (nav) {
-                nav.style.background = (window.pageYOffset > 50) ? "rgba(10, 10, 10, 0.98)" : "rgba(0, 0, 0, 0.4)";
-            }
-        };
     </script>
 </body>
 </html>
