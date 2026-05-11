@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store | Tim Seymour Composer</title>
     
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/menu.css">
@@ -16,105 +18,145 @@
             padding: 0 20px; 
         }
 
-        /* The "Pro" Two-Column Grid */
+        /* The Main Store Grid */
         .product-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 60px;
             align-items: flex-start;
             background: rgba(255, 255, 255, 0.02);
-            padding: 40px;
+            padding: 60px 40px;
             border-radius: 4px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Left Column: Image */
+        /* LEFT COLUMN: Image & Glow Interaction */
         .product-image-area {
             flex: 1;
-            min-width: 300px;
+            min-width: 320px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .artwork-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
         }
 
         .album-artwork {
             width: 100%;
             height: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        box-shadow 0.6s ease;
         }
 
-        /* Right Column: Details */
+        /* The Gold Glow Effect */
+        .artwork-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 10%; left: 10%; right: 10%; bottom: 10%;
+            background: var(--gold);
+            filter: blur(60px);
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+        }
+
+        /* Hover States: Lift + Glow */
+        .artwork-wrapper:hover .album-artwork {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 45px 90px rgba(0,0,0,0.9);
+        }
+
+        .artwork-wrapper:hover::after {
+            opacity: 0.25; /* Subtle gold aura */
+            transform: translateY(-10px) scale(1.1);
+        }
+
+        /* RIGHT COLUMN: Details */
         .product-details-area {
             flex: 1;
-            min-width: 300px;
+            min-width: 320px;
             text-align: left;
         }
 
         .product-category {
             color: var(--gold);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            display: block;
         }
 
         h1.product-title {
-            font-size: 2.5rem;
-            letter-spacing: 4px;
-            margin: 0 0 20px 0;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            letter-spacing: 5px;
+            margin: 0 0 15px 0;
             font-weight: 200;
-            text-align: left; /* Override global center */
+            text-transform: uppercase;
         }
 
         .price-tag {
             font-size: 1.8rem;
             font-weight: 300;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: #fff;
         }
 
         .product-description {
             line-height: 1.8;
-            color: #ccc;
+            color: #bbb;
             font-weight: 300;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            border-left: 1px solid var(--gold);
+            padding-left: 20px;
         }
 
-        /* Quantity & Controls */
+        /* Order Controls */
         .order-controls {
             margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .quantity-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+        .qty-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #666; }
         
         #quantity-input {
-            background: #1a1a1a;
+            background: #000;
             border: 1px solid #333;
-            color: white;
-            padding: 8px;
-            width: 60px;
+            color: #fff;
+            padding: 10px;
+            width: 70px;
             text-align: center;
             font-family: 'Montserrat', sans-serif;
+            border-radius: 2px;
         }
 
-        .sku-text {
-            display: block;
-            margin-top: 40px;
+        .sku-footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
             font-size: 0.65rem;
             color: #444;
             letter-spacing: 2px;
-            border-top: 1px solid #1a1a1a;
-            padding-top: 15px;
         }
 
-        #paypal-button-container { width: 100%; margin-top: 20px; }
+        #paypal-button-container { width: 100%; margin-top: 10px; }
 
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .product-grid { padding: 20px; gap: 30px; }
+            .product-grid { padding: 30px 20px; gap: 40px; }
             .product-details-area { text-align: center; }
-            h1.product-title { text-align: center; font-size: 2rem; }
+            .product-description { border-left: none; padding-left: 0; }
             .order-controls { justify-content: center; }
         }
     </style>
@@ -127,27 +169,31 @@
         <div class="product-grid">
             
             <div class="product-image-area">
-                <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album Cover" class="album-artwork">
+                <div class="artwork-wrapper">
+                    <img src="/images/Saviour-album-cover.jpg" alt="Saviour Album" class="album-artwork">
+                </div>
             </div>
 
             <div class="product-details-area">
-                <div class="product-category">Physical Edition</div>
+                <span class="product-category">Limited Physical Edition</span>
                 <h1 class="product-title">SAVIOUR</h1>
                 <div class="price-tag">£10.00</div>
 
                 <div class="product-description">
                     The debut album from Tim Seymour. A journey through cinematic soundscapes and emotive orchestration. 
-                    This physical edition includes a high-quality CD and an immediate digital download link sent to your email.
+                    Includes a high-quality physical CD and an immediate digital download link.
                 </div>
 
                 <div class="order-controls">
-                    <span class="quantity-label">Quantity</span>
+                    <span class="qty-label">Quantity</span>
                     <input type="number" id="quantity-input" value="1" min="1" max="10">
                 </div>
                 
                 <div id="paypal-button-container"></div>
 
-                <span class="sku-text">BARCODE: 1 99199 21168 4 | SKU: SAV-CD-001</span>
+                <div class="sku-footer">
+                    BARCODE: 1 99199 21168 4 &nbsp; | &nbsp; SKU: SAV-CD-LIVE
+                </div>
             </div>
 
         </div>
@@ -158,6 +204,7 @@
     <script src="https://www.paypal.com/sdk/js?client-id=ASW-6sgbSRCiG98RzAtTbnan3OlZ1Yb1yA09GO6GwAOdelFoyrXnZrS4Yi3AhHqWLEqRx-PqBNYkv8qW&currency=GBP"></script>
 
     <script>
+        // Load navigation components
         fetch('/menu.html').then(res => res.text()).then(data => document.getElementById('nav-placeholder').innerHTML = data);
         fetch('/footer.html').then(res => res.text()).then(data => document.getElementById('footer-placeholder').innerHTML = data);
 
@@ -165,32 +212,29 @@
             paypal.Buttons({
                 style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
                 createOrder: function(data, actions) {
-                    // Grab the current quantity from the input field
                     const qty = document.getElementById('quantity-input').value;
-                    const totalAmount = (10.00 * qty).toFixed(2);
+                    const total = (10.00 * qty).toFixed(2);
 
                     return actions.order.create({
                         purchase_units: [{
                             description: "Saviour CD - Tim Seymour",
                             amount: {
                                 currency_code: "GBP",
-                                value: totalAmount,
-                                breakdown: {
-                                    item_total: { currency_code: "GBP", value: totalAmount }
-                                }
+                                value: total,
+                                breakdown: { item_total: { currency_code: "GBP", value: total } }
                             },
                             items: [{
                                 name: "Saviour CD",
                                 unit_amount: { currency_code: "GBP", value: "10.00" },
                                 quantity: qty,
-                                sku: "1 99199 21168 4"
+                                sku: "199199211684"
                             }]
                         }]
                     });
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
-                        alert('Thank you for your order, ' + details.payer.name.given_name + '!');
+                        alert('Order successful! Thank you, ' + details.payer.name.given_name);
                     });
                 }
             }).render('#paypal-button-container');
