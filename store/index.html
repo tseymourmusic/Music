@@ -67,7 +67,7 @@
         }
 
         .artwork-wrapper:hover .album-artwork {
-            transform: translateY(-20px) rotateY(-5deg) scale(1.03); /* Slight 3D tilt */
+            transform: translateY(-20px) rotateY(-5deg) scale(1.03); 
             box-shadow: 0 50px 100px rgba(0,0,0,0.9);
         }
 
@@ -82,7 +82,7 @@
             to { opacity: 0.5; filter: blur(70px); }
         }
 
-        /* Details & Lore */
+        /* Details */
         .product-details-area {
             flex: 1;
             min-width: 320px;
@@ -120,7 +120,7 @@
             font-weight: 300;
             margin-bottom: 40px;
             font-size: 1.05rem;
-            font-style: italic;
+            /* REMOVED ITALICS FROM HERE */
             border-left: 2px solid var(--gold);
             padding-left: 25px;
         }
@@ -132,10 +132,18 @@
             gap: 20px;
         }
 
+        .qty-label {
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: var(--gold); /* Switched to Gold */
+            font-weight: 400;
+        }
+
         #quantity-input {
             background: #000;
             border: 1px solid #333;
-            color: var(--gold);
+            color: #fff;
             padding: 12px;
             width: 70px;
             text-align: center;
@@ -181,13 +189,13 @@
                 <div class="price-tag">£10.00</div>
 
                 <div class="product-description">
-                    <em>Saviour</em> for string orchestra and piano<br><br>
+                    <em style="color: var(--gold);">Saviour</em> for string orchestra and piano<br><br>
                     Experience the debut classical album by Tim Seymour. This limited physical edition features high-fidelity audio 
                     and includes an immediate digital companion download.
                 </div>
 
                 <div class="order-controls">
-                    <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #888;">Qty</span>
+                    <span class="qty-label">Qty</span>
                     <input type="number" id="quantity-input" value="1" min="1" max="10">
                 </div>
                 
