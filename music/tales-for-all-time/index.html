@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tales For All Time | Tim Seymour Music</title>
+    <title>Tales For All Time · Tim Seymour · Composer</title>
     
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -52,11 +52,53 @@
             background-size: cover;
             padding: 40px 20px;
             box-sizing: border-box;
+            /* Section itself appears */
             opacity: 0;
-            transform: translateY(10px);
+            transition: opacity 2s ease-out;
+        }
+        .hero.reveal { opacity: 1; }
+
+        /* Staggered Animation Logic */
+        .hero h1, 
+        .hero-text-block p {
+            opacity: 0;
+            transform: translateY(15px);
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
-        .hero.reveal { opacity: 1; transform: translateY(0); }
+
+        /* Title triggers immediately */
+        .hero.reveal h1 { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        /* Row 2: Sub-headline (2s delay) */
+        .hero.reveal .hero-main-sub { 
+            opacity: 1; 
+            transform: translateY(0); 
+            transition-delay: 2s; 
+        }
+
+        /* Row 3: Details (4s delay) */
+        .hero.reveal .hero-details { 
+            opacity: 1; 
+            transform: translateY(0); 
+            transition-delay: 4.5s; 
+        }
+
+        /* Row 4: Credits (6s delay) */
+        .hero.reveal .hero-credits { 
+            opacity: 1; 
+            transform: translateY(0); 
+            transition-delay: 7s; 
+        }
+
+        /* Row 5: Date (8s delay) */
+        .hero.reveal .hero-date { 
+            opacity: 1; 
+            transform: translateY(0); 
+            transition-delay: 9s; 
+        }
 
         .hero h1 {
             font-family: 'Cinzel Decorative', cursive;
@@ -755,7 +797,7 @@
         
         <div class="endorsement-container" style="text-align: center; margin-bottom: 40px;">
             <button type="button" onclick="openLetter()" class="endorsement-link" style="background:none; cursor:pointer; outline:none;">
-                   View Project Endorsement Letter (LCV)
+                    View Project Endorsement Letter (LCV)
             </button>
         </div>
         
@@ -838,6 +880,11 @@
         }
     }
 
+    // Hero Entry Trigger
+    window.addEventListener('load', () => {
+        document.getElementById('hero').classList.add('reveal');
+    });
+
     // Standard loaders
     fetch('/menu.html').then(res => res.text()).then(data => { 
         document.getElementById('nav-placeholder').innerHTML = data; 
@@ -875,62 +922,6 @@
                 if (typeof initPlayer === "function") { initPlayer(); }
             }, 50);
         });
-
-    // Flipbook handshake
-    fetch('/flipbook-component.html')
-        .then(res => res.text())
-        .then(data => {
-            const placeholder = document.getElementById('flipbook-placeholder');
-            const pdfPath = placeholder.getAttribute('data-pdf');
-            const bgPath = placeholder.getAttribute('data-bg'); 
-            
-            placeholder.innerHTML = data;
-
-            const wrapper = placeholder.querySelector('.flipbook-wrapper');
-            if (wrapper && bgPath) {
-                wrapper.style.backgroundImage = `url('${bgPath}')`;
-            }
-
-            const script = document.createElement('script');
-            script.src = '/flipbook.js';
-            script.onload = () => {
-                if (typeof initFlipbook === "function") { initFlipbook(pdfPath); }
-            };
-            document.body.appendChild(script);
-        });
-
-    // Hero Reveal
-    window.addEventListener('load', () => {
-        document.getElementById('hero').classList.add('reveal');
-    });
-
-    // Navigation Scroll Logic
-    window.onscroll = function() {
-        var nav = document.getElementById('main-nav');
-        if (nav) {
-            if (window.pageYOffset > 50) {
-                nav.style.background = "rgba(10, 10, 10, 0.98)";
-            } else {
-                nav.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
-            }
-        }    
-    };
-
-    // Form Submission Logic
-    function showSuccess() {
-        document.getElementById('form-content').style.display = 'none';
-        document.getElementById('success-msg').style.display = 'block';
-    }
-
-    const iframe = document.getElementById('hidden_iframe');
-    if (iframe) {
-        iframe.onload = function() {
-            if (submitted) {
-                showSuccess();
-            }
-        };
-    }
-    
 </script>
 </body>
 </html>
