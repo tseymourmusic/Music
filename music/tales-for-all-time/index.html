@@ -851,17 +851,16 @@
 <script>
     var submitted = false;
 
-    // Carousel Logic
+    // --- CAROUSEL LOGIC ---
     function scrollDoubleCarousel(direction) {
         const leftCarousel = document.getElementById('leftCarousel');
         const rightCarousel = document.getElementById('rightCarousel');
-        const scrollAmountLeft = leftCarousel.clientWidth;
-        const scrollAmountRight = rightCarousel.clientWidth;
-        leftCarousel.scrollBy({ left: direction * scrollAmountLeft, behavior: 'smooth' });
-        rightCarousel.scrollBy({ left: direction * scrollAmountRight, behavior: 'smooth' });
+        const scrollAmount = leftCarousel.clientWidth;
+        leftCarousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        rightCarousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
 
-    // Modal Logic
+    // --- MODAL LOGIC (Maintained) ---
     function openLetter() {
         const modal = document.getElementById('letterModal');
         modal.classList.add('show');
@@ -876,21 +875,12 @@
 
     window.onclick = function(event) {
         const modal = document.getElementById('letterModal');
-        if (event.target == modal) {
-            closeLetter();
-        }
+        if (event.target == modal) { closeLetter(); }
     }
 
-    // --- SCROLL REVEAL OBSERVER ---
+    // --- SCROLL REVEAL OBSERVER (Maintained) ---
     document.addEventListener('DOMContentLoaded', () => {
         const movementRows = document.querySelectorAll('.mvt-row');
-
-        const observerOptions = {
-            root: null, 
-            rootMargin: '-25% 0% -25% 0%', 
-            threshold: 0.1 
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -899,24 +889,25 @@
                     entry.target.classList.remove('in-focus');
                 }
             });
-        }, observerOptions);
-
+        }, { rootMargin: '-25% 0% -25% 0%', threshold: 0.1 });
         movementRows.forEach(row => observer.observe(row));
     });
 
-    // Hero Entry Trigger
+    // --- HERO & NAV SCROLL (Restored) ---
     window.addEventListener('load', () => {
         document.getElementById('hero').classList.add('reveal');
     });
 
-	// Add this to your script section at the bottom
-	window.addEventListener('DOMContentLoaded', () => {
-    	if (typeof initFlipbook === "function") {
-        	initFlipbook();
-    	}
-    });
+    window.onscroll = function() {
+        var nav = document.getElementById('main-nav');
+        if (nav) {
+            nav.style.background = (window.pageYOffset > 50) 
+                ? "rgba(10, 10, 10, 0.98)" 
+                : "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+        }    
+    };
 
-    // Standard loaders
+    // --- COMPONENT LOADERS (Menu/Footer) ---
     fetch('/menu.html').then(res => res.text()).then(data => { 
         document.getElementById('nav-placeholder').innerHTML = data; 
     });
@@ -924,35 +915,57 @@
         document.getElementById('footer-placeholder').innerHTML = data; 
     });
 
-    // Player handshake
-    fetch('/player-component.html')
-        .then(res => res.text())
-        .then(data => {
-            const placeholder = document.getElementById('player-placeholder');
-            const localPlaylist = placeholder.querySelector('#playlist');
-            placeholder.innerHTML = data; 
-
-            if (localPlaylist) {
-                const target = document.getElementById('playlist-target');
-                if (target) { target.appendChild(localPlaylist); }
-                
-                const firstTrack = localPlaylist.querySelector('.track');
-                if (firstTrack) {
-                    const audio = document.getElementById('audio');
-                    const source = document.getElementById('audio-source');
-                    const title = document.getElementById('track-title');
-                    
-                    if (audio && source && title) {
-                        source.src = firstTrack.getAttribute('data-src');
-                        title.innerText = firstTrack.innerText.trim();
-                        audio.load();
-                    }
-                }
+    // --- PLAYER HANDSHAKE (Restored Complete) ---
+    fetch('/player-component.html').then(res => res.text()).then(data => {
+        const placeholder = document.getElementById('player-placeholder');
+        const localPlaylist = placeholder.querySelector('#playlist');
+        placeholder.innerHTML = data; 
+        if (localPlaylist) {
+            const target = document.getElementById('playlist-target');
+            if (target) target.appendChild(localPlaylist);
+            const firstTrack = localPlaylist.querySelector('.track');
+            if (firstTrack && document.getElementById('audio')) {
+                document.getElementById('audio-source').src = firstTrack.getAttribute('data-src');
+                document.getElementById('track-title').innerText = firstTrack.innerText.trim();
+                document.getElementById('audio').load();
             }
-            setTimeout(() => {
-                if (typeof initPlayer === "function") { initPlayer(); }
-            }, 50);
-        });
+        }
+        setTimeout(() => { if (typeof initPlayer === "function") initPlayer(); }, 50);
+    });
+
+    // --- FLIPBOOK HANDSHAKE (Restored - CRITICAL) ---
+    fetch('/flipbook-component.html').then(res => res.text()).then(data => {
+        const placeholder = document.getElementById('flipbook-placeholder');
+        const pdfPath = placeholder.getAttribute('data-pdf');
+        const bgPath = placeholder.getAttribute('data-bg');
+        placeholder.innerHTML = data;
+        const wrapper = placeholder.querySelector('.flipbook-wrapper');
+        if (wrapper && bgPath) wrapper.style.backgroundImage = `url('${bgPath}')`;
+        
+        const script = document.createElement('script');
+        script.src = '/flipbook.js';
+        script.onload = () => { if (typeof initFlipbook === "function") initFlipbook(pdfPath); };
+        document.body.appendChild(script);
+    });
+
+    // --- FORM LOGIC (Restored) ---
+    function showSuccess() {
+        document.getElementById('form-content').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+    }
+
+    const iframe = document.getElementById('hidden_iframe');
+    if (iframe) {
+        iframe.onload = () => { if (submitted) showSuccess(); };
+    }
+
+    function forceScrollToBottom() {
+        if (window.location.hash === '#bottom') {
+            const target = document.getElementById('bottom');
+            if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 300);
+        }
+    }
+    window.addEventListener('load', forceScrollToBottom);
 </script>
 </body>
 </html>
