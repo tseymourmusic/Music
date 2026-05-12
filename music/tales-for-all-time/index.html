@@ -927,7 +927,7 @@
         
         // Calculate mouse offset from the CENTER of the window
         // Dividing by 80 keeps the rotation within a very subtle 5-10 degree range
-        const xOffset = (e.clientX - window.innerWidth / 2) / 80;
+        const xOffset = (e.clientX - window.innerWidth / 2) / 180;
         const yOffset = (e.clientY - window.innerHeight / 2) / 80;
         
         // rotateY is affected by horizontal mouse movement (xOffset)
