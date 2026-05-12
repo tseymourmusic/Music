@@ -800,13 +800,23 @@
         <hr>
 
         <h2 class="section-label">Collaborators</h2>
-        <div class="logo-row">
-            <img src="/logos/lso-logo.png" alt="London Symphony Orchestra">
-            <img src="/logos/LCV-logo.png" alt="London Contemporary Voices">
-            <img src="/logos/ace-logo.png" alt="Arts Council England">
-            <img src="/logos/vwf-logo.png" alt="Vaughan Williams Foundation">
-            <img src="/logos/favicon.png" alt="Tim Seymour Music">
-        </div>
+		<div class="logo-row">
+    		<a href="https://lso.co.uk/" target="_blank" rel="noopener noreferrer">
+        		<img src="/logos/lso-logo.png" alt="London Symphony Orchestra">
+    		</a>
+    		<a href="https://www.londoncontemporaryvoices.co.uk/" target="_blank" rel="noopener noreferrer">
+        		<img src="/logos/LCV-logo.png" alt="London Contemporary Voices">
+    		</a>
+    		<a href="https://www.artscouncil.org.uk/" target="_blank" rel="noopener noreferrer">
+        		<img src="/logos/ace-logo.png" alt="Arts Council England">
+    		</a>
+    		<a href="https://vaughanwilliamsfoundation.org/" target="_blank" rel="noopener noreferrer">
+        		<img src="/logos/vwf-logo.png" alt="Vaughan Williams Foundation">
+    		</a>
+    		<a href="https://tim-seymour.com/" target="_self">
+        		<img src="/logos/favicon.png" alt="Tim Seymour Music">
+    		</a>
+		</div>
         
         <div class="endorsement-container" style="text-align: center; margin-bottom: 40px;">
             <button type="button" onclick="openLetter()" class="endorsement-link" style="background:none; cursor:pointer; outline:none;">
@@ -901,7 +911,7 @@
                     entry.target.classList.remove('in-focus');
                 }
             });
-        }, { rootMargin: '-10% 0% -50% 0%', threshold: 0.1 });
+        }, { rootMargin: '-10% 0% -65% 0%', threshold: 0.1 });
         movementRows.forEach(row => observer.observe(row));
     });
 
