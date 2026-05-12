@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tales For All Time | Tim Seymour Music</title>
+    <title>Tales For All Time · Tim Seymour · Composer</title>
     
     <link rel="icon" type="image/png" href="/images/favicon.png">
 
@@ -333,7 +333,9 @@
             pointer-events: none;
         }
 
-        .mvt-row:hover .mvt-myth-detail {
+        /* ADDED SURGICAL HOVER/ACTIVE TOGGLE FOR MOBILE REVEAL */
+        .mvt-row:hover .mvt-myth-detail,
+        .mvt-row.active-reveal .mvt-myth-detail {
             opacity: 0.8;
             transform: translateY(0);
         }
@@ -880,13 +882,35 @@
         document.body.style.overflow = 'auto'; 
     }
 
-    // MODIFIED MODAL LOGIC - Only intercepts clicks when modal is ACTIVE
-	window.onclick = function(event) {
-    	const modal = document.getElementById('letterModal');
-    	// Only trigger if the modal is currently showing AND the user clicked the dark background
-    		if (modal.classList.contains('show') && event.target == modal) {
-        	closeLetter();
-    	}
+    // MODIFIED MODAL & SURGICAL MOBILE REVEAL LOGIC
+    // Intercepts click globally to handle both the letter modal and mobile row taps safely
+    window.onclick = function(event) {
+        const modal = document.getElementById('letterModal');
+        
+        // 1. Close Modal if active and background is clicked
+        if (modal && modal.classList.contains('show')) {
+            if (event.target == modal) {
+                closeLetter();
+            }
+            return; // Halt further execution if interacting within the active modal overlay
+        }
+
+        // 2. Surgical Mobile Tap Logic for Movements
+        // Identifies if the click/tap originated inside a movement row
+        const clickedRow = event.target.closest('.mvt-row');
+        
+        if (clickedRow) {
+            const isAlreadyActive = clickedRow.classList.contains('active-reveal');
+            // Clear active states from all rows
+            document.querySelectorAll('.mvt-row').forEach(row => row.classList.remove('active-reveal'));
+            // Apply state to the tapped row if it wasn't already showing
+            if (!isAlreadyActive) {
+                clickedRow.classList.add('active-reveal');
+            }
+        } else {
+            // Clicking completely outside any movement row cleanly tucks away active descriptions
+            document.querySelectorAll('.mvt-row').forEach(row => row.classList.remove('active-reveal'));
+        }
     }
 
     // Hero Entry Trigger
