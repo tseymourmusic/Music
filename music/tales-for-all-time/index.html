@@ -75,11 +75,11 @@
         }
 
         /* Target H1 specifically for smooth mouse parallax */
-        .hero h1 {
-            display: inline-block;
-            will-change: transform;
-            transition: transform 0.1s ease-out;
-        }
+		.hero h1 {
+    		display: inline-block;
+    		will-change: transform;
+    		transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+		}	
 
         .hero.reveal .hero-main-sub { 
             opacity: 1; 
@@ -919,29 +919,38 @@
         }    
     };
 
-    // --- 2.5D TITLE PARALLAX ---
+    // --- CONSTRAINED 2.5D TITLE PARALLAX ---
     document.addEventListener('mousemove', (e) => {
         const hero = document.getElementById('hero');
         const title = hero.querySelector('h1');
         if (!title) return;
         
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        // Calculate mouse offset from the CENTER of the window
+        // Dividing by 80 keeps the rotation within a very subtle 5-10 degree range
+        const xOffset = (e.clientX - window.innerWidth / 2) / 80;
+        const yOffset = (e.clientY - window.innerHeight / 2) / 80;
         
-        title.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(50px)`;
+        // rotateY is affected by horizontal mouse movement (xOffset)
+        // rotateX is affected by vertical mouse movement (yOffset)
+        // We invert yOffset so moving mouse UP tilts the text UP
+        title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
     });
 
     document.getElementById('hero').addEventListener('mouseleave', () => {
         const title = document.querySelector('.hero h1');
         if (title) {
+            // Smoothly return to center
+            title.style.transition = "transform 1.2s ease-in-out";
             title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
-            title.style.transition = "all 0.5s ease";
         }
     });
 
     document.getElementById('hero').addEventListener('mouseenter', () => {
         const title = document.querySelector('.hero h1');
-        if (title) title.style.transition = "none";
+        if (title) {
+            // Return to the fast-response transition for active tracking
+            title.style.transition = "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
+        }
     });
 
     // --- COMPONENT LOADERS (Menu/Footer) ---
