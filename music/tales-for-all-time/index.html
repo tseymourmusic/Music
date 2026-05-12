@@ -39,26 +39,36 @@
         }
 
         /* --- HERO SECTION --- */
-        .hero {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            /* Updated background-attachment to fixed for depth */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
-                        url('/images/Tales-For-All-Time-bg.gif') no-repeat center center fixed;
-            background-size: cover;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 2s ease-out;
-            /* Added perspective for 2.5D parallax depth */
-            perspective: 1000px;
-            overflow: hidden;
-        }
+		.hero {
+    		width: 100%;
+    		min-height: 100vh;
+    		display: flex;
+    		flex-direction: column;
+    		justify-content: center;
+    		align-items: center;
+    		text-align: center;
+
+    		/* MOBILE DEFAULT: Standard background scroll */
+    		background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
+                url('/images/Tales-For-All-Time-bg.gif') no-repeat center center;
+    		background-size: cover;
+
+    		padding: 40px 20px;
+    		box-sizing: border-box;
+    		opacity: 0;
+    		transition: opacity 2s ease-out;
+    
+    		/* REMOVED perspective from here so it doesn't tilt the whole screen on mobile */
+    		overflow: hidden;
+		}
+
+		/* DESKTOP ONLY: Add the "Fixed" depth and Perspective */
+		@media (min-width: 1024px) {
+    		.hero {
+        		background-attachment: fixed;
+        		perspective: 1000px; /* Only apply 3D space to desktops */
+    		}
+		}
         .hero.reveal { opacity: 1; }
 
         .hero h1, 
@@ -69,10 +79,16 @@
         }
 
         .hero.reveal h1 { 
-            opacity: 1; 
-            /* Added translateZ to initial state to pop title forward */
-            transform: translateY(0) translateZ(50px); 
-        }
+    		opacity: 1; 
+    		transform: translateY(0); /* Clean landing for mobile */
+		}
+
+		@media (min-width: 1024px) {
+    		.hero.reveal h1 { 
+        		/* Adds the 'pop' forward only on desktop where parallax works */
+        		transform: translateY(0) translateZ(50px); 
+    		}
+		}
 
         /* Target H1 specifically for smooth mouse parallax */
 		.hero h1 {
@@ -118,7 +134,7 @@
         	0 0 20px rgba(212, 175, 55, 0.5),
         	0 0 40px rgba(212, 175, 55, 0.3),
         	2px 2px 4px rgba(0, 0, 0, 0.8);
-	}
+		}	
 
         .hero-text-block {
             max-width: 1200px;
@@ -907,7 +923,7 @@
         rightCarousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
 
-    // --- MODAL LOGIC (Maintained) ---
+    // --- MODAL LOGIC ---
     function openLetter() {
         const modal = document.getElementById('letterModal');
         modal.classList.add('show');
@@ -925,7 +941,7 @@
         if (event.target == modal) { closeLetter(); }
     }
 
-    // --- SCROLL REVEAL OBSERVER (Maintained) ---
+    // --- SCROLL REVEAL OBSERVER (Optimized for Top-Third Reading) ---
     document.addEventListener('DOMContentLoaded', () => {
         const movementRows = document.querySelectorAll('.mvt-row');
         const observer = new IntersectionObserver((entries) => {
@@ -936,11 +952,16 @@
                     entry.target.classList.remove('in-focus');
                 }
             });
-        }, { rootMargin: '-20% 0% -35% 0%', threshold: 0.1 });
+        }, { 
+            // -15% Top: Fades in quickly
+            // -55% Bottom: Fades out before it hits the bottom half of the screen
+            rootMargin: '-15% 0% -55% 0%', 
+            threshold: 0.1 
+        });
         movementRows.forEach(row => observer.observe(row));
     });
 
-    // --- HERO & NAV SCROLL (Restored) ---
+    // --- HERO & NAV SCROLL ---
     window.addEventListener('load', () => {
         document.getElementById('hero').classList.add('reveal');
     });
@@ -954,41 +975,37 @@
         }    
     };
 
-    // --- CONSTRAINED 2.5D TITLE PARALLAX ---
-    document.addEventListener('mousemove', (e) => {
-        const hero = document.getElementById('hero');
-        const title = hero.querySelector('h1');
-        if (!title) return;
-        
-        // Calculate mouse offset from the CENTER of the window
-        // Dividing by 80 keeps the rotation within a very subtle 5-10 degree range
-        const xOffset = (e.clientX - window.innerWidth / 2) / 180;
-        const yOffset = (e.clientY - window.innerHeight / 2) / 80;
-        
-        // rotateY is affected by horizontal mouse movement (xOffset)
-        // rotateX is affected by vertical mouse movement (yOffset)
-        // We invert yOffset so moving mouse UP tilts the text UP
-        title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
-    });
+    // --- CONSTRAINED 2.5D TITLE PARALLAX (Desktop Only Guard) ---
+    // This prevents the mobile 'jitter' and non-existent mouse errors
+    if (window.innerWidth > 1024) {
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.getElementById('hero');
+            const title = hero.querySelector('h1');
+            if (!title) return;
+            
+            const xOffset = (e.clientX - window.innerWidth / 2) / 180;
+            const yOffset = (e.clientY - window.innerHeight / 2) / 80;
+            
+            title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
+        });
 
-    document.getElementById('hero').addEventListener('mouseleave', () => {
-        const title = document.querySelector('.hero h1');
-        if (title) {
-            // Smoothly return to center
-            title.style.transition = "transform 1.2s ease-in-out";
-            title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
-        }
-    });
+        document.getElementById('hero').addEventListener('mouseleave', () => {
+            const title = document.querySelector('.hero h1');
+            if (title) {
+                title.style.transition = "transform 1.2s ease-in-out";
+                title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
+            }
+        });
 
-    document.getElementById('hero').addEventListener('mouseenter', () => {
-        const title = document.querySelector('.hero h1');
-        if (title) {
-            // Return to the fast-response transition for active tracking
-            title.style.transition = "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
-        }
-    });
+        document.getElementById('hero').addEventListener('mouseenter', () => {
+            const title = document.querySelector('.hero h1');
+            if (title) {
+                title.style.transition = "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
+            }
+        });
+    }
 
-    // --- COMPONENT LOADERS (Menu/Footer) ---
+    // --- COMPONENT LOADERS ---
     fetch('/menu.html').then(res => res.text()).then(data => { 
         document.getElementById('nav-placeholder').innerHTML = data; 
     });
@@ -996,7 +1013,7 @@
         document.getElementById('footer-placeholder').innerHTML = data; 
     });
 
-    // --- PLAYER HANDSHAKE (Restored Complete) ---
+    // --- PLAYER HANDSHAKE ---
     fetch('/player-component.html').then(res => res.text()).then(data => {
         const placeholder = document.getElementById('player-placeholder');
         const localPlaylist = placeholder.querySelector('#playlist');
@@ -1014,7 +1031,7 @@
         setTimeout(() => { if (typeof initPlayer === "function") initPlayer(); }, 50);
     });
 
-    // --- FLIPBOOK HANDSHAKE (Restored - CRITICAL) ---
+    // --- FLIPBOOK HANDSHAKE ---
     fetch('/flipbook-component.html').then(res => res.text()).then(data => {
         const placeholder = document.getElementById('flipbook-placeholder');
         const pdfPath = placeholder.getAttribute('data-pdf');
@@ -1029,10 +1046,12 @@
         document.body.appendChild(script);
     });
 
-    // --- FORM LOGIC (Restored) ---
+    // --- FORM LOGIC ---
     function showSuccess() {
-        document.getElementById('form-content').style.display = 'none';
-        document.getElementById('success-msg').style.display = 'block';
+        const formContent = document.getElementById('form-content');
+        const successMsg = document.getElementById('success-msg');
+        if (formContent) formContent.style.display = 'none';
+        if (successMsg) successMsg.style.display = 'block';
     }
 
     const iframe = document.getElementById('hidden_iframe');
