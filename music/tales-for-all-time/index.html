@@ -107,7 +107,7 @@
             letter-spacing: 0.15em;
             margin: 0 0 20px 0;
             color: #FFFFFF; /* Ensures the text itself is crisp white */
-    
+            
         /* THE GOLD GLOW SYSTEM */
         text-shadow: 
             0 0 10px rgba(212, 175, 55, 0.8),  /* Layer 1: Tight bright core */
@@ -880,9 +880,11 @@
         document.body.style.overflow = 'auto'; 
     }
 
+    // MODIFIED MODAL LOGIC - Only intercepts clicks when modal is ACTIVE
     window.onclick = function(event) {
         const modal = document.getElementById('letterModal');
-        if (event.target == modal) {
+        // Only trigger if the modal is currently showing AND the user clicked the dark background
+        if (modal.classList.contains('show') && event.target == modal) {
             closeLetter();
         }
     }
