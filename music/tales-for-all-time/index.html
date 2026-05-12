@@ -106,7 +106,14 @@
             font-size: clamp(2.5rem, 8vw, 5rem);
             letter-spacing: 0.15em;
             margin: 0 0 20px 0;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            color: #FFFFFF; /* Ensures the text itself is crisp white */
+    
+        /* THE GOLD GLOW SYSTEM */
+        text-shadow: 
+            0 0 10px rgba(212, 175, 55, 0.8),  /* Layer 1: Tight bright core */
+            0 0 20px rgba(212, 175, 55, 0.5),  /* Layer 2: Medium spread */
+            0 0 40px rgba(212, 175, 55, 0.3),  /* Layer 3: Wide soft atmosphere */
+            2px 2px 4px rgba(0, 0, 0, 0.8);    /* Layer 4: Dark backing to pop the gold */
         }
 
         .hero-text-block {
