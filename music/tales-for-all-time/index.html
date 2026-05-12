@@ -198,11 +198,17 @@
 
 		/* Hover state: The glow "heats up" */
 		.section-label:hover {
-    	color: #ffffff; /* Keep text white */
+    		color: #ffffff;
+    		/* We've increased the alpha to 1.0 (full brightness) 
+       		and bumped the blur radiuses for a massive glow */
     	text-shadow: 
-        	0 0 15px rgba(212, 175, 55, 0.9), 
-        	0 0 30px rgba(212, 175, 55, 0.6),
-        	0 0 45px rgba(212, 175, 55, 0.2); /* Added a 3rd layer for a wider bloom */
+        	0 0 15px rgba(212, 175, 55, 1),    /* Bright, solid core */
+        	0 0 35px rgba(212, 175, 55, 0.8),  /* Strong mid-glow */
+        	0 0 60px rgba(212, 175, 55, 0.4);  /* Huge wide bloom */
+    
+    		/* Optional: Adding a slight letter-spacing increase on hover 
+       		makes the "light" look like it's pushing the letters apart */
+    	letter-spacing: 7px;
 		}
 
         /* --- CAROUSEL SYSTEM --- */
