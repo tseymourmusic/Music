@@ -318,12 +318,11 @@
             margin-top: 5px;
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
+            transition: opacity 2.5s ease, transform 2.5s ease;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
             pointer-events: none;
         }
 
-        /* SCROLL REVEAL CLASS */
         .mvt-row.in-focus .mvt-myth-detail {
             opacity: 0.9;
             transform: translateY(0);
@@ -841,11 +840,11 @@
     <div id="footer-placeholder"></div>
 
     <script src="/player.js"></script>
+    <script src="/flipbook.js"></script>
 
 <script>
     var submitted = false;
 
-    // Carousel Logic
     function scrollDoubleCarousel(direction) {
         const leftCarousel = document.getElementById('leftCarousel');
         const rightCarousel = document.getElementById('rightCarousel');
@@ -855,7 +854,6 @@
         rightCarousel.scrollBy({ left: direction * scrollAmountRight, behavior: 'smooth' });
     }
 
-    // Modal Logic
     function openLetter() {
         const modal = document.getElementById('letterModal');
         modal.classList.add('show');
@@ -878,13 +876,11 @@
     // --- SCROLL REVEAL OBSERVER ---
     document.addEventListener('DOMContentLoaded', () => {
         const movementRows = document.querySelectorAll('.mvt-row');
-
         const observerOptions = {
             root: null, 
-            rootMargin: '-25% 0% -25% 0%', 
+            rootMargin: '-10% 0% -35% 0%', 
             threshold: 0.1 
         };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -894,7 +890,6 @@
                 }
             });
         }, observerOptions);
-
         movementRows.forEach(row => observer.observe(row));
     });
 
@@ -903,7 +898,7 @@
         document.getElementById('hero').classList.add('reveal');
     });
 
-    // Standard loaders
+    // --- 1. MENU & FOOTER HANDSHAKES ---
     fetch('/menu.html').then(res => res.text()).then(data => { 
         document.getElementById('nav-placeholder').innerHTML = data; 
     });
@@ -911,7 +906,14 @@
         document.getElementById('footer-placeholder').innerHTML = data; 
     });
 
-    // Player handshake
+    // --- 2. FLIPBOOK COMPONENT HANDSHAKE ---
+    fetch('/flipbook-component.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('flipbook-placeholder').innerHTML = data;
+        });
+
+    // --- 3. PLAYER COMPONENT HANDSHAKE ---
     fetch('/player-component.html')
         .then(res => res.text())
         .then(data => {
