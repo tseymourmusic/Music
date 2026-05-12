@@ -382,6 +382,7 @@
             transform: translateY(0);
         }
 
+        /* --- UPDATED COLLABORATOR LOGOS --- */
         .logo-row {
             display: flex;
             justify-content: center;
@@ -399,10 +400,18 @@
             object-fit: contain;
             filter: brightness(0) invert(1);
             opacity: 0.6;
-            transition: opacity 0.3s ease;
+            /* Added transform to transition for the 'grow' effect */
+            transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+            will-change: transform, filter;
         }
 
-        .logo-row img:hover { opacity: 1; }
+        .logo-row img:hover { 
+            opacity: 1; 
+            /* Scaled up by 15% */
+            transform: scale(1.15); 
+            /* Enhanced white glow using drop-shadow */
+            filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        }
 
         @media (max-width: 900px) {
             .carousel-wrapper { grid-template-columns: 1fr; }
