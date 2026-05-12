@@ -52,13 +52,11 @@
             background-size: cover;
             padding: 40px 20px;
             box-sizing: border-box;
-            /* Section itself appears */
             opacity: 0;
             transition: opacity 2s ease-out;
         }
         .hero.reveal { opacity: 1; }
 
-        /* Staggered Animation Logic */
         .hero h1, 
         .hero-text-block p {
             opacity: 0;
@@ -66,34 +64,29 @@
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
 
-        /* Title triggers immediately */
         .hero.reveal h1 { 
             opacity: 1; 
             transform: translateY(0); 
         }
 
-        /* Row 2: Sub-headline (2s delay) */
         .hero.reveal .hero-main-sub { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 2s; 
         }
 
-        /* Row 3: Details (4s delay) */
         .hero.reveal .hero-details { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 4.5s; 
         }
 
-        /* Row 4: Credits (6s delay) */
         .hero.reveal .hero-credits { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 7s; 
         }
 
-        /* Row 5: Date (8s delay) */
         .hero.reveal .hero-date { 
             opacity: 1; 
             transform: translateY(0); 
@@ -106,14 +99,13 @@
     		font-size: clamp(2.5rem, 8vw, 5rem);
     		letter-spacing: 0.15em;
     		margin: 0 0 20px 0;
-    		color: #FFFFFF; /* Ensures the text itself is crisp white */
+    		color: #FFFFFF;
     
-    	/* THE GOLD GLOW SYSTEM */
     	text-shadow: 
-        	0 0 10px rgba(212, 175, 55, 0.8),  /* Layer 1: Tight bright core */
-        	0 0 20px rgba(212, 175, 55, 0.5),  /* Layer 2: Medium spread */
-        	0 0 40px rgba(212, 175, 55, 0.3),  /* Layer 3: Wide soft atmosphere */
-        	2px 2px 4px rgba(0, 0, 0, 0.8);    /* Layer 4: Dark backing to pop the gold */
+        	0 0 10px rgba(212, 175, 55, 0.8),
+        	0 0 20px rgba(212, 175, 55, 0.5),
+        	0 0 40px rgba(212, 175, 55, 0.3),
+        	2px 2px 4px rgba(0, 0, 0, 0.8);
 	}
 
         .hero-text-block {
@@ -273,7 +265,7 @@
             margin: 0;
         }
 
-        /* THE SYMPHONIC MOVEMENTS LIST */
+        /* --- THE SYMPHONIC MOVEMENTS REVEAL SYSTEM --- */
         .movements-classic-list { 
             display: flex; 
             flex-direction: column; 
@@ -288,7 +280,6 @@
             margin-bottom: 45px; 
             text-align: left;
             justify-content: flex-start;
-            cursor: pointer;
             position: relative;
         }
 
@@ -317,7 +308,6 @@
             font-weight: 300;
         }
 
-        /* GHOSTLY TEXT SYSTEM */
         .mvt-myth-detail {
             font-family: 'Montserrat', sans-serif;
             font-weight: 200;
@@ -327,16 +317,15 @@
             letter-spacing: 1px;
             margin-top: 5px;
             opacity: 0;
-            transform: translateY(8px);
-            transition: all 0.8s ease;
+            transform: translateY(10px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
             pointer-events: none;
         }
 
-        /* ADDED SURGICAL HOVER/ACTIVE TOGGLE FOR MOBILE REVEAL */
-        .mvt-row:hover .mvt-myth-detail,
-        .mvt-row.active-reveal .mvt-myth-detail {
-            opacity: 0.8;
+        /* SCROLL REVEAL CLASS */
+        .mvt-row.in-focus .mvt-myth-detail {
+            opacity: 0.9;
             transform: translateY(0);
         }
 
@@ -410,7 +399,6 @@
             color: #121212 !important;
         }
         
-        /* --- ENDORSEMENT LINK STYLE --- */
         .endorsement-link {
             display: inline-block;
             color: #D4AF37;
@@ -439,7 +427,6 @@
             transform: translateY(-2px);
         }
 
-        /* --- LETTER MODAL STYLES --- */
         .letter-modal {
             display: none;
             position: fixed;
@@ -493,7 +480,6 @@
             color: #D4AF37;
         }
         
-        /* --- SIGNUP SECTION --- */
         .signup-container {
             max-width: 600px;
             margin: 100px auto;
@@ -882,36 +868,35 @@
         document.body.style.overflow = 'auto'; 
     }
 
-    // MODIFIED MODAL & SURGICAL MOBILE REVEAL LOGIC
-    // Intercepts click globally to handle both the letter modal and mobile row taps safely
     window.onclick = function(event) {
         const modal = document.getElementById('letterModal');
-        
-        // 1. Close Modal if active and background is clicked
-        if (modal && modal.classList.contains('show')) {
-            if (event.target == modal) {
-                closeLetter();
-            }
-            return; // Halt further execution if interacting within the active modal overlay
-        }
-
-        // 2. Surgical Mobile Tap Logic for Movements
-        // Identifies if the click/tap originated inside a movement row
-        const clickedRow = event.target.closest('.mvt-row');
-        
-        if (clickedRow) {
-            const isAlreadyActive = clickedRow.classList.contains('active-reveal');
-            // Clear active states from all rows
-            document.querySelectorAll('.mvt-row').forEach(row => row.classList.remove('active-reveal'));
-            // Apply state to the tapped row if it wasn't already showing
-            if (!isAlreadyActive) {
-                clickedRow.classList.add('active-reveal');
-            }
-        } else {
-            // Clicking completely outside any movement row cleanly tucks away active descriptions
-            document.querySelectorAll('.mvt-row').forEach(row => row.classList.remove('active-reveal'));
+        if (event.target == modal) {
+            closeLetter();
         }
     }
+
+    // --- SCROLL REVEAL OBSERVER ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const movementRows = document.querySelectorAll('.mvt-row');
+
+        const observerOptions = {
+            root: null, 
+            rootMargin: '-25% 0% -25% 0%', 
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-focus');
+                } else {
+                    entry.target.classList.remove('in-focus');
+                }
+            });
+        }, observerOptions);
+
+        movementRows.forEach(row => observer.observe(row));
+    });
 
     // Hero Entry Trigger
     window.addEventListener('load', () => {
