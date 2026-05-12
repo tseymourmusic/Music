@@ -52,13 +52,11 @@
             background-size: cover;
             padding: 40px 20px;
             box-sizing: border-box;
-            /* Section itself appears */
             opacity: 0;
             transition: opacity 2s ease-out;
         }
         .hero.reveal { opacity: 1; }
 
-        /* Staggered Animation Logic */
         .hero h1, 
         .hero-text-block p {
             opacity: 0;
@@ -66,34 +64,29 @@
             transition: opacity 2s ease-out, transform 2s ease-out;
         }
 
-        /* Title triggers immediately */
         .hero.reveal h1 { 
             opacity: 1; 
             transform: translateY(0); 
         }
 
-        /* Row 2: Sub-headline (2s delay) */
         .hero.reveal .hero-main-sub { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 2s; 
         }
 
-        /* Row 3: Details (4s delay) */
         .hero.reveal .hero-details { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 4.5s; 
         }
 
-        /* Row 4: Credits (6s delay) */
         .hero.reveal .hero-credits { 
             opacity: 1; 
             transform: translateY(0); 
             transition-delay: 7s; 
         }
 
-        /* Row 5: Date (8s delay) */
         .hero.reveal .hero-date { 
             opacity: 1; 
             transform: translateY(0); 
@@ -106,14 +99,12 @@
             font-size: clamp(2.5rem, 8vw, 5rem);
             letter-spacing: 0.15em;
             margin: 0 0 20px 0;
-            color: #FFFFFF; /* Ensures the text itself is crisp white */
-            
-        /* THE GOLD GLOW SYSTEM */
-        text-shadow: 
-            0 0 10px rgba(212, 175, 55, 0.8),  /* Layer 1: Tight bright core */
-            0 0 20px rgba(212, 175, 55, 0.5),  /* Layer 2: Medium spread */
-            0 0 40px rgba(212, 175, 55, 0.3),  /* Layer 3: Wide soft atmosphere */
-            2px 2px 4px rgba(0, 0, 0, 0.8);    /* Layer 4: Dark backing to pop the gold */
+            color: #FFFFFF;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.8), 
+                0 0 20px rgba(212, 175, 55, 0.5), 
+                0 0 40px rgba(212, 175, 55, 0.3), 
+                2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .hero-text-block {
@@ -138,13 +129,6 @@
             box-sizing: border-box;
         }
         
-        .brand-title {
-            font-family: 'Cinzel', serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #D4AF37;
-        }
-
         .tm-mark {
             font-family: 'Cinzel', serif;
             font-size: 0.25em;
@@ -156,7 +140,6 @@
             font-weight: 700;
             color: #D4AF37;
             text-shadow: 0 0 8px rgba(212, 175, 55, 0.8), 0 0 12px rgba(212, 175, 55, 0.4);
-            letter-spacing: normal;
         }
         
         hr {
@@ -210,24 +193,10 @@
             border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .image-carousel::-webkit-scrollbar { display: none; }
 
-        .carousel-item {
-            flex: 0 0 100%;
-            scroll-snap-align: center;
-            display: flex;
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            pointer-events: none;
-            user-select: none;
-            vertical-align: middle; 
-            margin-bottom: -1px; 
-        }
+        .carousel-item { flex: 0 0 100%; scroll-snap-align: center; display: flex; }
+        .carousel-item img { width: 100%; height: auto; display: block; pointer-events: none; }
 
         .intro-text {
             text-align: left;
@@ -255,23 +224,11 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             transition: all 0.3s ease;
-            border-radius: 2px;
         }
 
-        .nav-btn:hover {
-            color: #fff;
-            border-color: #D4AF37;
-            background: rgba(255,255,255,0.05);
-        }
+        .nav-btn:hover { color: #fff; border-color: #D4AF37; }
 
-        .carousel-hint {
-            text-align: center;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #666;
-            margin: 0;
-        }
+        .carousel-hint { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px; color: #666; }
 
         /* THE SYMPHONIC MOVEMENTS LIST */
         .movements-classic-list { 
@@ -317,7 +274,6 @@
             font-weight: 300;
         }
 
-        /* GHOSTLY TEXT SYSTEM */
         .mvt-myth-detail {
             font-family: 'Montserrat', sans-serif;
             font-weight: 200;
@@ -333,31 +289,10 @@
             pointer-events: none;
         }
 
-        .mvt-row:hover .mvt-myth-detail {
-            opacity: 0.8;
-            transform: translateY(0);
-        }
+        .mvt-row:hover .mvt-myth-detail { opacity: 0.8; transform: translateY(0); }
 
-        .logo-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin: 40px auto;
-            max-width: 1000px;
-            padding: 20px;
-        }
-
-        .logo-row img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            filter: brightness(0) invert(1);
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-        }
-
+        .logo-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px; margin: 40px auto; padding: 20px; }
+        .logo-row img { height: 50px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; transition: opacity 0.3s ease; }
         .logo-row img:hover { opacity: 1; }
 
         @media (max-width: 900px) {
@@ -366,49 +301,9 @@
             .intro-text { order: -1; text-align: center; }
         }
 
-        .audio-container {
-            width: 100%;
-            margin: 0 auto;
-            display: block; 
-            text-align: center;
-        }
+        .audio-container { width: 100%; text-align: center; }
 
-        #player-placeholder .player-container {
-            margin: 0 auto 80px auto !important;
-            max-width: 700px !important;
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            width: 100%;
-        }
-
-        #player-placeholder .console {
-            flex: 1 !important; 
-            border: 1px solid rgba(212, 175, 55, 0.5) !important;
-            box-shadow: 
-                0 0 20px rgba(212, 175, 55, 0.2), 
-                inset 0 0 12px rgba(212, 175, 55, 0.25) !important; 
-            transition: all 0.5s ease !important;
-        }
-
-        #player-placeholder .console:hover {
-            border-color: rgba(212, 175, 55, 0.8) !important;
-            box-shadow: 
-                0 0 30px rgba(212, 175, 55, 0.3), 
-                inset 0 0 18px rgba(212, 175, 55, 0.4) !important; 
-        }
-        
-        #player-placeholder .skip-btn {
-            color: var(--gold) !important;
-        }
-
-        #player-placeholder .skip-btn:hover {
-            background: var(--gold) !important;
-            color: #121212 !important;
-        }
-        
-        /* --- ENDORSEMENT LINK STYLE --- */
+        /* --- ENDORSEMENT & MODAL --- */
         .endorsement-link {
             display: inline-block;
             color: #D4AF37;
@@ -422,30 +317,19 @@
             transition: all 0.5s ease;
             text-transform: uppercase;
             animation: letter-glimmer 4s infinite ease-in-out;
-            animation-delay: 1.5s;
         }
 
         @keyframes letter-glimmer {
-            0%, 100% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.2); box-shadow: 0 0 5px rgba(212, 175, 55, 0.05); }
-            50% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.7); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+            0%, 100% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.2); }
+            50% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6); border-color: rgba(212, 175, 55, 0.7); }
         }
 
-        .endorsement-link:hover {
-            background: rgba(212, 175, 55, 0.1);
-            text-shadow: 0 0 20px rgba(212, 175, 55, 1);
-            border-color: #D4AF37;
-            transform: translateY(-2px);
-        }
-
-        /* --- LETTER MODAL STYLES --- */
         .letter-modal {
             display: none;
             position: fixed;
             z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(8px);
             justify-content: center;
@@ -454,126 +338,31 @@
             transition: opacity 0.5s ease;
         }
 
-        .letter-modal.show {
-            display: flex;
-            opacity: 1;
-        }
+        .letter-modal.show { display: flex; opacity: 1; }
 
-        .letter-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
-        }
-
-        .letter-content img {
-            max-width: 100%;
-            max-height: 85vh;
-            display: block;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -50px;
-            right: -10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-
-        .close-modal:hover {
-            opacity: 1;
-            color: #D4AF37;
-        }
+        .letter-content { position: relative; max-width: 90%; max-height: 90vh; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); }
+        .letter-content img { max-width: 100%; max-height: 85vh; border: 1px solid rgba(212, 175, 55, 0.3); display: block; }
         
+        .close-modal {
+            position: absolute; top: -50px; right: -10px;
+            background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; opacity: 0.5;
+        }
+
         /* --- SIGNUP SECTION --- */
         .signup-container {
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            background: rgba(10, 10, 10, 0.8);
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            animation: pulse-glow-box 4s infinite ease-in-out;
+            max-width: 600px; margin: 100px auto; padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3); background: rgba(10, 10, 10, 0.8);
+            text-align: center; animation: pulse-glow-box 4s infinite ease-in-out;
         }
-
         @keyframes pulse-glow-box {
-            0%, 100% { border-color: rgba(212, 175, 55, 0.2); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
-            50% { border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
+            0%, 100% { border-color: rgba(212, 175, 55, 0.2); }
+            50% { border-color: rgba(212, 175, 55, 0.6); }
         }
+        .signup-container h3 { font-family: 'Cinzel', serif; letter-spacing: 0.25em; color: #D4AF37; }
+        .signup-form input { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px; color: #fff; margin-bottom: 15px; width: 100%; box-sizing: border-box;}
+        .signup-submit { background: transparent; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px; width: 100%; cursor: pointer; font-family: 'Cinzel', serif; letter-spacing: 3px;}
+        .signup-submit:hover { background: #D4AF37; color: #000; }
 
-        .signup-container h3 {
-            font-family: 'Cinzel', serif;
-            font-weight: 400; 
-            letter-spacing: 0.25em; 
-            color: #D4AF37;
-            margin-bottom: 10px;
-            font-size: clamp(1.2rem, 5vw, 1.75rem);
-            white-space: nowrap;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); 
-        }
-
-        .signup-container p {
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .signup-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .signup-form input {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 1px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .signup-form input:focus {
-            border-color: #D4AF37;
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .signup-submit {
-            background: transparent;
-            border: 1px solid #D4AF37;
-            color: #D4AF37;
-            padding: 15px;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 3px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        .signup-submit:hover {
-            background: #D4AF37;
-            color: #000;
-        }
-
-        #success-msg {
-            display: none;
-            font-family: 'Cinzel', serif;
-            color: #D4AF37;
-            letter-spacing: 2px;
-            padding: 20px;
-        }
-     
     </style>
 </head>
 <body>
@@ -593,10 +382,7 @@
     <div class="container">
         
         <div class="audio-container">
-            <h2 class="section-label" style="margin-top: 0; border-bottom: none; padding-bottom: 10px;">
-                The Odyssey
-            </h2>
-
+            <h2 class="section-label" style="border-bottom: none; padding-bottom: 10px;">The Odyssey</h2>
             <div id="player-placeholder">
                 <ul id="playlist" style="display: none !important;">
                     <li class="track active" data-src="/audio/Destiny.m4a">XIV. Destiny (preview)</li>
@@ -604,15 +390,15 @@
             </div>
         </div>
 
-        <hr style="margin-top: 60px;">
+        <hr>
 
         <div class="intro-carousel-container">
             <div class="carousel-wrapper">
                 <div class="image-carousel" id="leftCarousel">
-                    <div class="carousel-item"><img src="/images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-5.jpg" alt="Siren Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-3.jpg" alt="Tree Artwork"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-2.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-1.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-5.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-3.jpg"></div>
                 </div>
 
                 <div class="intro-text">
@@ -622,10 +408,10 @@
                 </div>
 
                 <div class="image-carousel" id="rightCarousel">
-                    <div class="carousel-item"><img src="/images/courtney-leggett-1.jpg" alt="Raven Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-2.jpg" alt="Ancient Tree Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-3.jpg" alt="Siren Artwork"></div>
-                    <div class="carousel-item"><img src="/images/courtney-leggett-5.jpg" alt="Tree Artwork"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-1.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-2.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-3.jpg"></div>
+                    <div class="carousel-item"><img src="/images/courtney-leggett-5.jpg"></div>
                 </div>
             </div>
 
@@ -880,10 +666,9 @@
         document.body.style.overflow = 'auto'; 
     }
 
-    // MODIFIED MODAL LOGIC - Only intercepts clicks when modal is ACTIVE
+    // SURGICAL MODAL LOGIC - Restricts modal background click handler
     window.onclick = function(event) {
         const modal = document.getElementById('letterModal');
-        // Only trigger if the modal is currently showing AND the user clicked the dark background
         if (modal.classList.contains('show') && event.target == modal) {
             closeLetter();
         }
@@ -893,44 +678,6 @@
     window.addEventListener('load', () => {
         document.getElementById('hero').classList.add('reveal');
     });
-
-    // Standard loaders
-    fetch('/menu.html').then(res => res.text()).then(data => { 
-        document.getElementById('nav-placeholder').innerHTML = data; 
-    });
-    fetch('/footer.html').then(res => res.text()).then(data => { 
-        document.getElementById('footer-placeholder').innerHTML = data; 
-    });
-
-    // Player handshake
-    fetch('/player-component.html')
-        .then(res => res.text())
-        .then(data => {
-            const placeholder = document.getElementById('player-placeholder');
-            const localPlaylist = placeholder.querySelector('#playlist');
-            placeholder.innerHTML = data; 
-
-            if (localPlaylist) {
-                const target = document.getElementById('playlist-target');
-                if (target) { target.appendChild(localPlaylist); }
-                
-                const firstTrack = localPlaylist.querySelector('.track');
-                if (firstTrack) {
-                    const audio = document.getElementById('audio');
-                    const source = document.getElementById('audio-source');
-                    const title = document.getElementById('track-title');
-                    
-                    if (audio && source && title) {
-                        source.src = firstTrack.getAttribute('data-src');
-                        title.innerText = firstTrack.innerText.trim();
-                        audio.load();
-                    }
-                }
-            }
-            setTimeout(() => {
-                if (typeof initPlayer === "function") { initPlayer(); }
-            }, 50);
-        });
 </script>
 </body>
 </html>
