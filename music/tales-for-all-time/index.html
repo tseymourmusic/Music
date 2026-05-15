@@ -987,16 +987,43 @@
     // --- CONSTRAINED 2.5D TITLE PARALLAX (Desktop Only Guard) ---
     // This prevents the mobile 'jitter' and non-existent mouse errors
     if (window.innerWidth > 1024) {
-        document.addEventListener('mousemove', (e) => {
-            const hero = document.getElementById('hero');
-            const title = hero.querySelector('h1');
-            if (!title) return;
-            
-            const xOffset = (e.clientX - window.innerWidth / 2) / 180;
-            const yOffset = (e.clientY - window.innerHeight / 2) / 50;
-            
-            title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
-        });
+    let isLatched = false; // Flag to track if we are already in parallax mode
+
+    document.addEventListener('mousemove', (e) => {
+    const hero = document.getElementById('hero');
+    const title = hero.querySelector('h1');
+    if (!hero || !title) return;
+
+    const rect = hero.getBoundingClientRect();
+    const mouseRelY = e.clientY - rect.top;
+    const heroHeight = rect.height;
+    
+    // Middle zone
+    const isInZone = mouseRelY > (heroHeight * 0.15) && mouseRelY < (heroHeight * 0.85);
+
+    if (isInZone) {
+        if (!isLatched) {
+            // THE SOFT ENTRY: First time hitting the zone, move slowly
+            title.style.transition = "transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+            isLatched = true;
+        } else {
+            // THE TRACKING: Already latched, move responsively
+            title.style.transition = "transform 0.2s ease-out"; 
+        }
+
+        const xOffset = (e.clientX - window.innerWidth / 2) / 180;
+        const yOffset = (e.clientY - window.innerHeight / 2) / 50;
+        title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
+        
+    } else {
+        // THE SOFT EXIT: Resetting when leaving the zone
+        if (isLatched) {
+            title.style.transition = "transform 2.0s cubic-bezier(0.22, 1, 0.36, 1)";
+            title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
+            isLatched = false; // Reset the flag
+        	}	
+    	}
+	});
 
         document.getElementById('hero').addEventListener('mouseleave', () => {
             const title = document.querySelector('.hero h1');
