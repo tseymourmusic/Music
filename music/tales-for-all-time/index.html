@@ -48,107 +48,185 @@
     		align-items: center;
     		text-align: center;
 
-    		/* MOBILE DEFAULT: Standard background scroll */
+    		/* Background Setup */
     		background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
-                url('/images/Tales-For-All-Time-bg.gif') no-repeat center center;
+                		url('/images/Tales-For-All-Time-bg.gif') no-repeat center center;
     		background-size: cover;
 
     		padding: 40px 20px;
     		box-sizing: border-box;
     		opacity: 0;
     		transition: opacity 2s ease-out;
-    
-    		/* REMOVED perspective from here so it doesn't tilt the whole screen on mobile */
     		overflow: hidden;
 		}
 
-		/* DESKTOP ONLY: Add the "Fixed" depth and Perspective */
+		/* DESKTOP ONLY: 3D Depth */
 		@media (min-width: 1024px) {
     		.hero {
         		background-attachment: fixed;
-        		perspective: 1000px; /* Only apply 3D space to desktops */
+        		perspective: 1000px; 
     		}
 		}
-        .hero.reveal { opacity: 1; }
 
-        .hero h1, 
-        .hero-text-block p {
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 2s ease-out, transform 2s ease-out;
-        }
+		.hero.reveal { opacity: 1; }
 
-        .hero.reveal h1 { 
+		/* 1. INITIAL STATE: Hidden for all hero elements */
+		.hero h1, 
+		.hero-text-block p,
+		.hero-main-sub, 
+		.hero-details, 
+		.hero-credits, 
+		.hero-date {
+    		opacity: 0;
+    		transform: translateY(15px);
+    		transition: opacity 2s ease-out, transform 2s ease-out;
+		}
+
+		/* 2. REVEAL TRIGGERS: Staggered sequence */
+		.hero.reveal h1 { 
     		opacity: 1; 
-    		transform: translateY(0); /* Clean landing for mobile */
+    		transform: translateY(0); 
 		}
 
-		@media (min-width: 1024px) {
-    		.hero.reveal h1 { 
-        		/* Adds the 'pop' forward only on desktop where parallax works */
-        		transform: translateY(0) translateZ(50px); 
-    		}
+		.hero.reveal .hero-main-sub { 
+    		opacity: 1; 
+    		transform: translateY(0); 
+    		transition-delay: 2s; 
 		}
 
-        /* Target H1 specifically for smooth mouse parallax */
+		.hero.reveal .hero-details { 
+    		opacity: 1; 
+    		transform: translateY(0); 
+    		transition-delay: 4.5s; 
+		}
+
+		.hero.reveal .hero-credits { 
+    		opacity: 1; 
+    		transform: translateY(0); 
+    		transition-delay: 7s; 
+		}
+
+		.hero.reveal .hero-date { 
+    		opacity: 1; 
+    		transform: translateY(0); 
+    		transition-delay: 9s; 
+		}
+
 		.hero h1 {
     		display: inline-block;
-    		will-change: transform;
-    		transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1), opacity 3s ease-out;
-		}	
-
-        .hero.reveal .hero-main-sub { 
-            opacity: 1; 
-            transform: translateY(0); 
-            transition-delay: 2s; 
-        }
-
-        .hero.reveal .hero-details { 
-            opacity: 1; 
-            transform: translateY(0); 
-            transition-delay: 4.5s; 
-        }
-
-        .hero.reveal .hero-credits { 
-            opacity: 1; 
-            transform: translateY(0); 
-            transition-delay: 7s; 
-        }
-
-        .hero.reveal .hero-date { 
-            opacity: 1; 
-            transform: translateY(0); 
-            transition-delay: 9s; 
-        }
-
-        .hero h1 {
     		font-family: 'Cinzel Decorative', cursive;
     		font-weight: 400;
     		font-size: clamp(2.5rem, 8vw, 5rem);
     		letter-spacing: 0.15em;
     		margin: 0 0 20px 0;
     		color: #FFFFFF;
+    		cursor: default;
     
-    	text-shadow: 
-        	0 0 10px rgba(212, 175, 55, 0.8),
-        	0 0 20px rgba(212, 175, 55, 0.5),
-        	0 0 40px rgba(212, 175, 55, 0.3),
-        	2px 2px 4px rgba(0, 0, 0, 0.8);
-		}	
+    		/* Anchors the growth so it doesn't overlap the sub-text */
+    		transform-origin: center bottom; 
+    		will-change: transform, text-shadow;
 
-        .hero-text-block {
-            max-width: 1200px;
-            width: 95%;
-            margin: 0 auto;
-            font-family: 'Cinzel', serif;
-            color: #F5F5DC;
-            text-transform: uppercase;
-        }
+    		/* Transition for smooth transition back from hover to idle pulse */
+    		transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1), 
+                		opacity 2s ease-out, 
+                		text-shadow 1.5s ease;
 
-        .hero-main-sub { font-size: clamp(0.8rem, 1.5vw, 1.1rem); letter-spacing: 4px; margin-bottom: 10px; }
-        .hero-details { font-size: clamp(0.6rem, 1.2vw, 0.85rem); letter-spacing: 3px; margin-bottom: 10px; font-weight: 300; }
-        .hero-credits { font-size: clamp(0.5rem, 1vw, 0.7rem); letter-spacing: 2px; margin-bottom: 25px; font-weight: 300; }
-        .hero-date { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 6px; font-weight: 400; margin-top: 20px; }
+    		/* The idle pulse animation */
+    		animation: idleGlowPulse 4s infinite ease-in-out;
+		}
+
+		/* Hover state: This automatically overrides the 'idleGlowPulse' for text-shadow 
+   		and adds the scale/translate interaction */
+		.hero h1.is-latched {
+    		animation: latchedGlowPulse 3s infinite ease-in-out;
+    
+    		/* Increased Intensity Shadow */
+    		text-shadow: 
+        		0 0 30px rgba(212, 175, 55, 0.9),    /* Solid gold core */
+        		0 0 60px rgba(212, 175, 55, 0.6),  /* Deeper mid-glow */
+        		0 0 100px rgba(212, 175, 55, 0.3), /* Massive outer bloom */
+        		2px 2px 10px rgba(0, 0, 0, 0.9);
+
+    		/* Smooth hand-off for the shadow */
+    		transition: text-shadow 1.5s ease;
+		}
+
+		/* 3. Match the Shadow Floor interaction to the same zone */
+		.hero h1.is-latched::after {
+    			transform: scale(0.95) translateY(10px);
+    			opacity: 0.5;
+		}
+
+		/* The Keyframes for the idle "breathing" effect */
+		@keyframes idleGlowPulse {
+    		0%, 100% {
+        		/* Starting point: A solid, noticeable baseline glow */
+        		text-shadow: 
+            		0 0 8px rgba(212, 175, 55, 0.3), 
+            		0 0 15px rgba(212, 175, 55, 0.1),
+            		2px 2px 4px rgba(0, 0, 0, 0.8);
+    		}
+    		50% {
+        		/* Peak point: High intensity "bloom" */
+        		text-shadow: 
+            		0 0 30px rgba(212, 175, 55, 1),    /* Full opacity core */
+            		0 0 50px rgba(212, 175, 55, 0.8),  /* Wide strong glow */
+            		0 0 80px rgba(212, 175, 55, 0.4),  /* Massive soft outer bloom */
+            		2px 2px 4px rgba(0, 0, 0, 0.8);
+    		}
+		}
+
+		/* The "Powered Up" version of your pulse */
+		@keyframes latchedGlowPulse {
+    		0%, 100% {
+        		/* High baseline - stronger than your standard idle peak */
+        		text-shadow: 
+            		0 0 30px rgba(212, 175, 55, 0.8),
+            		0 0 60px rgba(212, 175, 55, 0.4),
+            		2px 2px 10px rgba(0, 0, 0, 0.9);
+    		}
+    		50% {
+        		/* Extreme "Engagement" Bloom */
+        		text-shadow: 
+            		0 0 50px rgba(212, 175, 55, 1),
+            		0 0 90px rgba(212, 175, 55, 0.9),
+            		0 0 130px rgba(212, 175, 55, 0.6),
+            		2px 2px 15px rgba(0, 0, 0, 1);
+    		}
+		}
+
+		/* 4. Fix for the "Lost Shadow": Creates a dark floor behind the text */
+		.hero h1::after {
+    		content: attr(data-text); /* Requires you to add data-text="TALES FOR ALL TIME" to your HTML tag */
+    		position: absolute;
+    		top: 0; left: 0;
+    		z-index: -1;
+    		color: transparent;
+    		text-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    		transition: transform 2s ease;
+    		pointer-events: none;
+		}
+
+		.hero h1:hover::after {
+    		/* The shadow stays deeper while the text moves forward */
+    		transform: scale(0.95) translateY(10px);
+    		opacity: 0.5;
+		}
+
+		/* --- TEXT BLOCK LAYOUT --- */
+		.hero-text-block {
+    		max-width: 1200px;
+    		width: 95%;
+    		margin: 0 auto;
+    		font-family: 'Cinzel', serif;
+    		color: #F5F5DC;
+    		text-transform: uppercase;
+		}
+
+		.hero-main-sub { font-size: clamp(0.8rem, 1.5vw, 1.1rem); letter-spacing: 4px; margin-bottom: 10px; }
+		.hero-details { font-size: clamp(0.6rem, 1.2vw, 0.85rem); letter-spacing: 3px; margin-bottom: 10px; font-weight: 300; }
+		.hero-credits { font-size: clamp(0.5rem, 1vw, 0.7rem); letter-spacing: 2px; margin-bottom: 25px; font-weight: 300; }
+		.hero-date { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 6px; font-weight: 400; margin-top: 20px; }
 
         .container { 
             width: 100%;
@@ -631,7 +709,7 @@
     <div id="nav-placeholder"></div>
 
     <header class="hero" id="hero">
-        <h1>TAlES fOr All TiME<span class="tm-mark">&trade;</span></h1>
+        	<h1 data-text="TAlES fOr All TiME">TAlES fOr All TiME<span class="tm-mark">&trade;</span></h1>
         <div class="hero-text-block">
             <p class="hero-main-sub">A CINEMATIC AUDIO-VISUAL ODYSSEY FEATURING THE LONDON SYMPHONY ORCHESTRA</p>
             <p class="hero-details">15 GREEK MYTHS REIMAGINED THROUGH THE ENCHANTED LANDSCAPES OF THE NEW FOREST</p>
@@ -987,59 +1065,46 @@
     // --- CONSTRAINED 2.5D TITLE PARALLAX (Desktop Only Guard) ---
     // This prevents the mobile 'jitter' and non-existent mouse errors
     if (window.innerWidth > 1024) {
-    let isLatched = false; // Flag to track if we are already in parallax mode
+    let isLatched = false; 
 
     document.addEventListener('mousemove', (e) => {
-    const hero = document.getElementById('hero');
-    const title = hero.querySelector('h1');
-    if (!hero || !title) return;
+        const hero = document.getElementById('hero');
+        const title = hero.querySelector('h1');
+        if (!hero || !title) return;
 
-    const rect = hero.getBoundingClientRect();
-    const mouseRelY = e.clientY - rect.top;
-    const heroHeight = rect.height;
-    
-    // Middle zone
-    const isInZone = mouseRelY > (heroHeight * 0.15) && mouseRelY < (heroHeight * 0.85);
-
-    if (isInZone) {
-        if (!isLatched) {
-            // THE SOFT ENTRY: First time hitting the zone, move slowly
-            title.style.transition = "transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-            isLatched = true;
-        } else {
-            // THE TRACKING: Already latched, move responsively
-            title.style.transition = "transform 0.2s ease-out"; 
-        }
-
-        const xOffset = (e.clientX - window.innerWidth / 2) / 180;
-        const yOffset = (e.clientY - window.innerHeight / 2) / 50;
-        title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
+        const rect = hero.getBoundingClientRect();
+        const mouseRelY = e.clientY - rect.top;
+        const heroHeight = rect.height;
         
-    } else {
-        // THE SOFT EXIT: Resetting when leaving the zone
-        if (isLatched) {
-            title.style.transition = "transform 2.0s cubic-bezier(0.22, 1, 0.36, 1)";
-            title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
-            isLatched = false; // Reset the flag
-        	}	
-    	}
-	});
+        // This is your single "Source of Truth" for the window
+        const isInZone = mouseRelY > (heroHeight * 0.15) && mouseRelY < (heroHeight * 0.85);
 
-        document.getElementById('hero').addEventListener('mouseleave', () => {
-            const title = document.querySelector('.hero h1');
-            if (title) {
-                title.style.transition = "transform 1.2s ease-in-out";
+        if (isInZone) {
+            if (!isLatched) {
+                // Smoothly engage
+                title.classList.add('is-latched');
+                title.style.transition = "transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+                isLatched = true;
+            } else {
+                // Follow mouse
+                title.style.transition = "transform 0.2s ease-out"; 
+            }
+
+            const xOffset = (e.clientX - window.innerWidth / 2) / 180;
+            const yOffset = (e.clientY - window.innerHeight / 2) / 50;
+            title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
+            
+        } else {
+            // Smoothly reset when outside 15% or 85%
+            if (isLatched) {
+                title.classList.remove('is-latched');
+                title.style.transition = "transform 2.0s cubic-bezier(0.22, 1, 0.36, 1)";
                 title.style.transform = `rotateY(0deg) rotateX(0deg) translateZ(0px)`;
+                isLatched = false;
             }
-        });
-
-        document.getElementById('hero').addEventListener('mouseenter', () => {
-            const title = document.querySelector('.hero h1');
-            if (title) {
-                title.style.transition = "transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
-            }
-        });
-    }
+        }
+    });
+}
 
     // --- COMPONENT LOADERS ---
     fetch('/menu.html').then(res => res.text()).then(data => { 
