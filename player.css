@@ -1,6 +1,6 @@
 :root {
     --bg-color: #2c3338; 
-    --player-grey: #d3d3d3;
+    --player-grey: rgba(211, 211, 211, 0.15); /* 15% opacity */
     --dark-grey: #121212; 
     --gold: #D4AF37;
 }
@@ -22,13 +22,16 @@
     gap: 8px;
     width: 100%;
     max-width: 440px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     box-sizing: border-box;
 }
 
 .skip-btn {
     background: #1e1e1e;
-    color: var(--player-grey);
+    color: rgba(211, 211, 211, 1);
     border: none;
     width: 36px;
     height: 36px;
