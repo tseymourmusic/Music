@@ -1,6 +1,6 @@
 :root {
     --bg-color: #2c3338; 
-    --player-grey: rgba(60, 60, 60, 0.2);
+    --player-grey: rgba(80, 80, 80, 0.2);
     --dark-grey: #121212; 
     --gold: #D4AF37;
 }
@@ -72,6 +72,7 @@ audio {
     height: 30px;
     filter: invert(100%) brightness(100%);
     display: block;
+    -webkit-appearance: none;
     background: transparent !important;
     transition: filter 0.3s ease;
 }
