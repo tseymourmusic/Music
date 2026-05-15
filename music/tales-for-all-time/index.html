@@ -1078,7 +1078,7 @@
         const heroHeight = rect.height;
         
         // This is your single "Source of Truth" for the window
-        const isInZone = mouseRelY > (heroHeight * 0.15) && mouseRelY < (heroHeight * 0.85);
+        const isInZone = mouseRelY > (heroHeight * 0.1) && mouseRelY < (heroHeight * 0.8);
 
         if (isInZone) {
             if (!isLatched) {
@@ -1096,7 +1096,7 @@
             title.style.transform = `rotateY(${xOffset}deg) rotateX(${-yOffset}deg) translateZ(50px)`;
             
         } else {
-            // Smoothly reset when outside 15% or 85%
+            // Smoothly reset when outside the range
             if (isLatched) {
                 title.classList.remove('is-latched');
                 title.style.transition = "transform 2.0s cubic-bezier(0.22, 1, 0.36, 1)";
