@@ -1,0 +1,31 @@
+<div class="video-player-wrapper">
+    <video id="main-video" preload="metadata">
+        <source id="video-source" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="video-overlay-play" id="videoOverlayPlay">▶</div>
+</div>
+
+<div class="video-control-container">
+    <button class="v-skip-btn" id="vPrevBtn" title="Previous Movement" aria-label="Skip backward">«</button>
+    
+    <div class="v-console">
+        <div class="v-interface-row">
+            <button id="vPlayBtn" class="v-play-toggle">▶</button>
+            <div id="vTimeline" class="v-timeline-wrapper">
+                <div id="vProgressBar" class="v-progress-bar"></div>
+            </div>
+        </div>
+        
+        <div id="video-title" title="Click to view all movements">Loading Movement...</div>
+    </div>
+
+    <button class="v-skip-btn" id="vNextBtn" title="Next Movement" aria-label="Skip forward">»</button>
+</div>
+
+<div id="video-playlist" style="display: none;">
+    <div class="v-track active" data-src="/video/movement-1.mp4">I. Icarus' Flight</div>
+    <div class="v-track" data-src="/video/movement-2.mp4">II. The Labyrinth</div>
+    <div class="v-track" data-src="/video/movement-3.mp4">III. Midnight Ascent</div>
+</div>
