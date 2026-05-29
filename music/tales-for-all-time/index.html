@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link rel="stylesheet" href="/video.css">
     <link rel="stylesheet" href="/player.css"> 
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/flipbook.css">
@@ -36,6 +37,21 @@
 
         html { 
             scroll-behavior: smooth; 
+        }
+
+	/* --- VIDEO EMBED STYLING --- */
+        .video-container {
+            width: 100%;
+            max-width: 850px;
+            margin: 30px auto 50px auto;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* --- HERO SECTION --- */
@@ -233,7 +249,7 @@
             width: 100%;
             max-width: 1200px; 
             margin: 0 auto; 
-            padding: 80px 20px;
+            padding: 10px 20px;
             box-sizing: border-box;
         }
         
@@ -720,21 +736,21 @@
     </header>
 
     <div class="container">
-        
-        <div class="audio-container">
-            <h2 class="section-label" style="margin-top: 0; border-bottom: none; padding-bottom: 10px;">
-                The Odyssey
-            </h2>
 
-            <div id="player-placeholder">
-                <ul id="playlist" style="display: none !important;">
-                    <li class="track active" data-src="/audio/Destiny.m4a">XIV. Destiny (preview)</li>
-                </ul>
+<div class="container">
+
+    	<hr>
+        
+        <!-- INTEGRATED VIDEO PLAYER HEADER -->
+	<h2 class="section-label">The Odyssey</h2>
+
+        <div id="video-placeholder">
+            <div class="v-playlist-source" style="display: none !important;">
+                <div class="v-track active" data-src="https://f003.backblazeb2.com/file/tales-media-vault/VII.Star_Crossed_Lovers_MAIN_CINEMATIC_RENDER.mp4"</div>
             </div>
         </div>
 
-        <hr style="margin-top: 60px;">
-
+	<!-- ARTWORK & FEATURE -->
         <div class="intro-carousel-container">
             <div class="carousel-wrapper">
                 <div class="image-carousel" id="leftCarousel">
@@ -765,8 +781,19 @@
             </div>
         </div>
 
-        <hr>
+	<!-- CUSTOM AUDIO PLAYER -->
+        <div class="audio-container">
 
+            <div id="player-placeholder">
+                <ul id="playlist" style="display: none !important;">
+                    <li class="track active" data-src="/audio/Destiny.m4a">XIV. Destiny (preview)</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="margin-top: 60px;">
+
+	<!-- MOVEMENT SECTIONS -->
         <h2 class="section-label">The Movements</h2>
         
         <div class="movements-classic-list">
@@ -908,6 +935,7 @@
 
         <hr>
 
+	<!-- SHEET MUSIC FLIPBOOK -->
         <h2 class="section-label">The Score</h2>
         <div id="flipbook-placeholder" 
      		data-pdf="/pdfs/tales-for-all-time-score.pdf" 
@@ -922,12 +950,14 @@
 
         <hr>
 
+	<!-- CREDITS -->
         <div class="score-footer-credits" style="text-align: center; margin: 80px auto;">
             MUSIC COMPOSED & PRODUCED BY <strong>TIM SEYMOUR</strong> FEATURING THE <strong>LONDON SYMPHONY ORCHESTRA</strong> WITH THE <strong>LONDON CONTEMPORARY VOICES</strong> VISUAL ART BY <strong>COURTNEY LEGGETT</strong> ANIMATED AND DIRECTED BY <strong>TIM SEYMOUR</strong>
         </div>
 
         <hr>
 
+	<!-- PARTNERS -->
         <h2 class="section-label">Collaborators</h2>
 		<div class="logo-row">
     		<a href="https://lso.co.uk/" target="_blank" rel="noopener noreferrer">
@@ -947,12 +977,14 @@
     		</a>
 		</div>
         
+	<!-- ENDORSEMENT -->
         <div class="endorsement-container" style="text-align: center; margin-bottom: 40px;">
             <button type="button" onclick="openLetter()" class="endorsement-link" style="background:none; cursor:pointer; outline:none;">
                     View Project Endorsement Letter (LCV)
             </button>
         </div>
         
+	  <!-- SIGNUP -->
           <div class="signup-section">
             <div class="signup-container">
                 <div id="bottom" style="position: absolute; margin-top: -120px;"></div>
@@ -1114,6 +1146,28 @@
     fetch('/footer.html').then(res => res.text()).then(data => { 
         document.getElementById('footer-placeholder').innerHTML = data; 
     });
+
+    // --- VIDEO HANDSHAKE ---
+    fetch('/video-component.html').then(res => res.text()).then(data => {
+        const placeholder = document.getElementById('video-placeholder');
+        if (placeholder) {
+            // 1. Capture the page-specific tracks before wiping the placeholder
+            const localTracks = Array.from(placeholder.querySelectorAll('.v-track'));
+        
+            // 2. Inject the clean, empty player layout UI
+            placeholder.innerHTML = data;
+
+            // 3. Dynamically load the player engine script
+            const script = document.createElement('script');
+            script.src = '/video.js';
+            script.onload = () => { 
+                // 4. Pass the captured tracks straight into the execution engine
+                if (typeof initVideoPlayer === "function") initVideoPlayer(localTracks); 
+            };
+            document.body.appendChild(script);
+        }
+    });
+
 
     // --- PLAYER HANDSHAKE ---
     fetch('/player-component.html').then(res => res.text()).then(data => {
