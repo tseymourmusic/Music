@@ -92,9 +92,10 @@
     align-items: center;
     flex: 1;
     min-width: 210px;
-    height: 48px;
+    height: 48px;               /* Maintained strict 48px height */
     justify-content: flex-start;
     position: relative;
+    overflow: visible;          /* Replicated audio safety valve to prevent bottom clip */
 }
 
 /* Timeline & Row Configurations */
@@ -142,7 +143,7 @@
 
 /* Playlist Dropdown Panel */
 #video-title {
-    color: #ffffff;
+    color: #ffffff !important; 
     font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
@@ -151,7 +152,7 @@
     width: 90%;
     cursor: pointer;
     position: absolute;
-    top: 26px;          /* Nudged up from 31px to completely clear the bottom cutoff */
+    top: 31px;                  /* Replicated audio player exact resting placement */
     left: 50%;
     transform: translateX(-50%);
     background: #121212;
@@ -159,24 +160,35 @@
     transition: all 0.3s ease;
     z-index: 100;
     height: 20px;
-    max-height: 20px;   /* Added to mirror the stable audio layout structure */
-    display: block;     /* Added to ensure cross-browser block alignment */
-    line-height: 20px;  /* Perfectly centers the text vertically within its 20px box */
+    max-height: 20px;  
+    display: block;     
+    line-height: 20px;  
     white-space: nowrap;
     overflow: hidden;
+    touch-action: pan-y !important; /* Replicated audio mobile touch property */
 }
 
 #video-title:hover, #video-title:active {
     height: auto;
     max-height: 150px;
-    overflow-y: auto;
+    overflow-y: auto !important;     /* Replicated audio forced scrolling behavior */
+    -webkit-overflow-scrolling: touch; /* Replicated smooth audio iOS scroll physics */
     padding: 4px 0;
     width: 100%;
-    top: 25px;          /* Nudged up from 30px to seamlessly match the new closed state */
+    top: 30px;                      /* Replicated audio player exact hover placement */
     white-space: normal;
     color: #D4AF37;
     border: 1px solid rgba(212, 175, 55, 0.3);
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Replicated matching custom scrollbar indicators from audio tracklist */
+#video-title::-webkit-scrollbar {
+    width: 4px;
+}
+#video-title::-webkit-scrollbar-thumb {
+    background: #D4AF37;
+    border-radius: 10px;
 }
 
 .v-menu-item {
