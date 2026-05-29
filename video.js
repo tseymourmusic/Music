@@ -1,9 +1,9 @@
 let vVideo, vSource, vTracks, vPrevBtn, vNextBtn, vTitleDisplay, vPlayBtn, vTimeline, vProgressBar, vOverlayPlay;
 
-function initVideoPlayer() {
+// Accepts the host page's custom playlist data directly
+function initVideoPlayer(incomingTracks = []) {
     vVideo = document.getElementById('main-video');
     vSource = document.getElementById('video-source');
-    vTracks = Array.from(document.querySelectorAll('.v-track'));
     vPrevBtn = document.getElementById('vPrevBtn');
     vNextBtn = document.getElementById('vNextBtn');
     vTitleDisplay = document.getElementById('video-title');
@@ -12,7 +12,10 @@ function initVideoPlayer() {
     vProgressBar = document.getElementById('vProgressBar');
     vOverlayPlay = document.getElementById('videoOverlayPlay');
 
-    if (!vVideo || !vPlayBtn || !vTimeline) return;
+    // Assign the captured tracks directly to our state tracker
+    vTracks = incomingTracks;
+
+    if (!vVideo || !vPlayBtn || !vTimeline || vTracks.length === 0) return;
 
     // Primary Control Map
     vPlayBtn.addEventListener('click', toggleVideoPlayback);
@@ -29,8 +32,8 @@ function initVideoPlayer() {
 
     refreshVideoMenu();
     
-    // Core Initialization Load
-    const initialActive = document.querySelector('.v-track.active') || vTracks[0];
+    // Core Initialization Load (Look at our active track choice)
+    const initialActive = vTracks.find(t => t.classList.contains('active')) || vTracks[0];
     if (initialActive) {
         setVideoTrack(initialActive, false);
     }
