@@ -152,7 +152,7 @@
     width: 90%;
     cursor: pointer;
     position: absolute;
-    top: 24px;                  /* Replicated audio player exact resting placement */
+    top: 31px;                  /* Replicated audio player exact resting placement */
     left: 50%;
     transform: translateX(-50%);
     background: #121212;
